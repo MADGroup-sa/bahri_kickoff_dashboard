@@ -1455,54 +1455,29 @@
     <p>180-day production plan — all deliverables, parallel tracks, preparation windows, and KPI milestones.</p>
   </div>
 
-  <!-- Campaign Launch Roadmap -->
-  <div id="rl-roadmap" style="margin-bottom:24px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:16px">Campaign Launch Roadmap</div>
-    <div id="rl-roadmap-inner"></div>
+  <div id="rl-legend" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
+    <!-- Toggle -->
+    <div style="display:flex;border:1px solid var(--card-border);border-radius:8px;overflow:hidden;margin-right:8px">
+      <button id="rl-btn-phase" onclick="rlToggle('phase')" style="padding:6px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--orange);color:#fff;letter-spacing:.5px">By Phase</button>
+      <button id="rl-btn-camp" onclick="rlToggle('camp')" style="padding:6px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);letter-spacing:.5px">By Campaign</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:10px;border-radius:3px;background:#E8621A"></div><span style="font-size:11px;color:var(--text-secondary)">Agency</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:10px;border-radius:3px;background:#10B981"></div><span style="font-size:11px;color:var(--text-secondary)">Bahri (Client Action)</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:10px;border-radius:3px;background:rgba(232,98,26,.25);border:1px dashed #E8621A"></div><span style="font-size:11px;color:var(--text-secondary)">Early Prep (for later launch)</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;background:#E8621A;transform:rotate(45deg)"></div><span style="font-size:11px;color:var(--text-secondary)">Milestone</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;background:#10B981;transform:rotate(45deg)"></div><span style="font-size:11px;color:var(--text-secondary)">Launch</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;background:#7C3AED;transform:rotate(45deg)"></div><span style="font-size:11px;color:var(--text-secondary)">KPI Check</span></div>
   </div>
 
-  <!-- Controls bar -->
-  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;align-items:center;justify-content:space-between">
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <!-- View toggle -->
-      <div style="display:flex;border:1px solid var(--card-border);border-radius:8px;overflow:hidden">
-        <button id="rl-btn-phase" onclick="rlToggle('phase')" style="padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--orange);color:#fff;letter-spacing:.5px">By Phase</button>
-        <button id="rl-btn-camp" onclick="rlToggle('camp')" style="padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);letter-spacing:.5px">By Campaign</button>
-        <button id="rl-btn-list" onclick="rlToggle('list')" style="padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);letter-spacing:.5px">☰ List</button>
-      </div>
-    </div>
-    <!-- Legend -->
-    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:20px;height:7px;border-radius:3px;background:#E8621A"></div><span style="font-size:10px;color:var(--text-secondary)">Agency</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:20px;height:7px;border-radius:3px;background:#10B981"></div><span style="font-size:10px;color:var(--text-secondary)">Bahri</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:20px;height:7px;border-radius:3px;background:rgba(232,98,26,.25);border:1px dashed #E8621A"></div><span style="font-size:10px;color:var(--text-secondary)">Early Prep</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:11px;height:11px;background:#E8621A;transform:rotate(45deg)"></div><span style="font-size:10px;color:var(--text-secondary)">Milestone</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:11px;height:11px;background:#10B981;transform:rotate(45deg)"></div><span style="font-size:10px;color:var(--text-secondary)">Launch</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:11px;height:11px;background:#7C3AED;transform:rotate(45deg)"></div><span style="font-size:10px;color:var(--text-secondary)">KPI</span></div>
-    </div>
-  </div>
-
-  <!-- Gantt / List container -->
-  <div id="rl-gantt-wrap" style="overflow-x:auto;overflow-y:visible;padding-bottom:20px;border-radius:14px;border:1px solid var(--card-border);background:var(--card-bg);padding:0">
+  <div id="rl-gantt-wrap" style="overflow-x:auto;overflow-y:visible;padding-bottom:20px">
     <div id="rl-gantt"></div>
   </div>
-
-  <!-- Task detail panel (shown on click) -->
-  <div id="rl-detail-panel" style="display:none;margin-top:12px;background:var(--card-bg);border:1px solid rgba(232,98,26,.2);border-radius:12px;padding:18px 22px;animation:fu .2s ease">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <div id="rl-detail-title" style="font-size:14px;font-weight:600;color:var(--text-primary)"></div>
-      <button onclick="document.getElementById('rl-detail-panel').style.display='none'" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:18px;padding:0 4px;line-height:1">×</button>
-    </div>
-    <div id="rl-detail-body" style="font-size:12.5px;color:var(--text-secondary);line-height:1.65"></div>
-  </div>
-
-  <div id="rl-tooltip" style="position:fixed;display:none;background:#0a1e3d;border:1px solid rgba(232,98,26,.35);color:#f0f2f5;font-size:11px;font-weight:500;padding:8px 14px;border-radius:8px;pointer-events:none;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.6);max-width:340px;line-height:1.6"></div>
+  <div id="rl-tooltip" style="position:fixed;display:none;background:#0a1e3d;border:1px solid rgba(232,98,26,.35);color:#f0f2f5;font-size:11px;font-weight:500;padding:7px 13px;border-radius:8px;pointer-events:none;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.5);white-space:nowrap;max-width:320px;line-height:1.5"></div>
 </div>
 
 <script>
 (function(){
-  const N=30,LW=220,WW=42,RH=34;
-  const TODAY_W=0.857; // Apr 25 sits between week 0 (Apr 19) and week 1 (Apr 26)
+  const N=30,LW=200,WW=44,RH=30;
   const weeks=['Apr 19','Apr 26','May 3','May 10','May 17','May 24','Jun 1','Jun 8','Jun 15','Jun 22','Jun 29','Jul 6','Jul 13','Jul 20','Jul 27','Aug 3','Aug 10','Aug 17','Aug 24','Aug 31','Sep 7','Sep 14','Sep 21','Sep 28','Oct 5','Oct 12','Oct 19','Oct 26','Nov 2','Nov 9'];
   const months=[{label:'APRIL',s:0,e:1,ph:1},{label:'MAY',s:2,e:5,ph:1},{label:'JUNE',s:6,e:10,ph:2},{label:'JULY',s:11,e:14,ph:2},{label:'AUGUST',s:15,e:19,ph:2},{label:'SEPTEMBER',s:20,e:23,ph:2},{label:'OCTOBER',s:24,e:27,ph:3},{label:'NOVEMBER',s:28,e:29,ph:3}];
   const phaseColors={1:'#F97316',2:'#1D4ED8',3:'#16A34A'};
@@ -1601,23 +1576,13 @@
 
   function renderHeader(){
     let h='';
-    // Month row
-    h+=`<div style="display:flex;min-width:${LW+N*WW}px;position:sticky;top:0;z-index:10;background:rgba(6,14,26,.97);backdrop-filter:blur(8px)">`;
-    h+=`<div style="width:${LW}px;flex-shrink:0;border-bottom:1px solid rgba(232,98,26,.15)"></div>`;
-    months.forEach(m=>{
-      const w=(m.e-m.s+1)*WW;
-      const col=m.ph?phaseColors[m.ph]:'#475569';
-      h+=`<div style="width:${w}px;flex-shrink:0;text-align:center;padding:6px 0;font-size:9px;font-weight:700;letter-spacing:1px;color:${col};border-bottom:2px solid ${col};border-right:1px solid rgba(255,255,255,.05)">${m.label}</div>`;
-    });
+    h+=`<div style="display:flex;min-width:${LW+N*WW}px;margin-bottom:1px">`;
+    h+=`<div style="width:${LW}px;flex-shrink:0"></div>`;
+    months.forEach(m=>{const w=(m.e-m.s+1)*WW;const col=m.ph?phaseColors[m.ph]:'#475569';h+=`<div style="width:${w}px;flex-shrink:0;text-align:center;padding:5px 0;font-size:9px;font-weight:700;letter-spacing:1px;color:${col};border-bottom:2px solid ${col};border-right:1px solid rgba(255,255,255,.05)">${m.label}</div>`;});
     h+='</div>';
-    // Week row
-    h+=`<div style="display:flex;min-width:${LW+N*WW}px;position:sticky;top:23px;z-index:10;background:rgba(6,14,26,.95);backdrop-filter:blur(8px);margin-bottom:6px">`;
-    h+=`<div style="width:${LW}px;flex-shrink:0;font-size:9px;color:var(--text-secondary);padding:5px 10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;border-right:1px solid rgba(255,255,255,.05)">Deliverable</div>`;
-    for(let i=0;i<N;i++){
-      const isToday=i===0;
-      const bg=isToday?'rgba(52,211,153,.06)':'transparent';
-      h+=`<div style="width:${WW}px;flex-shrink:0;text-align:center;font-size:8.5px;color:${isToday?'#34D399':'rgba(255,255,255,.28)'};padding:4px 0;border-left:1px solid rgba(255,255,255,.04);background:${bg};font-weight:${isToday?700:400}">${weeks[i].split(' ')[1]}</div>`;
-    }
+    h+=`<div style="display:flex;min-width:${LW+N*WW}px;margin-bottom:6px">`;
+    h+=`<div style="width:${LW}px;flex-shrink:0;font-size:9px;color:var(--text-secondary);padding:4px 8px;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Deliverable</div>`;
+    for(let i=0;i<N;i++) h+=`<div style="width:${WW}px;flex-shrink:0;text-align:center;font-size:9px;color:rgba(255,255,255,.3);padding:3px 0;border-left:1px solid rgba(255,255,255,.04)">${weeks[i].split(' ')[1]}</div>`;
     h+='</div>';
     return h;
   }
@@ -1626,29 +1591,24 @@
     const chColors={S:'#F97316',W:'#3B82F6',I:'#8B5CF6',E:'#10B981'};
     const chLabels={S:'Socials',W:'Web',I:'Internal',E:'Email'};
     const channels=t.ch?(t.ch.split(',')):[]; 
-    const rowBg=ti%2===0?'rgba(255,255,255,.012)':'transparent';
+    const rowBg=ti%2===0?'rgba(255,255,255,.01)':'transparent';
     const chStr=channels.length?(' || Channels: '+channels.map(c=>chLabels[c]||c).join(' · ')):'';
     const tipData=encodeURIComponent(t.t+'||'+t.n+chStr);
-    const detailData=encodeURIComponent(JSON.stringify({title:t.t,note:t.n,tp:t.tp,ph:t.ph,camp:t.camp,ch:t.ch||''}));
-    let h=`<div style="display:flex;min-width:${LW+N*WW}px;height:${RH}px;background:${rowBg};transition:background .15s" onmouseenter="this.style.background='rgba(255,255,255,.025)'" onmouseleave="this.style.background='${rowBg}'">`;
-    h+=`<div style="width:${LW}px;flex-shrink:0;padding:0 10px;display:flex;align-items:center;font-size:11.5px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid rgba(255,255,255,.05);cursor:pointer" title="${t.t}" onclick="rlShowDetail(this,'${detailData}')">${t.t}</div>`;
+    let h=`<div style="display:flex;min-width:${LW+N*WW}px;height:${RH}px;background:${rowBg}">`;
+    h+=`<div style="width:${LW}px;flex-shrink:0;padding:0 8px;display:flex;align-items:center;font-size:11px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid rgba(255,255,255,.05)" title="${t.t}">${t.t}</div>`;
     h+=`<div style="flex:1;position:relative;background:${phaseBg(t.ph)}">`;
-    // Vertical grid lines
     for(let i=0;i<N;i++) h+=`<div style="position:absolute;left:${pct(i)};top:0;bottom:0;width:1px;background:rgba(255,255,255,.03)"></div>`;
-    // TODAY marker line
-    h+=`<div style="position:absolute;left:${pct(TODAY_W)};top:0;bottom:0;width:2px;background:rgba(52,211,153,.25);z-index:2"></div>`;
     const tp=t.tp;
     if(tp==='ms'||tp==='ms-c'||tp==='final'||tp==='kpi'){
       const cx=`calc(${pct(t.s+0.5)} - 8px)`;
       const col=tp==='final'?'#10B981':tp==='kpi'?'#7C3AED':tp==='ms-c'?'#10B981':'#E8621A';
-      const glow=tp==='kpi'?'rgba(124,58,237,.5)':tp==='final'?'rgba(16,185,129,.5)':'rgba(232,98,26,.5)';
-      const sz=tp==='final'?18:16;
-      h+=`<div data-tip="${tipData}" data-detail="${detailData}" style="position:absolute;left:${cx};top:50%;margin-top:-${sz/2}px;width:${sz}px;height:${sz}px;background:${col};transform:rotate(45deg);border:2px solid rgba(6,14,26,.8);box-shadow:0 0 12px ${glow};z-index:3;cursor:pointer;transition:transform .15s,box-shadow .15s" onmouseenter="this.style.transform='rotate(45deg) scale(1.2)';rlTip(this,event)" onmouseleave="this.style.transform='rotate(45deg) scale(1)';rlHide()" onclick="rlShowDetail(this,'${detailData}')"></div>`;
+      const glow=tp==='kpi'?'rgba(124,58,237,.4)':tp==='final'?'rgba(16,185,129,.4)':'rgba(232,98,26,.4)';
+      h+=`<div data-tip="${tipData}" style="position:absolute;left:${cx};top:50%;margin-top:-8px;width:16px;height:16px;background:${col};transform:rotate(45deg);border:2px solid rgba(6,14,26,.8);box-shadow:0 0 10px ${glow};z-index:3;cursor:default" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
     } else if(tp==='prep'){
-      h+=`<div data-tip="${tipData}" data-detail="${detailData}" style="position:absolute;left:${barL(t.s)};width:${barW(t.s,t.e)};height:8px;top:50%;margin-top:-4px;border-radius:4px;background:rgba(232,98,26,.18);border:1.5px dashed rgba(232,98,26,.5);cursor:pointer" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()" onclick="rlShowDetail(this,'${detailData}')"></div>`;
+      h+=`<div data-tip="${tipData}" style="position:absolute;left:${barL(t.s)};width:${barW(t.s,t.e)};height:9px;top:50%;margin-top:-4.5px;border-radius:4px;background:rgba(232,98,26,.2);border:1px dashed rgba(232,98,26,.5);cursor:default" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
     } else {
-      const col=tp==='client'?'linear-gradient(90deg,#10B981,#34D399)':'linear-gradient(90deg,#E8621A,#F59E0B)';
-      h+=`<div data-tip="${tipData}" data-detail="${detailData}" style="position:absolute;left:${barL(t.s)};width:${barW(t.s,t.e)};height:9px;top:50%;margin-top:-4.5px;border-radius:4px;background:${col};cursor:pointer;transition:height .12s,margin-top .12s,box-shadow .12s" onmouseenter="this.style.height='12px';this.style.marginTop='-6px';this.style.boxShadow='0 2px 12px rgba(232,98,26,.3)';rlTip(this,event)" onmouseleave="this.style.height='9px';this.style.marginTop='-4.5px';this.style.boxShadow='none';rlHide()" onclick="rlShowDetail(this,'${detailData}')"></div>`;
+      const col=tp==='client'?'#10B981':'#E8621A';
+      h+=`<div data-tip="${tipData}" style="position:absolute;left:${barL(t.s)};width:${barW(t.s,t.e)};height:9px;top:50%;margin-top:-4.5px;border-radius:4px;background:${col};cursor:default" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
     }
     h+='</div></div>';
     return h;
@@ -1660,18 +1620,19 @@
     kpiTasks.forEach(t=>{
       const tipData=encodeURIComponent(t.t+'||'+t.n);
       const leftPx=LW + (t.s + 0.5) * WW - 8;
-      h+=`<div style="position:absolute;left:${leftPx+8}px;top:0;bottom:24px;width:1px;pointer-events:none;z-index:2;border-left:1px dashed rgba(124,58,237,.3)"></div>`;
+      h+=`<div style="position:absolute;left:${leftPx+8}px;top:0;bottom:24px;width:1px;background:rgba(124,58,237,.25);pointer-events:none;z-index:2;border-left:1px dashed rgba(124,58,237,.35)"></div>`;
+      h+=`<div data-tip="${tipData}"
+        style="position:absolute;left:${leftPx}px;top:10px;width:16px;height:16px;background:#7C3AED;transform:rotate(45deg);border:2px solid rgba(6,14,26,.9);box-shadow:0 0 12px rgba(124,58,237,.6);z-index:5;cursor:default"
+        onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
     });
     return h;
   }
 
   function renderSubGroupHdr(name,ph){
     const gc=phaseColors[ph]||'#475569';
-    return `<div style="display:flex;min-width:${LW+N*WW}px;margin:8px 0 0">
-      <div style="width:${LW}px;flex-shrink:0;padding:5px 10px 5px 18px;font-size:9.5px;font-weight:700;color:${gc};opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid rgba(255,255,255,.05);letter-spacing:.5px">↳ ${name.toUpperCase()}</div>
-      <div style="flex:1;border-bottom:1px solid ${gc}22;background:${gc}05;position:relative">
-        <div style="position:absolute;left:${pct(TODAY_W)};top:0;bottom:0;width:2px;background:rgba(52,211,153,.15)"></div>
-      </div>
+    return `<div style="display:flex;min-width:${LW+N*WW}px;margin:6px 0 0">
+      <div style="width:${LW}px;flex-shrink:0;padding:4px 8px 4px 18px;font-size:9px;font-weight:700;color:${gc};opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid rgba(255,255,255,.05)">&#9492; ${name}</div>
+      <div style="flex:1;border-bottom:1px solid ${gc}18;background:${gc}06"></div>
     </div>`;
   }
 
@@ -1726,192 +1687,40 @@
   }
 
   function renderPhaseBand(){
-    let h=`<div style="display:flex;min-width:${LW+N*WW}px;margin-top:10px;height:5px"><div style="width:${LW}px;flex-shrink:0"></div>`;
-    months.forEach(m=>{h+=`<div style="width:${(m.e-m.s+1)*WW}px;flex-shrink:0;background:${m.ph?phaseColors[m.ph]:'transparent'};opacity:.3;border-radius:2px"></div>`;});
+    let h=`<div style="display:flex;min-width:${LW+N*WW}px;margin-top:10px;height:6px"><div style="width:${LW}px;flex-shrink:0"></div>`;
+    months.forEach(m=>{h+=`<div style="width:${(m.e-m.s+1)*WW}px;flex-shrink:0;background:${m.ph?phaseColors[m.ph]:'transparent'};opacity:.35;border-radius:2px"></div>`;});
     h+='</div>';
     return h;
   }
 
-  // ── LIST VIEW ──────────────────────────────────────────────────────────────
-  function buildListView(){
-    const chColors={S:'#F97316',W:'#3B82F6',I:'#8B5CF6',E:'#10B981'};
-    const chLabels={S:'Socials',W:'Web',I:'Internal',E:'Email'};
-    const typeLabels={agency:'Agency',client:'Bahri (Client)',prep:'Early Prep',ms:'Milestone','ms-c':'Client Milestone',final:'Launch',kpi:'KPI Check-in'};
-    const typeColors={agency:'#E8621A',client:'#10B981',prep:'rgba(232,98,26,.5)',ms:'#E8621A','ms-c':'#10B981',final:'#10B981',kpi:'#7C3AED'};
-    const typeBg={agency:'rgba(232,98,26,.08)',client:'rgba(16,185,129,.08)',prep:'rgba(232,98,26,.05)',ms:'rgba(232,98,26,.08)','ms-c':'rgba(16,185,129,.08)',final:'rgba(16,185,129,.12)',kpi:'rgba(124,58,237,.1)'};
-
-    let h=`<div style="max-width:900px">`;
-    phaseGroups.forEach(g=>{
-      const gc=phaseColors[g.ph]||'#E8621A';
-      h+=`<div style="margin:20px 0 10px;padding:10px 16px;background:${gc}10;border-left:3px solid ${gc};border-radius:0 10px 10px 0">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:${gc}">${g.label}</div>
-        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">${g.sub}</div>
-      </div>`;
-      g.subGroups.forEach(sgName=>{
-        const sgTasks=allTasks.filter(t=>t.g===sgName);
-        if(!sgTasks.length) return;
-        h+=`<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.25);padding:10px 0 5px 10px">${sgName}</div>`;
-        sgTasks.forEach(t=>{
-          const channels=t.ch?t.ch.split(','):[];
-          const dotC=typeColors[t.tp]||'#888';
-          const tpL=typeLabels[t.tp]||t.tp;
-          const tpC=typeColors[t.tp]||'#888';
-          const tpBg=typeBg[t.tp]||'rgba(255,255,255,.05)';
-          // Extract just the note text (after the date range if present)
-          const noteText=t.n||'';
-          const dashIdx=noteText.indexOf(' - ');
-          const datePart=dashIdx>-1?noteText.substring(0,dashIdx):'';
-          const descPart=dashIdx>-1?noteText.substring(dashIdx+3):noteText;
-          h+=`<div style="display:flex;gap:14px;padding:13px 16px;border-radius:10px;background:var(--card-bg);border:1px solid var(--card-border);margin-bottom:6px;align-items:flex-start;transition:border-color .2s" onmouseenter="this.style.borderColor='rgba(255,255,255,.1)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.06)'">
-            <div style="width:8px;height:8px;border-radius:${t.tp.includes('ms')||t.tp==='final'||t.tp==='kpi'?'0':'50%'};background:${dotC};margin-top:4px;flex-shrink:0;transform:${t.tp.includes('ms')||t.tp==='final'||t.tp==='kpi'?'rotate(45deg)':'none'}"></div>
-            <div style="flex:1;min-width:0">
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-                <span style="font-size:13px;font-weight:600;color:var(--text-primary)">${t.t}</span>
-                <span style="padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;background:${tpBg};color:${tpC}">${tpL}</span>
-              </div>
-              ${datePart?`<div style="font-size:11px;color:var(--orange);font-weight:600;margin-bottom:4px">📅 ${datePart}</div>`:''}
-              ${descPart?`<div style="font-size:12px;color:var(--text-secondary);line-height:1.6">${descPart}</div>`:''}
-              ${channels.length?`<div style="margin-top:8px;display:flex;gap:8px">${channels.map(c=>`<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;background:${chColors[c]}18;color:${chColors[c]}">${chLabels[c]||c}</span>`).join('')}</div>`:''}
-            </div>
-          </div>`;
-        });
-      });
-    });
-    // KPI section
-    h+=`<div style="margin:20px 0 10px;padding:10px 16px;background:rgba(124,58,237,.1);border-left:3px solid #7C3AED;border-radius:0 10px 10px 0">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7C3AED">KPI MILESTONES</div>
-    </div>`;
-    allTasks.filter(t=>t.camp===0).forEach(t=>{
-      const noteText=t.n||'';
-      const dashIdx=noteText.indexOf(' - ');
-      const datePart=dashIdx>-1?noteText.substring(0,dashIdx):'';
-      const descPart=dashIdx>-1?noteText.substring(dashIdx+3):noteText;
-      h+=`<div style="display:flex;gap:14px;padding:13px 16px;border-radius:10px;background:var(--card-bg);border:1px solid rgba(124,58,237,.15);margin-bottom:6px;align-items:flex-start">
-        <div style="width:8px;height:8px;border-radius:0;background:#7C3AED;margin-top:4px;flex-shrink:0;transform:rotate(45deg)"></div>
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:4px">${t.t}</div>
-          ${datePart?`<div style="font-size:11px;color:#7C3AED;font-weight:600;margin-bottom:4px">📅 ${datePart}</div>`:''}
-          ${descPart?`<div style="font-size:12px;color:var(--text-secondary)">${descPart}</div>`:''}
-        </div>
-      </div>`;
-    });
-    h+='</div>';
-    return h;
-  }
-
-  // ── MILESTONE ROADMAP ─────────────────────────────────────────────────────
-  function buildRoadmap(){
-    const milestones=[
-      {w:4,label:'Campaign 1',sub:'May 15',col:'#F97316'},
-      {w:6,label:'Leadership Clips',sub:'Jun 1',col:'#F97316'},
-      {w:6,label:'BSM Launch',sub:'Jun 1',col:'#1D4ED8'},
-      {w:13,label:'BOT·BCP·BL',sub:'Jul 20',col:'#7C3AED'},
-      {w:17,label:'BDB·Marine',sub:'Aug 17',col:'#0891B2'},
-      {w:23,label:'ESG Launch',sub:'Sep 28',col:'#16A34A'},
-      {w:24,label:'KPI Wrap',sub:'Oct 5',col:'#7C3AED'},
-    ];
-    const totalW=N*WW;
-    let h=`<div style="position:relative;height:64px;margin:0 ${LW}px 0 0">`;
-    // Base line
-    h+=`<div style="position:absolute;top:22px;left:0;right:0;height:2px;background:rgba(255,255,255,.08);border-radius:1px"></div>`;
-    // Today marker
-    h+=`<div style="position:absolute;top:12px;left:${(TODAY_W/N)*100}%;width:2px;height:24px;background:#34D399;border-radius:1px"></div>`;
-    h+=`<div style="position:absolute;top:4px;left:${(TODAY_W/N)*100}%;transform:translateX(-50%);font-size:8px;font-weight:700;color:#34D399;white-space:nowrap">TODAY</div>`;
-    milestones.forEach(m=>{
-      const left=((m.w+0.5)/N)*100;
-      h+=`<div style="position:absolute;top:15px;left:${left}%;transform:translateX(-50%)">
-        <div style="width:14px;height:14px;background:${m.col};transform:rotate(45deg);margin:0 auto;border:2px solid rgba(6,14,26,.8);box-shadow:0 0 10px ${m.col}60"></div>
-        <div style="text-align:center;margin-top:8px;white-space:nowrap">
-          <div style="font-size:9px;font-weight:700;color:${m.col}">${m.sub}</div>
-          <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:1px">${m.label}</div>
-        </div>
-      </div>`;
-    });
-    h+='</div>';
-    document.getElementById('rl-roadmap-inner').innerHTML=h;
-  }
-
-  buildRoadmap();
   document.getElementById('rl-gantt').innerHTML=buildByPhase();
 
   window.rlToggle=function(m){
-    ['phase','camp','list'].forEach(k=>{
-      const btn=document.getElementById('rl-btn-'+k);
-      if(btn){btn.style.background=m===k?'var(--orange)':'transparent';btn.style.color=m===k?'#fff':'var(--text-secondary)';}
-    });
-    const wrap=document.getElementById('rl-gantt-wrap');
-    if(m==='list'){
-      wrap.style.overflowX='visible';wrap.style.border='none';wrap.style.background='transparent';wrap.style.padding='0';
-      document.getElementById('rl-gantt').innerHTML=buildListView();
-    } else {
-      wrap.style.overflowX='auto';wrap.style.border='1px solid var(--card-border)';wrap.style.background='var(--card-bg)';wrap.style.padding='0';
-      document.getElementById('rl-gantt').innerHTML=m==='phase'?buildByPhase():buildByCampaign();
-    }
-    document.getElementById('rl-detail-panel').style.display='none';
+    document.getElementById('rl-btn-phase').style.background=m==='phase'?'var(--orange)':'transparent';
+    document.getElementById('rl-btn-phase').style.color=m==='phase'?'#fff':'var(--text-secondary)';
+    document.getElementById('rl-btn-camp').style.background=m==='camp'?'var(--orange)':'transparent';
+    document.getElementById('rl-btn-camp').style.color=m==='camp'?'#fff':'var(--text-secondary)';
+    document.getElementById('rl-gantt').innerHTML=m==='phase'?buildByPhase():buildByCampaign();
   };
-
-  window.rlShowDetail=function(el,enc){
-    try{
-      const d=JSON.parse(decodeURIComponent(enc));
-      const chColors={S:'#F97316',W:'#3B82F6',I:'#8B5CF6',E:'#10B981'};
-      const chLabels={S:'Socials',W:'Web',I:'Internal',E:'Email'};
-      const typeLabels={agency:'Agency',client:'Bahri (Client)',prep:'Early Prep',ms:'Milestone','ms-c':'Client Milestone',final:'🚀 Launch',kpi:'KPI Check-in'};
-      const typeColors={agency:'#E8621A',client:'#10B981',prep:'#E8621A',ms:'#E8621A','ms-c':'#10B981',final:'#10B981',kpi:'#7C3AED'};
-      const noteText=d.note||'';
-      const dashIdx=noteText.indexOf(' - ');
-      const datePart=dashIdx>-1?noteText.substring(0,dashIdx):'';
-      const descPart=dashIdx>-1?noteText.substring(dashIdx+3):noteText;
-      const channels=d.ch?d.ch.split(',').filter(Boolean):[];
-      const tpC=typeColors[d.tp]||'#888';
-      let body=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">`;
-      body+=`<span style="padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;background:${tpC}18;color:${tpC}">${typeLabels[d.tp]||d.tp}</span>`;
-      if(datePart) body+=`<span style="font-size:11px;font-weight:600;color:var(--orange)">📅 ${datePart}</span>`;
-      body+=`</div>`;
-      if(descPart) body+=`<div style="font-size:13px;color:var(--text-primary);line-height:1.7;margin-bottom:12px">${descPart}</div>`;
-      if(channels.length){
-        body+=`<div style="display:flex;gap:8px;flex-wrap:wrap">`;
-        channels.forEach(c=>{body+=`<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600;background:${chColors[c]}18;color:${chColors[c]}">${chLabels[c]||c}</span>`;});
-        body+=`</div>`;
-      }
-      document.getElementById('rl-detail-title').textContent=d.title;
-      document.getElementById('rl-detail-body').innerHTML=body;
-      document.getElementById('rl-detail-panel').style.display='block';
-    }catch(e){}
-  };
-
   window.rlTip=function(el,e){
     const parts=decodeURIComponent(el.dataset.tip).split('||');
     const tt=document.getElementById('rl-tooltip');
-    let html=`<div style="font-weight:700;font-size:12px;margin-bottom:4px">${parts[0]}</div>`;
-    if(parts[1]){
-      const noteText=parts[1];
-      const dashIdx=noteText.indexOf(' - ');
-      if(dashIdx>-1){
-        html+=`<div style="color:#E8621A;font-size:10px;font-weight:600;margin-bottom:3px">${noteText.substring(0,dashIdx)}</div>`;
-        html+=`<div style="opacity:.75;font-size:10.5px">${noteText.substring(dashIdx+3)}</div>`;
-      } else {
-        html+=`<div style="opacity:.75;font-size:10.5px">${noteText}</div>`;
-      }
-    }
+    let html='<strong>'+parts[0]+'</strong>';
+    if(parts[1]) html+='<br><span style="opacity:.65;font-size:10px">'+parts[1]+'</span>';
     if(parts[2]){
       const chColors={Socials:'#F97316',Web:'#3B82F6',Internal:'#8B5CF6',Email:'#10B981'};
-      const chList=parts[2].replace('Channels: ','').replace(/ \|\| Channels: /,'').split(' · ').filter(Boolean);
-      if(chList.length){
-        const dots=chList.map(c=>`<span style="display:inline-flex;align-items:center;gap:4px;margin-right:6px"><span style="width:6px;height:6px;border-radius:50%;background:${chColors[c]||'#888'};display:inline-block"></span><span style="font-size:10px;color:${chColors[c]||'#aaa'}">${c}</span></span>`).join('');
-        html+=`<div style="margin-top:7px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1)">${dots}</div>`;
-      }
+      const chList=parts[2].replace('Channels: ','').split(' · ');
+      const dots=chList.map(c=>`<span style="display:inline-flex;align-items:center;gap:4px;margin-right:8px"><span style="width:7px;height:7px;border-radius:50%;background:${chColors[c]||'#888'};display:inline-block"></span><span style="font-size:10px;color:${chColors[c]||'#aaa'}">${c}</span></span>`).join('');
+      html+='<div style="margin-top:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,.1)">'+dots+'</div>';
     }
-    html+=`<div style="margin-top:6px;font-size:9px;opacity:.4;font-style:italic">Click for details</div>`;
     tt.innerHTML=html;
     tt.style.display='block';
-    tt.style.left=(e.clientX+16)+'px';tt.style.top=(e.clientY-12)+'px';
+    tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-10)+'px';
   };
   window.rlHide=function(){const tt=document.getElementById('rl-tooltip');if(tt)tt.style.display='none';};
-  document.addEventListener('mousemove',function(e){const tt=document.getElementById('rl-tooltip');if(tt&&tt.style.display!=='none'){tt.style.left=(e.clientX+16)+'px';tt.style.top=(e.clientY-12)+'px';}});
+  document.addEventListener('mousemove',function(e){const tt=document.getElementById('rl-tooltip');if(tt&&tt.style.display!=='none'){tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-10)+'px';}});
 })();
 </script>
-
-
 
 
 <!-- TAB 4: KEY TAKEAWAYS -->
@@ -2314,7 +2123,7 @@ async function gsLoadTab(tabId) {
   contentEl.innerHTML = `<div class="sh-state"><div class="sh-spinner"></div><p>Loading ${sheetName}…</p></div>`;
   try {
     const range = encodeURIComponent(`'${sheetName}'`);
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GS_CONFIG.sheetId}/values/${range}?valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=FORMATTED_STRING`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GS_CONFIG.sheetId}/values/${range}?valueRenderOption=FORMULA&dateTimeRenderOption=FORMATTED_STRING`;
     const r = await fetch(url, { headers: { Authorization: `Bearer ${gsToken}` } });
     if (!r.ok) {
       const err = await r.json();
@@ -2335,450 +2144,238 @@ async function gsLoadTab(tabId) {
   }
 }
 
-/* ════════════════════════════════════════════
-   SMART SHEET RENDERERS — Tab-specific UX
-════════════════════════════════════════════ */
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escAttr(s) { return String(s).replace(/"/g,'&quot;'); }
+/* ════════════════════════════════════════════════════════════
+   SMART RENDERERS — Purpose-built for each tab
+════════════════════════════════════════════════════════════ */
 
-// Find column index by keyword(s)
-function colIdx(lh, ...keys) {
-  for (const k of keys) { const i = lh.findIndex(h => h.includes(k)); if (i > -1) return i; }
-  return -1;
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escAttr(s){return String(s).replace(/"/g,'&quot;');}
+
+function parseHyperlink(val){
+  const s=String(val||'');
+  const m=s.match(/=HYPERLINK\("([^"]+)",\s*["']([^"']+)["']\)/i);
+  if(m) return {url:m[1],text:m[2]};
+  if(s.startsWith('http')) return {url:s,text:s};
+  return {url:'',text:s};
 }
 
-function statusPill(val) {
-  const v = String(val).toLowerCase().trim();
-  const map = {
-    paid:'green', settled:'green', approved:'green', complete:'green', done:'green', delivered:'green',
-    pending:'orange', 'in progress':'orange', review:'orange', sent:'orange', open:'orange', active:'orange',
-    overdue:'red', rejected:'red', cancelled:'red', 'not started':'red',
-    'partially paid':'yellow', partial:'yellow', 'on hold':'yellow',
-    draft:'blue', new:'blue', planned:'blue'
-  };
-  const col = map[v];
-  return col ? `<span class="sh-pill sh-pill-${col}">${escHtml(val)}</span>` : escHtml(val);
+function fileIcon(url){
+  if(!url) return '📄';
+  if(url.includes('docs.google')) return '📝';
+  if(url.includes('sheets.google')) return '📊';
+  if(url.includes('slides.google')) return '📋';
+  if(url.includes('drive.google')) return '📁';
+  if(url.match(/\.pdf/i)) return '📄';
+  return '🔗';
 }
 
-function fileLink(url, label) {
-  if (!url || !String(url).startsWith('http')) return label ? escHtml(label) : '<span style="opacity:.3">—</span>';
-  const u = String(url);
-  const icon = u.includes('drive.google') ? '📄' : u.includes('docs.google') ? '📝' : u.includes('sheets.google') ? '📊' : u.includes('slides.google') ? '📋' : '🔗';
-  const lbl = label || (u.includes('drive.google') ? 'Open File' : u.includes('docs.google') ? 'Open Doc' : u.includes('sheets.google') ? 'Open Sheet' : 'Open Link');
-  return `<a href="${escAttr(u)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .2s" onmouseover="this.style.background='rgba(232,98,26,.18)'" onmouseout="this.style.background='rgba(232,98,26,.1)'">${icon} ${escHtml(lbl)}</a>`;
+function openBtn(url,label){
+  if(!url) return '';
+  label=label||'Open';
+  const icon=fileIcon(url);
+  return '<a href="'+escAttr(url)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .2s;flex-shrink:0" onmouseover="this.style.background='rgba(232,98,26,.2)'" onmouseout="this.style.background='rgba(232,98,26,.1)'">'+icon+' '+escHtml(label)+' ↗</a>';
 }
 
-function numFmt(val, prefix='SAR ') {
-  const n = parseFloat(val);
-  if (isNaN(n)) return escHtml(val);
-  return prefix + n.toLocaleString('en-SA');
+function statusPill(s){
+  const sl=(s||'').toLowerCase().trim();
+  const map={'completed':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'done':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'paid':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'settled':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'in progress':{bg:'rgba(232,98,26,.14)',col:'#E8621A'},'invoice shared':{bg:'rgba(232,98,26,.14)',col:'#E8621A'},'sent':{bg:'rgba(232,98,26,.14)',col:'#E8621A'},'waiting response':{bg:'rgba(245,158,11,.14)',col:'#F59E0B'},'pending':{bg:'rgba(245,158,11,.14)',col:'#F59E0B'},'not started':{bg:'rgba(255,255,255,.05)',col:'rgba(240,242,245,.35)'},'canceled':{bg:'rgba(239,68,68,.14)',col:'#EF4444'},'overdue':{bg:'rgba(239,68,68,.14)',col:'#EF4444'}};
+  const cfg=map[sl]||{bg:'rgba(255,255,255,.05)',col:'rgba(240,242,245,.35)'};
+  return '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;background:'+cfg.bg+';color:'+cfg.col+';white-space:nowrap"><span style="width:5px;height:5px;border-radius:50%;background:'+cfg.col+';flex-shrink:0"></span>'+escHtml(s||'Not Started')+'</span>';
 }
 
-function topBar(count, sheetName) {
-  const t = new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
-  return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-    <div style="font-size:11px;color:var(--text-secondary)">
-      <span style="color:var(--text-primary);font-weight:600">${count}</span> records · synced at <span style="color:var(--text-primary);font-weight:600">${t}</span>
+function renderSheetContent(tabId,sheetName,rows,el){
+  if(tabId==='gs-scope')el.innerHTML=renderScope(rows);
+  else if(tabId==='gs-files')el.innerHTML=renderFiles(rows);
+  else if(tabId==='gs-invoicing')el.innerHTML=renderInvoicing(rows);
+  else if(tabId==='gs-thirdparty')el.innerHTML=renderThirdParty(rows);
+}
+
+/* SCOPE TRACKER */
+function renderScope(rows){
+  const projectTitle=String(rows[1]?.[1]||'').replace(/^PROJECT TITLE:\s*/i,'').trim();
+  const am=String(rows[2]?.[1]||'').replace(/^ACCOUNT MANAGER[^:]*:\s*/i,'').trim();
+  const startDate=new Date('2026-04-19'),endDate=new Date('2026-07-19'),today=new Date();
+  const totalDays=Math.round((endDate-startDate)/864e5);
+  const elapsed=Math.min(totalDays,Math.max(0,Math.round((today-startDate)/864e5)));
+  const remaining=totalDays-elapsed;
+  const pct=Math.round((elapsed/totalDays)*100);
+
+  let headerRowIdx=-1,qtyHeaderIdx=-1;
+  for(let i=0;i<rows.length;i++){
+    const s=(rows[i]||[]).join('|');
+    if(s.includes('Project Number')&&s.includes('Status'))headerRowIdx=i;
+    if(s.includes('Item')&&s.includes('Used')&&s.includes('Qty')&&s.includes('Remaining'))qtyHeaderIdx=i;
+  }
+
+  const deliverables=[];
+  const start=headerRowIdx>-1?headerRowIdx+1:6;
+  const stop=qtyHeaderIdx>-1?qtyHeaderIdx:rows.length;
+  for(let i=start;i<stop;i++){
+    const r=rows[i]||[];
+    const projNum=String(r[2]||'').trim();
+    if(!projNum.startsWith('MT'))continue;
+    const ph=parseHyperlink(String(r[3]||''));
+    const suffix=parseInt(projNum.split('-').pop())||0;
+    deliverables.push({num:String(r[1]||'').trim(),projectNum:projNum,project:ph.text||String(r[3]||'').trim(),projectUrl:ph.url,type:String(r[4]||'').trim(),details:String(r[5]||'').trim(),status:String(r[16]||'Not Started').trim()||'Not Started',requestor:String(r[17]||'').trim(),received:String(r[18]||'').trim(),phase:suffix<=19?1:suffix<=23?2:3});
+  }
+
+  const qtyTable=[];
+  if(qtyHeaderIdx>-1){
+    for(let i=qtyHeaderIdx+1;i<rows.length;i++){
+      const r=rows[i]||[];
+      const item=String(r[5]||'').trim();
+      if(!item||item.toLowerCase().includes('scope'))continue;
+      qtyTable.push({item,used:parseInt(r[6])||0,qty:parseInt(r[7])||0,remaining:parseInt(r[8])||0});
+    }
+  }
+
+  const TC={'Concept':'#F97316','Plan':'#1D4ED8','Video':'#7C3AED','Direction':'#0891B2','Copy + Design':'#16A34A','Content':'#6366F1','PowerPoint template':'#D97706','KV':'#EC4899','Guide':'#D97706','Infographic':'#65A30D'};
+  const tCol=t=>TC[t]||'#E8621A';
+  const cnt={done:0,prog:0,wait:0,ns:0};
+  deliverables.forEach(d=>{if(d.status==='Completed')cnt.done++;else if(d.status==='In Progress')cnt.prog++;else if(d.status==='Waiting Response')cnt.wait++;else cnt.ns++;});
+
+  let h='';
+  h+=`<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px 28px;margin-bottom:20px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:6px">Scope Tracker</div>
+        <div style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:5px">${escHtml(projectTitle||'Bahri Theme Campaign')}</div>
+        <div style="font-size:13px;color:var(--text-secondary)">PM · <span style="color:var(--text-primary);font-weight:500">${escHtml(am)}</span> <span style="margin-left:10px">Apr 19 → Jul 19, 2026</span></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="text-align:center;padding:12px 16px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.14);border-radius:10px"><div style="font-size:24px;font-weight:700;color:var(--orange)">${elapsed}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Days Elapsed</div></div>
+        <div style="text-align:center;padding:12px 16px;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.14);border-radius:10px"><div style="font-size:24px;font-weight:700;color:#34D399">${remaining}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Days Left</div></div>
+        <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid var(--card-border);border-radius:10px"><div style="font-size:24px;font-weight:700;color:var(--text-primary)">${totalDays}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Total Days</div></div>
+      </div>
     </div>
-    <a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener"
-       style="font-size:11px;color:var(--orange);text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:7px;background:rgba(232,98,26,.07);border:1px solid rgba(232,98,26,.15);font-weight:600;transition:background .2s"
-       onmouseover="this.style.background='rgba(232,98,26,.13)'" onmouseout="this.style.background='rgba(232,98,26,.07)'">
-      ↗ Open in Google Sheets
-    </a>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:7px"><span>Apr 19</span><span style="color:var(--green);font-weight:600">TODAY — Day ${elapsed} of ${totalDays}</span><span>Jul 19</span></div>
+    <div style="height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#E8621A,#F59E0B);border-radius:4px"></div></div>
+    <div style="display:flex;gap:18px;margin-top:16px;flex-wrap:wrap">
+      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:var(--orange);font-weight:700">${cnt.prog}</span> In Progress</span>
+      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:#F59E0B;font-weight:700">${cnt.wait}</span> Waiting Response</span>
+      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:#34D399;font-weight:700">${cnt.done}</span> Completed</span>
+      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:rgba(240,242,245,.4);font-weight:700">${cnt.ns}</span> Not Started</span>
+    </div>
   </div>`;
-}
 
-/* ── Main dispatcher ── */
-function renderSheetContent(tabId, sheetName, rows, el) {
-  const headers = rows[0] || [];
-  const dataRows = rows.slice(1).filter(r => r.some(c => c !== '' && c !== null && c !== undefined));
-  const lh = headers.map(h => String(h ?? '').toLowerCase());
-
-  if (tabId === 'gs-scope')      el.innerHTML = renderScopeTab(headers, lh, dataRows);
-  else if (tabId === 'gs-files') el.innerHTML = renderFilesTab(headers, lh, dataRows);
-  else if (tabId === 'gs-invoicing') el.innerHTML = renderInvoicingTab(headers, lh, dataRows);
-  else if (tabId === 'gs-thirdparty') el.innerHTML = renderThirdPartyTab(headers, lh, dataRows);
-  else el.innerHTML = renderFallbackTable(headers, lh, dataRows);
-}
-
-/* ══════════════════════════════════════
-   TAB 1: SCOPE TRACKER
-   MT251014-Retainer sheet
-══════════════════════════════════════ */
-function renderScopeTab(headers, lh, rows) {
-  // Detect key columns
-  const iItem   = colIdx(lh, 'item', 'deliverable', 'description', 'task', 'name');
-  const iPhase  = colIdx(lh, 'phase');
-  const iQty    = colIdx(lh, 'qty', 'quantity', 'unit');
-  const iTotal  = colIdx(lh, 'total', 'amount', 'value', 'budget');
-  const iRemain = colIdx(lh, 'remain', 'balance', 'outstanding');
-  const iStatus = colIdx(lh, 'status', 'state');
-  const iNotes  = colIdx(lh, 'notes', 'comment', 'remark');
-  const iLink   = colIdx(lh, 'link', 'url', 'file', 'doc');
-
-  // Summary stats
-  let totalBudget = 0, totalRemain = 0, doneCount = 0;
-  rows.forEach(r => {
-    if (iTotal > -1 && !isNaN(r[iTotal])) totalBudget += parseFloat(r[iTotal]) || 0;
-    if (iRemain > -1 && !isNaN(r[iRemain])) totalRemain += parseFloat(r[iRemain]) || 0;
-    const s = String(r[iStatus] ?? '').toLowerCase();
-    if (s.includes('complete') || s.includes('done') || s.includes('approved') || s.includes('deliver')) doneCount++;
-  });
-  const spent = totalBudget - totalRemain;
-  const pct = totalBudget > 0 ? Math.round((spent / totalBudget) * 100) : 0;
-
-  let h = topBar(rows.length, 'Scope Tracker');
-
-  // Summary cards
-  h += `<div class="sh-meta" style="margin-bottom:20px">`;
-  h += `<div class="sh-meta-card"><div class="sh-meta-label">Total Deliverables</div><div class="sh-meta-val">${rows.length}</div><div class="sh-meta-sub">${doneCount} completed</div></div>`;
-  if (totalBudget > 0) {
-    h += `<div class="sh-meta-card"><div class="sh-meta-label">Total Budget</div><div class="sh-meta-val" style="font-size:16px">SAR ${totalBudget.toLocaleString('en-SA')}</div><div class="sh-meta-sub">Contracted value</div></div>`;
-    h += `<div class="sh-meta-card"><div class="sh-meta-label">Remaining</div><div class="sh-meta-val" style="font-size:16px;color:${totalRemain < 0 ? '#EF4444' : '#34D399'}">SAR ${totalRemain.toLocaleString('en-SA')}</div><div class="sh-meta-sub">${pct}% utilized</div></div>`;
-  }
-  h += `</div>`;
-
-  // Budget bar
-  if (totalBudget > 0) {
-    h += `<div style="margin-bottom:20px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px 18px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:8px">
-        <span>Budget utilization</span><span style="color:var(--text-primary);font-weight:600">${pct}%</span>
-      </div>
-      <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${Math.min(pct,100)}%;background:linear-gradient(90deg,#E8621A,#F59E0B);border-radius:3px;transition:width .8s"></div>
-      </div>
-    </div>`;
+  if(qtyTable.length){
+    h+=`<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:16px">Resource Quotas — Scope Usage</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">`;
+    qtyTable.forEach(q=>{
+      const pct2=q.qty>0?Math.round((q.used/q.qty)*100):0;
+      const bc=pct2>=100?'#EF4444':pct2>=70?'#F59E0B':'#34D399';
+      h+=`<div style="padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><span style="font-size:12px;font-weight:600;color:var(--text-primary)">${escHtml(q.item)}</span><span style="font-size:12px;font-weight:700;color:${bc}">${q.used}/${q.qty}</span></div>
+        <div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:5px"><div style="height:100%;width:${Math.min(pct2,100)}%;background:${tCol(q.item)};border-radius:2px"></div></div>
+        <div style="font-size:10px;color:var(--text-secondary)">${q.remaining} remaining of ${q.qty} contracted</div>
+      </div>`;
+    });
+    h+=`</div></div>`;
   }
 
-  // Group by phase if phase column exists
-  if (iPhase > -1) {
-    const phases = [...new Set(rows.map(r => String(r[iPhase] ?? 'Other')).filter(Boolean))];
-    phases.forEach(phase => {
-      const phRows = rows.filter(r => String(r[iPhase] ?? '') === phase);
-      const phColor = phase.includes('1') || phase.toLowerCase().includes('launch') ? '#F97316'
-                    : phase.includes('2') || phase.toLowerCase().includes('deepen') ? '#1D4ED8'
-                    : phase.includes('3') || phase.toLowerCase().includes('sustain') ? '#16A34A' : '#E8621A';
-      h += `<div style="margin-bottom:8px;padding:8px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:${phColor};border-left:3px solid ${phColor};background:${phColor}0d;border-radius:0 8px 8px 0">${escHtml(phase)}</div>`;
-      phRows.forEach((r, ri) => {
-        h += renderScopeRow(r, headers, { iItem, iQty, iTotal, iRemain, iStatus, iNotes, iLink }, ri, phColor);
-      });
-    });
-  } else {
-    rows.forEach((r, ri) => {
-      h += renderScopeRow(r, headers, { iItem, iQty, iTotal, iRemain, iStatus, iNotes, iLink }, ri, '#E8621A');
-    });
-  }
-
-  // Fallback: show all columns not captured
-  return h;
-}
-
-function renderScopeRow(r, headers, idx, ri, phColor) {
-  const { iItem, iQty, iTotal, iRemain, iStatus, iNotes, iLink } = idx;
-  const item    = iItem > -1 ? String(r[iItem] ?? '') : String(r[0] ?? '');
-  const qty     = iQty > -1 ? String(r[iQty] ?? '') : '';
-  const total   = iTotal > -1 ? r[iTotal] : null;
-  const remain  = iRemain > -1 ? r[iRemain] : null;
-  const status  = iStatus > -1 ? String(r[iStatus] ?? '') : '';
-  const notes   = iNotes > -1 ? String(r[iNotes] ?? '') : '';
-  const link    = iLink > -1 ? String(r[iLink] ?? '') : '';
-  const rowBg   = ri % 2 === 0 ? 'rgba(255,255,255,.012)' : 'transparent';
-
-  let h = `<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;background:${rowBg};border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s;flex-wrap:wrap"
-    onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='${rowBg}'">
-    <div style="width:5px;height:5px;border-radius:50%;background:${phColor};opacity:.6;flex-shrink:0"></div>
-    <div style="flex:1;min-width:180px">
-      <div style="font-size:13px;font-weight:500;color:var(--text-primary)">${escHtml(item)}</div>
-      ${notes ? `<div style="font-size:11px;color:var(--text-secondary);margin-top:2px">${escHtml(notes)}</div>` : ''}
-    </div>`;
-  if (qty) h += `<div style="font-size:11px;color:var(--text-secondary);white-space:nowrap">×${escHtml(qty)}</div>`;
-  if (total !== null && !isNaN(total)) h += `<div style="font-size:12px;font-weight:600;color:var(--text-primary);white-space:nowrap">SAR ${parseFloat(total).toLocaleString('en-SA')}</div>`;
-  if (remain !== null && !isNaN(remain)) {
-    const rNum = parseFloat(remain);
-    const rCol = rNum < 0 ? '#EF4444' : rNum === 0 ? 'var(--text-secondary)' : '#34D399';
-    h += `<div style="font-size:12px;font-weight:700;color:${rCol};white-space:nowrap">${rNum >= 0 ? 'SAR ' : '–SAR '}${Math.abs(rNum).toLocaleString('en-SA')} left</div>`;
-  }
-  if (status) h += `<div>${statusPill(status)}</div>`;
-  if (link && link.startsWith('http')) h += `<div>${fileLink(link)}</div>`;
-  h += `</div>`;
-  return h;
-}
-
-/* ══════════════════════════════════════
-   TAB 2: IMPORTANT FILES
-   Big cards for easy access
-══════════════════════════════════════ */
-function renderFilesTab(headers, lh, rows) {
-  const iName  = colIdx(lh, 'name', 'title', 'file', 'document', 'item');
-  const iDesc  = colIdx(lh, 'desc', 'description', 'detail', 'notes', 'comment', 'about');
-  const iLink  = colIdx(lh, 'link', 'url', 'href');
-  const iCat   = colIdx(lh, 'cat', 'type', 'category', 'section', 'folder', 'tag');
-  const iDate  = colIdx(lh, 'date', 'updated', 'created', 'modified');
-
-  // Gather all URL columns (any that look like links)
-  const urlCols = lh.reduce((acc, h, i) => {
-    if (h.includes('link') || h.includes('url') || h.includes('href') || h.includes('drive') || h.includes('doc')) acc.push(i);
-    return acc;
-  }, []);
-
-  let h = topBar(rows.length, 'Important Files');
-  h += `<p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px">All project documents and assets. Click any card to open the file directly.</p>`;
-
-  // Category filter
-  const cats = iCat > -1 ? [...new Set(rows.map(r => String(r[iCat] ?? '')).filter(Boolean))] : [];
-  if (cats.length > 1) {
-    h += `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px" id="files-filter">
-      <button onclick="filterFiles('__ALL__')" data-cat="__ALL__" style="padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;background:var(--orange);color:#fff;border:none;cursor:pointer">All</button>`;
-    cats.forEach(c => {
-      h += `<button onclick="filterFiles('${escAttr(c)}')" data-cat="${escAttr(c)}" style="padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(255,255,255,.05);color:var(--text-secondary);border:1px solid var(--card-border);cursor:pointer;transition:all .2s">${escHtml(c)}</button>`;
-    });
-    h += `</div>`;
-  }
-
-  // File cards grid
-  h += `<div id="files-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">`;
-  rows.forEach((r, ri) => {
-    const name = iName > -1 ? String(r[iName] ?? `File ${ri+1}`) : String(r[0] ?? `File ${ri+1}`);
-    const desc = iDesc > -1 ? String(r[iDesc] ?? '') : '';
-    const cat  = iCat > -1 ? String(r[iCat] ?? '') : '';
-    const date = iDate > -1 ? String(r[iDate] ?? '') : '';
-
-    // Find all URLs in this row
-    const urls = [];
-    urlCols.forEach(ci => {
-      const v = String(r[ci] ?? '');
-      if (v.startsWith('http')) urls.push({ url: v, header: headers[ci] });
-    });
-    // Also scan every cell for URLs not captured by urlCols
-    r.forEach((cell, ci) => {
-      const v = String(cell ?? '');
-      if (v.startsWith('http') && !urlCols.includes(ci)) urls.push({ url: v, header: headers[ci] });
-    });
-
-    const hasUrl = urls.length > 0;
-    const primaryUrl = urls[0]?.url || '';
-    const fileIcon = primaryUrl.includes('docs.google') ? '📝' : primaryUrl.includes('sheets.google') ? '📊' : primaryUrl.includes('slides.google') ? '📋' : primaryUrl.includes('drive.google') ? '📁' : primaryUrl.includes('.pdf') ? '📄' : primaryUrl.includes('.mp4') || primaryUrl.includes('.mov') ? '🎬' : '🔗';
-
-    h += `<div data-cat="${escAttr(cat)}" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;transition:all .25s;cursor:${hasUrl ? 'pointer' : 'default'}"
-      onmouseover="this.style.borderColor='rgba(232,98,26,.25)';this.style.transform='translateY(-2px)'"
-      onmouseout="this.style.borderColor='rgba(255,255,255,.06)';this.style.transform='translateY(0)'"
-      ${hasUrl ? `onclick="window.open('${escAttr(primaryUrl)}','_blank')"` : ''}>
-      <div style="display:flex;align-items:flex-start;gap:12px">
-        <div style="width:40px;height:40px;border-radius:10px;background:rgba(232,98,26,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${fileIcon}</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.3;margin-bottom:3px">${escHtml(name)}</div>
-          ${cat ? `<span style="padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;background:rgba(232,98,26,.1);color:var(--orange)">${escHtml(cat)}</span>` : ''}
+  const phCfg={1:{label:'Phase 1 — Launch',color:'#F97316',desc:'Campaign Launch & Brand Reveal · May 2026'},2:{label:'Phase 2 — Deepen',color:'#1D4ED8',desc:'BU Spotlights & Proof Points · Jun–Aug 2026'},3:{label:'Phase 3 — Sustain',color:'#16A34A',desc:'ESG & Long-form Content · Sep 2026'}};
+  [1,2,3].forEach(phase=>{
+    const pd=deliverables.filter(d=>d.phase===phase);
+    if(!pd.length)return;
+    const pc=phCfg[phase];
+    h+=`<div style="margin:20px 0 8px;padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:${pc.color};border-left:3px solid ${pc.color};background:${pc.color}10;border-radius:0 10px 10px 0;display:flex;align-items:center;gap:10px">${escHtml(pc.label)} <span style="font-weight:400;text-transform:none;font-size:10px;opacity:.6">${escHtml(pc.desc)}</span></div>`;
+    pd.forEach((d,i)=>{
+      const tc=tCol(d.type);
+      const bg=i%2===0?'rgba(255,255,255,.012)':'transparent';
+      h+=`<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:10px;background:${bg};margin-bottom:4px;transition:background .15s;flex-wrap:wrap" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='${bg}'">
+        <div style="font-size:9px;font-weight:700;color:var(--text-secondary);padding-top:3px;min-width:92px;letter-spacing:.4px">${escHtml(d.projectNum)}</div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:13.5px;font-weight:600;color:var(--text-primary);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">${escHtml(d.project)}${d.projectUrl?'<a href="'+escAttr(d.projectUrl)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:10px;padding:2px 8px;border-radius:5px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);text-decoration:none;font-weight:600">📁 Folder</a>':''}</div>
+          ${d.details?'<div style="font-size:11.5px;color:var(--text-secondary);line-height:1.55">'+escHtml(d.details.substring(0,130))+(d.details.length>130?'…':'')+'</div>':''}
+          ${d.requestor?'<div style="font-size:10px;color:var(--orange);margin-top:5px;font-weight:500">From: '+escHtml(d.requestor)+(d.received?' · '+escHtml(d.received):'')+'</div>':''}
         </div>
-      </div>
-      ${desc ? `<div style="font-size:12px;color:var(--text-secondary);line-height:1.6">${escHtml(desc)}</div>` : ''}
-      <div style="display:flex;flex-direction:column;gap:6px;margin-top:auto">`;
-    urls.forEach(({ url, header }) => {
-      const icon2 = url.includes('docs.google') ? '📝' : url.includes('sheets.google') ? '📊' : url.includes('slides.google') ? '📋' : url.includes('drive.google') ? '📁' : '🔗';
-      const lbl2 = String(header || '').replace(/link|url|href/gi, '').trim() || 'Open File';
-      h += `<a href="${escAttr(url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
-        style="display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:9px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.18);color:var(--orange);font-size:12px;font-weight:600;text-decoration:none;transition:background .2s"
-        onmouseover="this.style.background='rgba(232,98,26,.16)'" onmouseout="this.style.background='rgba(232,98,26,.08)'">${icon2} ${escHtml(lbl2 || 'Open File')} <span style="margin-left:auto;opacity:.5">↗</span></a>`;
+        <span style="padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;background:${tc}14;color:${tc};white-space:nowrap;flex-shrink:0;margin-top:2px">${escHtml(d.type)}</span>
+        <div style="flex-shrink:0;margin-top:1px">${statusPill(d.status)}</div>
+      </div>`;
     });
-    if (!hasUrl) h += `<div style="font-size:11px;color:var(--text-secondary);font-style:italic">No link available</div>`;
-    if (date) h += `<div style="font-size:10px;color:var(--text-secondary);margin-top:4px">Updated: ${escHtml(date)}</div>`;
-    h += `</div></div>`;
   });
-  h += `</div>`;
-
-  // Filter script
-  h += `<script>window.filterFiles=function(cat){document.querySelectorAll('#files-grid [data-cat]').forEach(el=>{el.style.display=(cat==='__ALL__'||el.dataset.cat===cat)?'':'none'});document.querySelectorAll('#files-filter button').forEach(b=>{const isA=b.dataset.cat===cat;b.style.background=isA?'var(--orange)':'rgba(255,255,255,.05)';b.style.color=isA?'#fff':'var(--text-secondary)';b.style.border=isA?'none':'1px solid rgba(255,255,255,.06)'});}<\/script>`;
+  h+=`<div style="margin-top:16px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--text-secondary)'">↗ Edit in Google Sheets</a></div>`;
   return h;
 }
 
-/* ══════════════════════════════════════
-   TAB 3: INVOICING
-   Invoice cards with status & amounts
-══════════════════════════════════════ */
-function renderInvoicingTab(headers, lh, rows) {
-  const iNum    = colIdx(lh, 'invoice', 'inv', 'ref', 'number', '#', 'no');
-  const iDesc   = colIdx(lh, 'desc', 'description', 'item', 'service', 'detail');
-  const iAmt    = colIdx(lh, 'amount', 'total', 'value', 'sar', 'price');
-  const iPaid   = colIdx(lh, 'paid', 'payment', 'received', 'settled');
-  const iBalance= colIdx(lh, 'balance', 'remain', 'outstanding', 'due');
-  const iStatus = colIdx(lh, 'status', 'state', 'payment status');
-  const iDate   = colIdx(lh, 'date', 'issued', 'created', 'invoice date');
-  const iDue    = colIdx(lh, 'due', 'deadline', 'expiry', 'payment date');
-  const iLink   = colIdx(lh, 'link', 'url', 'file', 'doc', 'invoice link');
-
-  // Totals
-  let totalAmt = 0, totalPaid = 0;
-  rows.forEach(r => {
-    if (iAmt > -1 && !isNaN(r[iAmt])) totalAmt += parseFloat(r[iAmt]) || 0;
-    if (iPaid > -1 && !isNaN(r[iPaid])) totalPaid += parseFloat(r[iPaid]) || 0;
-  });
-  const outstanding = totalAmt - totalPaid;
-  const paidPct = totalAmt > 0 ? Math.round((totalPaid / totalAmt) * 100) : 0;
-
-  let h = topBar(rows.length, 'Invoicing');
-
-  // Summary
-  h += `<div class="sh-meta" style="margin-bottom:20px">
-    <div class="sh-meta-card"><div class="sh-meta-label">Invoices</div><div class="sh-meta-val">${rows.length}</div><div class="sh-meta-sub">Total records</div></div>`;
-  if (totalAmt > 0) {
-    h += `<div class="sh-meta-card"><div class="sh-meta-label">Total Invoiced</div><div class="sh-meta-val" style="font-size:15px">SAR ${totalAmt.toLocaleString('en-SA')}</div></div>`;
-    h += `<div class="sh-meta-card"><div class="sh-meta-label">Paid</div><div class="sh-meta-val" style="font-size:15px;color:#34D399">SAR ${totalPaid.toLocaleString('en-SA')}</div><div class="sh-meta-sub">${paidPct}% collected</div></div>`;
-    h += `<div class="sh-meta-card"><div class="sh-meta-label">Outstanding</div><div class="sh-meta-val" style="font-size:15px;color:${outstanding > 0 ? '#E8621A' : '#34D399'}">SAR ${outstanding.toLocaleString('en-SA')}</div></div>`;
-  }
-  h += `</div>`;
-
-  if (totalAmt > 0) {
-    h += `<div style="margin-bottom:20px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px 18px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:8px"><span>Collection rate</span><span style="color:var(--text-primary);font-weight:600">${paidPct}%</span></div>
-      <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${Math.min(paidPct,100)}%;background:linear-gradient(90deg,#34D399,#10B981);border-radius:3px"></div>
-      </div>
-    </div>`;
-  }
-
-  // Invoice cards
-  rows.forEach((r, ri) => {
-    const num    = iNum > -1 ? String(r[iNum] ?? `INV-${ri+1}`) : `INV-${ri+1}`;
-    const desc   = iDesc > -1 ? String(r[iDesc] ?? '') : '';
-    const amt    = iAmt > -1 && !isNaN(r[iAmt]) ? parseFloat(r[iAmt]) : null;
-    const paid   = iPaid > -1 && !isNaN(r[iPaid]) ? parseFloat(r[iPaid]) : null;
-    const bal    = iBalance > -1 && !isNaN(r[iBalance]) ? parseFloat(r[iBalance]) : (amt !== null && paid !== null ? amt - paid : null);
-    const status = iStatus > -1 ? String(r[iStatus] ?? '') : '';
-    const date   = iDate > -1 ? String(r[iDate] ?? '') : '';
-    const due    = iDue > -1 ? String(r[iDue] ?? '') : '';
-    const link   = iLink > -1 ? String(r[iLink] ?? '') : '';
-
-    const statusLow = status.toLowerCase();
-    const borderCol = statusLow.includes('paid') || statusLow.includes('settled') || statusLow.includes('done') ? 'rgba(52,211,153,.2)' :
-                      statusLow.includes('overdue') || statusLow.includes('reject') ? 'rgba(239,68,68,.2)' : 'rgba(232,98,26,.12)';
-
-    h += `<div style="background:var(--card-bg);border:1px solid ${borderCol};border-radius:14px;padding:20px 24px;margin-bottom:10px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:border-color .2s"
-      onmouseover="this.style.borderColor='${borderCol.replace('.12','.3').replace('.2','.4')}'" onmouseout="this.style.borderColor='${borderCol}'">
-      <div style="min-width:120px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:4px">Invoice</div>
-        <div style="font-size:16px;font-weight:700;color:var(--orange)">${escHtml(num)}</div>
-        ${date ? `<div style="font-size:11px;color:var(--text-secondary);margin-top:3px">${escHtml(date)}</div>` : ''}
-      </div>
-      <div style="flex:1;min-width:160px">
-        ${desc ? `<div style="font-size:13px;font-weight:500;color:var(--text-primary)">${escHtml(desc)}</div>` : ''}
-        ${due ? `<div style="font-size:11px;color:var(--text-secondary);margin-top:3px">Due: ${escHtml(due)}</div>` : ''}
-      </div>
-      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
-        ${amt !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Total</div><div style="font-size:15px;font-weight:700;color:var(--text-primary)">SAR ${amt.toLocaleString('en-SA')}</div></div>` : ''}
-        ${paid !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Paid</div><div style="font-size:15px;font-weight:700;color:#34D399">SAR ${paid.toLocaleString('en-SA')}</div></div>` : ''}
-        ${bal !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Balance</div><div style="font-size:15px;font-weight:700;color:${bal <= 0 ? '#34D399' : '#E8621A'}">SAR ${Math.abs(bal).toLocaleString('en-SA')}</div></div>` : ''}
-        ${status ? `<div>${statusPill(status)}</div>` : ''}
-        ${link && link.startsWith('http') ? fileLink(link, 'View Invoice') : ''}
-      </div>
+/* IMPORTANT FILES */
+function renderFiles(rows){
+  const files=rows.filter(r=>r&&String(r[0]||'').trim());
+  let h=`<div style="font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6">Key project documents and references — all linked to Google Drive. Click any card to open.</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">`;
+  files.forEach(r=>{
+    const name=String(r[0]||'').trim();
+    const {url}=parseHyperlink(String(r[1]||''));
+    const icon=fileIcon(url);
+    const hasLink=!!url;
+    h+=`<div style="background:var(--card-bg);border:1px solid ${hasLink?'rgba(232,98,26,.15)':'var(--card-border)'};border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;gap:18px;transition:all .25s;${hasLink?'cursor:pointer':''}" ${hasLink?'onclick="window.open(\''+escAttr(url)+'\',\'_blank\')"':''} onmouseover="this.style.borderColor='rgba(232,98,26,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='${hasLink?'rgba(232,98,26,.15)':'rgba(255,255,255,.06)'}';this.style.transform='none'">
+      <div style="width:54px;height:54px;border-radius:14px;background:rgba(232,98,26,.1);display:flex;align-items:center;justify-content:center;font-size:28px">${icon}</div>
+      <div><div style="font-size:17px;font-weight:700;color:var(--text-primary);margin-bottom:5px">${escHtml(name)}</div><div style="font-size:11.5px;color:var(--text-secondary)">${hasLink?'Google Drive document':'No link attached'}</div></div>
+      <div style="margin-top:auto">${hasLink?'<a href="'+escAttr(url)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:600;text-decoration:none;transition:background .2s" onmouseover="this.style.background=\'rgba(232,98,26,.2)\'" onmouseout="this.style.background=\'rgba(232,98,26,.1)\'">Open Document ↗</a>':'<div style="font-size:11px;color:var(--text-secondary);text-align:center;padding:10px;border:1px dashed rgba(255,255,255,.08);border-radius:8px">Link not yet available</div>'}</div>
     </div>`;
   });
+  h+=`</div><div style="margin-top:16px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--text-secondary)'">↗ Add files in Google Sheets</a></div>`;
   return h;
 }
 
-/* ══════════════════════════════════════
-   TAB 4: THIRD PARTIES
-   Vendor cards with settlement status
-══════════════════════════════════════ */
-function renderThirdPartyTab(headers, lh, rows) {
-  const iVendor  = colIdx(lh, 'vendor', 'supplier', 'party', 'name', 'company', 'third');
-  const iService = colIdx(lh, 'service', 'description', 'scope', 'item', 'desc', 'work');
-  const iQuote   = colIdx(lh, 'quote', 'estimate', 'proposal', 'quoted');
-  const iInv     = colIdx(lh, 'invoice', 'actual', 'invoiced', 'billed');
-  const iPaid    = colIdx(lh, 'paid', 'settled', 'payment', 'received');
-  const iBalance = colIdx(lh, 'balance', 'remain', 'outstanding', 'due');
-  const iStatus  = colIdx(lh, 'status', 'state', 'settlement');
-  const iLink    = colIdx(lh, 'link', 'url', 'file', 'doc', 'quote link', 'invoice link');
-  const iNotes   = colIdx(lh, 'notes', 'comment', 'remark');
-
-  // Totals
-  let totalQuote = 0, totalPaid = 0, settledCount = 0;
-  rows.forEach(r => {
-    if (iQuote > -1 && !isNaN(r[iQuote])) totalQuote += parseFloat(r[iQuote]) || 0;
-    if (iPaid > -1 && !isNaN(r[iPaid])) totalPaid += parseFloat(r[iPaid]) || 0;
-    const s = String(r[iStatus] ?? '').toLowerCase();
-    if (s.includes('paid') || s.includes('settled') || s.includes('done') || s.includes('complete')) settledCount++;
+/* INVOICING */
+function renderInvoicing(rows){
+  const invoices=[],docLinks={};
+  rows.forEach(r=>{
+    if(!r||!r[0])return;
+    const key=String(r[0]).trim(),kl=key.toLowerCase();
+    if(kl==='po'||kl==='quotation'){const{url}=parseHyperlink(String(r[1]||''));if(url)docLinks[key]=url;return;}
+    if(kl==='invoice'||kl==='retainer')return;
+    if(!isNaN(key)||key.match(/^inv/i))invoices.push({num:key,date:String(r[1]||''),term:String(r[2]||''),status:String(r[3]||'').trim()});
   });
-
-  let h = topBar(rows.length, 'Third Parties');
-
-  // Summary
-  h += `<div class="sh-meta" style="margin-bottom:20px">
-    <div class="sh-meta-card"><div class="sh-meta-label">Vendors</div><div class="sh-meta-val">${rows.length}</div><div class="sh-meta-sub">${settledCount} settled</div></div>`;
-  if (totalQuote > 0) h += `<div class="sh-meta-card"><div class="sh-meta-label">Total Quoted</div><div class="sh-meta-val" style="font-size:15px">SAR ${totalQuote.toLocaleString('en-SA')}</div></div>`;
-  if (totalPaid > 0) h += `<div class="sh-meta-card"><div class="sh-meta-label">Total Paid Out</div><div class="sh-meta-val" style="font-size:15px;color:#34D399">SAR ${totalPaid.toLocaleString('en-SA')}</div></div>`;
-  h += `</div>`;
-
-  // Vendor cards
-  rows.forEach((r, ri) => {
-    const vendor  = iVendor > -1 ? String(r[iVendor] ?? `Vendor ${ri+1}`) : String(r[0] ?? `Vendor ${ri+1}`);
-    const service = iService > -1 ? String(r[iService] ?? '') : '';
-    const quote   = iQuote > -1 && !isNaN(r[iQuote]) ? parseFloat(r[iQuote]) : null;
-    const inv     = iInv > -1 && !isNaN(r[iInv]) ? parseFloat(r[iInv]) : null;
-    const paid    = iPaid > -1 && !isNaN(r[iPaid]) ? parseFloat(r[iPaid]) : null;
-    const bal     = iBalance > -1 && !isNaN(r[iBalance]) ? parseFloat(r[iBalance]) : null;
-    const status  = iStatus > -1 ? String(r[iStatus] ?? '') : '';
-    const notes   = iNotes > -1 ? String(r[iNotes] ?? '') : '';
-    const statusLow = status.toLowerCase();
-    const isSettled = statusLow.includes('paid') || statusLow.includes('settled') || statusLow.includes('complete') || statusLow.includes('done');
-
-    // Collect all URLs from this row
-    const urls = r.reduce((acc, cell, ci) => {
-      const v = String(cell ?? '');
-      if (v.startsWith('http')) acc.push({ url: v, label: String(headers[ci] || '') });
-      return acc;
-    }, []);
-
-    const initials = vendor.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-
-    h += `<div style="background:var(--card-bg);border:1px solid ${isSettled ? 'rgba(52,211,153,.15)' : 'var(--card-border)'};border-radius:14px;padding:20px 24px;margin-bottom:10px;transition:all .2s"
-      onmouseover="this.style.borderColor='${isSettled ? 'rgba(52,211,153,.3)' : 'rgba(255,255,255,.1)'}'" onmouseout="this.style.borderColor='${isSettled ? 'rgba(52,211,153,.15)' : 'rgba(255,255,255,.06)'}'">
-      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
-        <div style="width:42px;height:42px;border-radius:10px;background:rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--orange);flex-shrink:0">${escHtml(initials)}</div>
-        <div style="flex:1;min-width:150px">
-          <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:3px">${escHtml(vendor)}</div>
-          ${service ? `<div style="font-size:12.5px;color:var(--text-secondary)">${escHtml(service)}</div>` : ''}
-          ${notes ? `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;font-style:italic">${escHtml(notes)}</div>` : ''}
-        </div>
-        <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
-          ${quote !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Quoted</div><div style="font-size:14px;font-weight:600;color:var(--text-primary)">SAR ${quote.toLocaleString('en-SA')}</div></div>` : ''}
-          ${inv !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Invoiced</div><div style="font-size:14px;font-weight:600;color:var(--text-primary)">SAR ${inv.toLocaleString('en-SA')}</div></div>` : ''}
-          ${paid !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Paid</div><div style="font-size:14px;font-weight:700;color:#34D399">SAR ${paid.toLocaleString('en-SA')}</div></div>` : ''}
-          ${bal !== null ? `<div><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:2px">Balance</div><div style="font-size:14px;font-weight:700;color:${Math.abs(bal) < 1 ? '#34D399' : '#E8621A'}">SAR ${Math.abs(bal).toLocaleString('en-SA')}</div></div>` : ''}
-          ${status ? `<div style="padding-top:2px">${statusPill(status)}</div>` : ''}
-        </div>
-      </div>
-      ${urls.length > 0 ? `<div style="display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);flex-wrap:wrap">${urls.map(u => fileLink(u.url, u.label.replace(/link|url/gi,'').trim() || 'Open File')).join('')}</div>` : ''}
+  let h='';
+  const docEntries=Object.entries(docLinks);
+  if(docEntries.length)h+=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;padding:16px 20px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-right:4px">Project Documents</div>${docEntries.map(([n,u])=>openBtn(u,n)).join('')}</div>`;
+  h+=`<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:14px">Retainer Invoices</div>`;
+  if(!invoices.length)h+=`<div style="text-align:center;padding:48px;color:var(--text-secondary);font-size:13px">No invoices recorded yet.</div>`;
+  else invoices.forEach((inv,i)=>{
+    const isPending=!inv.status;
+    h+=`<div style="background:var(--card-bg);border:1px solid ${isPending?'var(--card-border)':'rgba(232,98,26,.14)'};border-radius:14px;padding:22px 26px;margin-bottom:10px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(232,98,26,.25)'" onmouseout="this.style.borderColor='${isPending?'rgba(255,255,255,.06)':'rgba(232,98,26,.14)'}'">
+      <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:4px">Invoice</div><div style="font-size:32px;font-weight:700;color:var(--orange);line-height:1">${escHtml(inv.num)}</div></div>
+      <div style="flex:1;min-width:140px"><div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:4px">${escHtml(inv.date)}</div><div style="font-size:12px;color:var(--text-secondary)">${escHtml(inv.term)}</div></div>
+      ${statusPill(inv.status||'Pending')}
     </div>`;
   });
+  h+=`<div style="margin-top:12px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--text-secondary)'">↗ Update in Google Sheets</a></div>`;
   return h;
 }
 
-/* ── Fallback: enhanced table for unknown tabs ── */
-function renderFallbackTable(headers, lh, rows) {
-  let h = topBar(rows.length, 'Sheet');
-  h += `<div class="sh-tbl-wrap"><table class="sh-tbl"><thead><tr>`;
-  headers.forEach(col => { h += `<th>${escHtml(String(col ?? ''))}</th>`; });
-  h += `</tr></thead><tbody>`;
-  rows.forEach(row => {
-    h += `<tr>`;
-    headers.forEach((col, i) => {
-      const val = String(row[i] ?? '');
-      const lv = val.toLowerCase().trim();
-      let cell = escHtml(val);
-      if (!val) cell = '<span style="opacity:.3">—</span>';
-      else if (val.startsWith('http')) {
-        const icon = val.includes('docs.google') ? '📝' : val.includes('sheets.google') ? '📊' : val.includes('drive.google') ? '📁' : '🔗';
-        cell = `<a href="${escAttr(val)}" target="_blank" rel="noopener">${icon} Open</a>`;
-      } else {
-        const statusMap = { paid:'green', settled:'green', approved:'green', complete:'green', done:'green', delivered:'green', pending:'orange', 'in progress':'orange', review:'orange', sent:'orange', overdue:'red', rejected:'red', cancelled:'red', 'partially paid':'yellow', partial:'yellow', draft:'blue', new:'blue' };
-        if (statusMap[lv]) cell = `<span class="sh-pill sh-pill-${statusMap[lv]}">${escHtml(val)}</span>`;
-      }
-      h += `<td>${cell}</td>`;
-    });
-    h += `</tr>`;
+/* THIRD PARTIES */
+function renderThirdParty(rows){
+  const vendors=rows.filter(r=>{if(!r||!r[0])return false;const k=String(r[0]).toLowerCase();return!k.includes('retainer')&&!k.includes('supplier')&&k.trim()!=='';});
+  if(!vendors.length)return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center">
+    <div style="width:68px;height:68px;border-radius:18px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px">🤝</div>
+    <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:8px">No Vendors Added Yet</div>
+    <div style="font-size:13px;color:var(--text-secondary);max-width:380px;line-height:1.65;margin-bottom:24px">Third-party suppliers will appear here as they're added — production houses, freelancers, media buyers, influencers, PR outlets, fabricators.</div>
+    <a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);border-radius:10px;color:var(--orange);font-size:13px;font-weight:600;text-decoration:none">↗ Add Vendors in Google Sheets</a>
+    <div style="margin-top:32px;padding:16px 22px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;max-width:500px;width:100%">
+      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:12px">Will Track</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${['Supplier','Invoice','Date','Payment Terms','Status'].map(l=>'<span style="padding:4px 12px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--text-secondary)">'+l+'</span>').join('')}</div>
+    </div>
+  </div>`;
+  let h='';
+  vendors.forEach(r=>{
+    const supplier=String(r[0]||'').trim();
+    const inv=parseHyperlink(String(r[1]||''));
+    const date=String(r[2]||'').trim(),term=String(r[3]||'').trim(),status=String(r[4]||'').trim();
+    const initials=supplier.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    h+=`<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(255,255,255,.1)'" onmouseout="this.style.borderColor='rgba(255,255,255,.06)'">
+      <div style="width:42px;height:42px;border-radius:10px;background:rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--orange);flex-shrink:0">${escHtml(initials)}</div>
+      <div style="flex:1;min-width:140px"><div style="font-size:14px;font-weight:600;color:var(--text-primary)">${escHtml(supplier)}</div>${date?'<div style="font-size:12px;color:var(--text-secondary);margin-top:2px">'+escHtml(date)+(term?' · '+escHtml(term):'')+'</div>':''}</div>
+      ${inv.url?openBtn(inv.url,'Invoice'):''}
+      ${status?statusPill(status):''}
+    </div>`;
   });
-  h += `</tbody></table></div>`;
+  h+=`<div style="margin-top:12px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none">↗ Manage in Google Sheets</a></div>`;
   return h;
 }
+
+
 
 /* ── Hook into existing tab switcher ── */
 // Patch the existing tab click logic to trigger sheet loads
