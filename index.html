@@ -2189,237 +2189,382 @@ async function gsLoadTab(tabId) {
   }
 }
 
-/* ════════════════════════════════════════════════════════════
-   SMART RENDERERS — Purpose-built for each tab
-════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   SMART RENDERERS — Per-tab custom UX
+════════════════════════════════════════════ */
 
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function escAttr(s){return String(s).replace(/"/g,'&quot;');}
 
 function parseHyperlink(val){
-  const s=String(val||'');
-  const m=s.match(/=HYPERLINK\("([^"]+)",\s*["']([^"']+)["']\)/i);
+  var s=String(val||'');
+  var m=s.match(/=HYPERLINK\("([^"]+)",\s*["']([^"']+)["']\)/i);
   if(m) return {url:m[1],text:m[2]};
   if(s.startsWith('http')) return {url:s,text:s};
   return {url:'',text:s};
 }
 
 function fileIcon(url){
-  if(!url) return '📄';
-  if(url.includes('docs.google')) return '📝';
-  if(url.includes('sheets.google')) return '📊';
-  if(url.includes('slides.google')) return '📋';
-  if(url.includes('drive.google')) return '📁';
-  if(url.match(/\.pdf/i)) return '📄';
-  return '🔗';
+  if(!url) return '\uD83D\uDCC4';
+  if(url.includes('docs.google')) return '\uD83D\uDCDD';
+  if(url.includes('sheets.google')) return '\uD83D\uDCCA';
+  if(url.includes('slides.google')) return '\uD83D\uDCCB';
+  if(url.includes('drive.google')) return '\uD83D\uDCC1';
+  if(url.match(/\.pdf/i)) return '\uD83D\uDCC4';
+  return '\uD83D\uDD17';
 }
 
-function openBtn(url,label){
+function openBtn(url, label){
   if(!url) return '';
-  label=label||'Open';
-  const icon=fileIcon(url);
-  return '<a href="'+escAttr(url)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .2s;flex-shrink:0" onmouseover="this.style.background='rgba(232,98,26,.2)'" onmouseout="this.style.background='rgba(232,98,26,.1)'">'+icon+' '+escHtml(label)+' ↗</a>';
+  label = label || 'Open';
+  var icon = fileIcon(url);
+  var s = '<a href="' + escAttr(url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" ';
+  s += 'style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9px;';
+  s += 'background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);';
+  s += 'font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0">';
+  s += icon + ' ' + escHtml(label) + ' \u2197</a>';
+  return s;
 }
 
 function statusPill(s){
-  const sl=(s||'').toLowerCase().trim();
-  const map={'completed':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'done':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'paid':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'settled':{bg:'rgba(52,211,153,.14)',col:'#34D399'},'in progress':{bg:'rgba(232,98,26,.14)',col:'#E8621A'},'invoice shared':{bg:'rgba(232,98,26,.14)',col:'#E8621A'},'sent':{bg:'rgba(232,98,26,.14)',col:'#E8621A'},'waiting response':{bg:'rgba(245,158,11,.14)',col:'#F59E0B'},'pending':{bg:'rgba(245,158,11,.14)',col:'#F59E0B'},'not started':{bg:'rgba(255,255,255,.05)',col:'rgba(240,242,245,.35)'},'canceled':{bg:'rgba(239,68,68,.14)',col:'#EF4444'},'overdue':{bg:'rgba(239,68,68,.14)',col:'#EF4444'}};
-  const cfg=map[sl]||{bg:'rgba(255,255,255,.05)',col:'rgba(240,242,245,.35)'};
-  return '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;background:'+cfg.bg+';color:'+cfg.col+';white-space:nowrap"><span style="width:5px;height:5px;border-radius:50%;background:'+cfg.col+';flex-shrink:0"></span>'+escHtml(s||'Not Started')+'</span>';
+  var sl = (s||'').toLowerCase().trim();
+  var bg, col;
+  if(sl==='completed'||sl==='done'||sl==='paid'||sl==='settled'){bg='rgba(52,211,153,.14)';col='#34D399';}
+  else if(sl==='in progress'||sl==='invoice shared'||sl==='sent'){bg='rgba(232,98,26,.14)';col='#E8621A';}
+  else if(sl==='waiting response'||sl==='pending'){bg='rgba(245,158,11,.14)';col='#F59E0B';}
+  else if(sl==='canceled'||sl==='overdue'){bg='rgba(239,68,68,.14)';col='#EF4444';}
+  else{bg='rgba(255,255,255,.05)';col='rgba(240,242,245,.35)';}
+  var label = s || 'Not Started';
+  var r = '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;';
+  r += 'font-size:10px;font-weight:700;background:' + bg + ';color:' + col + ';white-space:nowrap">';
+  r += '<span style="width:5px;height:5px;border-radius:50%;background:' + col + ';flex-shrink:0"></span>';
+  r += escHtml(label) + '</span>';
+  return r;
 }
 
-function renderSheetContent(tabId,sheetName,rows,el){
-  if(tabId==='gs-scope')el.innerHTML=renderScope(rows);
-  else if(tabId==='gs-files')el.innerHTML=renderFiles(rows);
-  else if(tabId==='gs-invoicing')el.innerHTML=renderInvoicing(rows);
-  else if(tabId==='gs-thirdparty')el.innerHTML=renderThirdParty(rows);
+/* ── Main dispatcher ── */
+function renderSheetContent(tabId, sheetName, rows, el){
+  if(tabId==='gs-scope')       el.innerHTML = renderScope(rows);
+  else if(tabId==='gs-files')  el.innerHTML = renderFiles(rows);
+  else if(tabId==='gs-invoicing')   el.innerHTML = renderInvoicing(rows);
+  else if(tabId==='gs-thirdparty')  el.innerHTML = renderThirdParty(rows);
 }
 
-/* SCOPE TRACKER */
+/* ═══════════════════════════════════════════
+   SCOPE TRACKER
+═══════════════════════════════════════════ */
 function renderScope(rows){
-  const projectTitle=String(rows[1]?.[1]||'').replace(/^PROJECT TITLE:\s*/i,'').trim();
-  const am=String(rows[2]?.[1]||'').replace(/^ACCOUNT MANAGER[^:]*:\s*/i,'').trim();
-  const startDate=new Date('2026-04-19'),endDate=new Date('2026-07-19'),today=new Date();
-  const totalDays=Math.round((endDate-startDate)/864e5);
-  const elapsed=Math.min(totalDays,Math.max(0,Math.round((today-startDate)/864e5)));
-  const remaining=totalDays-elapsed;
-  const pct=Math.round((elapsed/totalDays)*100);
+  var projectTitle = String((rows[1]||[])[1]||'').replace(/^PROJECT TITLE:\s*/i,'').trim();
+  var am = String((rows[2]||[])[1]||'').replace(/^ACCOUNT MANAGER[^:]*:\s*/i,'').trim();
 
-  let headerRowIdx=-1,qtyHeaderIdx=-1;
-  for(let i=0;i<rows.length;i++){
-    const s=(rows[i]||[]).join('|');
-    if(s.includes('Project Number')&&s.includes('Status'))headerRowIdx=i;
-    if(s.includes('Item')&&s.includes('Used')&&s.includes('Qty')&&s.includes('Remaining'))qtyHeaderIdx=i;
+  var startDate = new Date('2026-04-19');
+  var endDate   = new Date('2026-07-19');
+  var today     = new Date();
+  var totalDays = Math.round((endDate - startDate) / 864e5);
+  var elapsed   = Math.min(totalDays, Math.max(0, Math.round((today - startDate) / 864e5)));
+  var remaining = totalDays - elapsed;
+  var pct       = Math.round((elapsed / totalDays) * 100);
+
+  var headerRowIdx = -1, qtyHeaderIdx = -1;
+  for(var i=0; i<rows.length; i++){
+    var joined = (rows[i]||[]).join('|');
+    if(joined.indexOf('Project Number') > -1 && joined.indexOf('Status') > -1) headerRowIdx = i;
+    if(joined.indexOf('Item') > -1 && joined.indexOf('Used') > -1 && joined.indexOf('Qty') > -1) qtyHeaderIdx = i;
   }
 
-  const deliverables=[];
-  const start=headerRowIdx>-1?headerRowIdx+1:6;
-  const stop=qtyHeaderIdx>-1?qtyHeaderIdx:rows.length;
-  for(let i=start;i<stop;i++){
-    const r=rows[i]||[];
-    const projNum=String(r[2]||'').trim();
-    if(!projNum.startsWith('MT'))continue;
-    const ph=parseHyperlink(String(r[3]||''));
-    const suffix=parseInt(projNum.split('-').pop())||0;
-    deliverables.push({num:String(r[1]||'').trim(),projectNum:projNum,project:ph.text||String(r[3]||'').trim(),projectUrl:ph.url,type:String(r[4]||'').trim(),details:String(r[5]||'').trim(),status:String(r[16]||'Not Started').trim()||'Not Started',requestor:String(r[17]||'').trim(),received:String(r[18]||'').trim(),phase:suffix<=19?1:suffix<=23?2:3});
+  var deliverables = [];
+  var dStart = headerRowIdx > -1 ? headerRowIdx + 1 : 6;
+  var dStop  = qtyHeaderIdx > -1 ? qtyHeaderIdx : rows.length;
+  for(var i=dStart; i<dStop; i++){
+    var r = rows[i] || [];
+    var projNum = String(r[2]||'').trim();
+    if(projNum.indexOf('MT') !== 0) continue;
+    var ph = parseHyperlink(String(r[3]||''));
+    var suffix = parseInt(projNum.split('-').pop()) || 0;
+    deliverables.push({
+      projectNum: projNum,
+      project:    ph.text || String(r[3]||'').trim(),
+      projectUrl: ph.url,
+      type:       String(r[4]||'').trim(),
+      details:    String(r[5]||'').trim(),
+      status:     String(r[16]||'Not Started').trim() || 'Not Started',
+      requestor:  String(r[17]||'').trim(),
+      received:   String(r[18]||'').trim(),
+      phase:      suffix <= 19 ? 1 : suffix <= 23 ? 2 : 3
+    });
   }
 
-  const qtyTable=[];
-  if(qtyHeaderIdx>-1){
-    for(let i=qtyHeaderIdx+1;i<rows.length;i++){
-      const r=rows[i]||[];
-      const item=String(r[5]||'').trim();
-      if(!item||item.toLowerCase().includes('scope'))continue;
-      qtyTable.push({item,used:parseInt(r[6])||0,qty:parseInt(r[7])||0,remaining:parseInt(r[8])||0});
+  var qtyTable = [];
+  if(qtyHeaderIdx > -1){
+    for(var i=qtyHeaderIdx+1; i<rows.length; i++){
+      var r = rows[i] || [];
+      var item = String(r[5]||'').trim();
+      if(!item || item.toLowerCase().indexOf('scope') > -1) continue;
+      qtyTable.push({item:item, used:parseInt(r[6])||0, qty:parseInt(r[7])||0, remaining:parseInt(r[8])||0});
     }
   }
 
-  const TC={'Concept':'#F97316','Plan':'#1D4ED8','Video':'#7C3AED','Direction':'#0891B2','Copy + Design':'#16A34A','Content':'#6366F1','PowerPoint template':'#D97706','KV':'#EC4899','Guide':'#D97706','Infographic':'#65A30D'};
-  const tCol=t=>TC[t]||'#E8621A';
-  const cnt={done:0,prog:0,wait:0,ns:0};
-  deliverables.forEach(d=>{if(d.status==='Completed')cnt.done++;else if(d.status==='In Progress')cnt.prog++;else if(d.status==='Waiting Response')cnt.wait++;else cnt.ns++;});
+  var TC = {'Concept':'#F97316','Plan':'#1D4ED8','Video':'#7C3AED','Direction':'#0891B2',
+    'Copy + Design':'#16A34A','Content':'#6366F1','PowerPoint template':'#D97706',
+    'KV':'#EC4899','Guide':'#D97706','Infographic':'#65A30D'};
+  function tCol(t){ return TC[t] || '#E8621A'; }
 
-  let h='';
-  h+=`<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px 28px;margin-bottom:20px">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">
-      <div>
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:6px">Scope Tracker</div>
-        <div style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:5px">${escHtml(projectTitle||'Bahri Theme Campaign')}</div>
-        <div style="font-size:13px;color:var(--text-secondary)">PM · <span style="color:var(--text-primary);font-weight:500">${escHtml(am)}</span> <span style="margin-left:10px">Apr 19 → Jul 19, 2026</span></div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <div style="text-align:center;padding:12px 16px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.14);border-radius:10px"><div style="font-size:24px;font-weight:700;color:var(--orange)">${elapsed}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Days Elapsed</div></div>
-        <div style="text-align:center;padding:12px 16px;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.14);border-radius:10px"><div style="font-size:24px;font-weight:700;color:#34D399">${remaining}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Days Left</div></div>
-        <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid var(--card-border);border-radius:10px"><div style="font-size:24px;font-weight:700;color:var(--text-primary)">${totalDays}</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Total Days</div></div>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:7px"><span>Apr 19</span><span style="color:var(--green);font-weight:600">TODAY — Day ${elapsed} of ${totalDays}</span><span>Jul 19</span></div>
-    <div style="height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#E8621A,#F59E0B);border-radius:4px"></div></div>
-    <div style="display:flex;gap:18px;margin-top:16px;flex-wrap:wrap">
-      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:var(--orange);font-weight:700">${cnt.prog}</span> In Progress</span>
-      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:#F59E0B;font-weight:700">${cnt.wait}</span> Waiting Response</span>
-      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:#34D399;font-weight:700">${cnt.done}</span> Completed</span>
-      <span style="font-size:12px;color:var(--text-secondary)"><span style="color:rgba(240,242,245,.4);font-weight:700">${cnt.ns}</span> Not Started</span>
-    </div>
-  </div>`;
+  var cnt = {done:0, prog:0, wait:0, ns:0};
+  deliverables.forEach(function(d){
+    if(d.status==='Completed') cnt.done++;
+    else if(d.status==='In Progress') cnt.prog++;
+    else if(d.status==='Waiting Response') cnt.wait++;
+    else cnt.ns++;
+  });
 
-  if(qtyTable.length){
-    h+=`<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:20px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:16px">Resource Quotas — Scope Usage</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">`;
-    qtyTable.forEach(q=>{
-      const pct2=q.qty>0?Math.round((q.used/q.qty)*100):0;
-      const bc=pct2>=100?'#EF4444':pct2>=70?'#F59E0B':'#34D399';
-      h+=`<div style="padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><span style="font-size:12px;font-weight:600;color:var(--text-primary)">${escHtml(q.item)}</span><span style="font-size:12px;font-weight:700;color:${bc}">${q.used}/${q.qty}</span></div>
-        <div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:5px"><div style="height:100%;width:${Math.min(pct2,100)}%;background:${tCol(q.item)};border-radius:2px"></div></div>
-        <div style="font-size:10px;color:var(--text-secondary)">${q.remaining} remaining of ${q.qty} contracted</div>
-      </div>`;
+  var h = '';
+
+  /* Project header */
+  h += '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px 28px;margin-bottom:20px">';
+  h += '<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">';
+  h += '<div>';
+  h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:6px">Scope Tracker</div>';
+  h += '<div style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:5px">' + escHtml(projectTitle || 'Bahri Theme Campaign') + '</div>';
+  h += '<div style="font-size:13px;color:var(--text-secondary)">PM &middot; <span style="color:var(--text-primary);font-weight:500">' + escHtml(am) + '</span>';
+  h += '  <span style="margin-left:10px">Apr 19 &rarr; Jul 19, 2026</span></div>';
+  h += '</div>';
+  h += '<div style="display:flex;gap:10px;flex-wrap:wrap">';
+  h += '<div style="text-align:center;padding:12px 16px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.14);border-radius:10px">';
+  h += '<div style="font-size:24px;font-weight:700;color:var(--orange)">' + elapsed + '</div>';
+  h += '<div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Days Elapsed</div></div>';
+  h += '<div style="text-align:center;padding:12px 16px;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.14);border-radius:10px">';
+  h += '<div style="font-size:24px;font-weight:700;color:#34D399">' + remaining + '</div>';
+  h += '<div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Days Left</div></div>';
+  h += '<div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid var(--card-border);border-radius:10px">';
+  h += '<div style="font-size:24px;font-weight:700;color:var(--text-primary)">' + totalDays + '</div>';
+  h += '<div style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-top:2px">Total Days</div></div>';
+  h += '</div></div>';
+  h += '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:7px">';
+  h += '<span>Apr 19</span><span style="color:var(--green);font-weight:600">TODAY &mdash; Day ' + elapsed + ' of ' + totalDays + '</span><span>Jul 19</span></div>';
+  h += '<div style="height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden">';
+  h += '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#E8621A,#F59E0B);border-radius:4px"></div></div>';
+  h += '<div style="display:flex;gap:18px;margin-top:16px;flex-wrap:wrap">';
+  h += '<span style="font-size:12px;color:var(--text-secondary)"><span style="color:var(--orange);font-weight:700">' + cnt.prog + '</span> In Progress</span>';
+  h += '<span style="font-size:12px;color:var(--text-secondary)"><span style="color:#F59E0B;font-weight:700">' + cnt.wait + '</span> Waiting Response</span>';
+  h += '<span style="font-size:12px;color:var(--text-secondary)"><span style="color:#34D399;font-weight:700">' + cnt.done + '</span> Completed</span>';
+  h += '<span style="font-size:12px;color:var(--text-secondary)"><span style="color:rgba(240,242,245,.4);font-weight:700">' + cnt.ns + '</span> Not Started</span>';
+  h += '</div></div>';
+
+  /* Resource quotas */
+  if(qtyTable.length > 0){
+    h += '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:20px">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:16px">Resource Quotas &mdash; Scope Usage</div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">';
+    qtyTable.forEach(function(q){
+      var usedPct = q.qty > 0 ? Math.round((q.used / q.qty) * 100) : 0;
+      var barCol  = usedPct >= 100 ? '#EF4444' : usedPct >= 70 ? '#F59E0B' : '#34D399';
+      var typeC   = tCol(q.item);
+      h += '<div style="padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px">';
+      h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">';
+      h += '<span style="font-size:12px;font-weight:600;color:var(--text-primary)">' + escHtml(q.item) + '</span>';
+      h += '<span style="font-size:12px;font-weight:700;color:' + barCol + '">' + q.used + '/' + q.qty + '</span></div>';
+      h += '<div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:5px">';
+      h += '<div style="height:100%;width:' + Math.min(usedPct,100) + '%;background:' + typeC + ';border-radius:2px"></div></div>';
+      h += '<div style="font-size:10px;color:var(--text-secondary)">' + q.remaining + ' remaining of ' + q.qty + ' contracted</div></div>';
     });
-    h+=`</div></div>`;
+    h += '</div></div>';
   }
 
-  const phCfg={1:{label:'Phase 1 — Launch',color:'#F97316',desc:'Campaign Launch & Brand Reveal · May 2026'},2:{label:'Phase 2 — Deepen',color:'#1D4ED8',desc:'BU Spotlights & Proof Points · Jun–Aug 2026'},3:{label:'Phase 3 — Sustain',color:'#16A34A',desc:'ESG & Long-form Content · Sep 2026'}};
-  [1,2,3].forEach(phase=>{
-    const pd=deliverables.filter(d=>d.phase===phase);
-    if(!pd.length)return;
-    const pc=phCfg[phase];
-    h+=`<div style="margin:20px 0 8px;padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:${pc.color};border-left:3px solid ${pc.color};background:${pc.color}10;border-radius:0 10px 10px 0;display:flex;align-items:center;gap:10px">${escHtml(pc.label)} <span style="font-weight:400;text-transform:none;font-size:10px;opacity:.6">${escHtml(pc.desc)}</span></div>`;
-    pd.forEach((d,i)=>{
-      const tc=tCol(d.type);
-      const bg=i%2===0?'rgba(255,255,255,.012)':'transparent';
-      h+=`<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:10px;background:${bg};margin-bottom:4px;transition:background .15s;flex-wrap:wrap" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='${bg}'">
-        <div style="font-size:9px;font-weight:700;color:var(--text-secondary);padding-top:3px;min-width:92px;letter-spacing:.4px">${escHtml(d.projectNum)}</div>
-        <div style="flex:1;min-width:200px">
-          <div style="font-size:13.5px;font-weight:600;color:var(--text-primary);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">${escHtml(d.project)}${d.projectUrl?'<a href="'+escAttr(d.projectUrl)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:10px;padding:2px 8px;border-radius:5px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);text-decoration:none;font-weight:600">📁 Folder</a>':''}</div>
-          ${d.details?'<div style="font-size:11.5px;color:var(--text-secondary);line-height:1.55">'+escHtml(d.details.substring(0,130))+(d.details.length>130?'…':'')+'</div>':''}
-          ${d.requestor?'<div style="font-size:10px;color:var(--orange);margin-top:5px;font-weight:500">From: '+escHtml(d.requestor)+(d.received?' · '+escHtml(d.received):'')+'</div>':''}
-        </div>
-        <span style="padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;background:${tc}14;color:${tc};white-space:nowrap;flex-shrink:0;margin-top:2px">${escHtml(d.type)}</span>
-        <div style="flex-shrink:0;margin-top:1px">${statusPill(d.status)}</div>
-      </div>`;
+  /* Deliverables by phase */
+  var phCfg = {
+    1:{label:'Phase 1 \u2014 Launch',      color:'#F97316', desc:'Campaign Launch & Brand Reveal \u00b7 May 2026'},
+    2:{label:'Phase 2 \u2014 Deepen',      color:'#1D4ED8', desc:'BU Spotlights & Proof Points \u00b7 Jun\u2013Aug 2026'},
+    3:{label:'Phase 3 \u2014 Sustain',     color:'#16A34A', desc:'ESG & Long-form Content \u00b7 Sep 2026'}
+  };
+
+  [1,2,3].forEach(function(phase){
+    var pd = deliverables.filter(function(d){ return d.phase === phase; });
+    if(!pd.length) return;
+    var pc = phCfg[phase];
+    h += '<div style="margin:20px 0 8px;padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;';
+    h += 'color:' + pc.color + ';border-left:3px solid ' + pc.color + ';background:' + pc.color + '18;border-radius:0 10px 10px 0;display:flex;align-items:center;gap:10px">';
+    h += pc.label + ' <span style="font-weight:400;text-transform:none;font-size:10px;opacity:.6">' + pc.desc + '</span></div>';
+
+    pd.forEach(function(d, i){
+      var tc = tCol(d.type);
+      var bg = i % 2 === 0 ? 'rgba(255,255,255,.012)' : 'transparent';
+      h += '<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:10px;background:' + bg + ';margin-bottom:4px;flex-wrap:wrap">';
+      h += '<div style="font-size:9px;font-weight:700;color:var(--text-secondary);padding-top:3px;min-width:92px;letter-spacing:.4px">' + escHtml(d.projectNum) + '</div>';
+      h += '<div style="flex:1;min-width:200px">';
+      h += '<div style="font-size:13.5px;font-weight:600;color:var(--text-primary);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
+      h += escHtml(d.project);
+      if(d.projectUrl){
+        h += ' <a href="' + escAttr(d.projectUrl) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()"';
+        h += ' style="font-size:10px;padding:2px 8px;border-radius:5px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);text-decoration:none;font-weight:600">';
+        h += '\uD83D\uDCC1 Folder</a>';
+      }
+      h += '</div>';
+      if(d.details){
+        var snippet = d.details.length > 130 ? d.details.substring(0,130) + '\u2026' : d.details;
+        h += '<div style="font-size:11.5px;color:var(--text-secondary);line-height:1.55">' + escHtml(snippet) + '</div>';
+      }
+      if(d.requestor){
+        h += '<div style="font-size:10px;color:var(--orange);margin-top:5px;font-weight:500">From: ' + escHtml(d.requestor);
+        if(d.received) h += ' &middot; ' + escHtml(d.received);
+        h += '</div>';
+      }
+      h += '</div>';
+      h += '<span style="padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;background:' + tc + '18;color:' + tc + ';white-space:nowrap;flex-shrink:0;margin-top:2px">' + escHtml(d.type) + '</span>';
+      h += '<div style="flex-shrink:0;margin-top:1px">' + statusPill(d.status) + '</div>';
+      h += '</div>';
     });
   });
-  h+=`<div style="margin-top:16px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--text-secondary)'">↗ Edit in Google Sheets</a></div>`;
+
+  h += '<div style="margin-top:16px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/' + GS_CONFIG.sheetId + '/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none">\u2197 Edit in Google Sheets</a></div>';
   return h;
 }
 
-/* IMPORTANT FILES */
+/* ═══════════════════════════════════════════
+   IMPORTANT FILES
+═══════════════════════════════════════════ */
 function renderFiles(rows){
-  const files=rows.filter(r=>r&&String(r[0]||'').trim());
-  let h=`<div style="font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6">Key project documents and references — all linked to Google Drive. Click any card to open.</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">`;
-  files.forEach(r=>{
-    const name=String(r[0]||'').trim();
-    const {url}=parseHyperlink(String(r[1]||''));
-    const icon=fileIcon(url);
-    const hasLink=!!url;
-    h+=`<div style="background:var(--card-bg);border:1px solid ${hasLink?'rgba(232,98,26,.15)':'var(--card-border)'};border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;gap:18px;transition:all .25s;${hasLink?'cursor:pointer':''}" ${hasLink?'onclick="window.open(\''+escAttr(url)+'\',\'_blank\')"':''} onmouseover="this.style.borderColor='rgba(232,98,26,.3)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='${hasLink?'rgba(232,98,26,.15)':'rgba(255,255,255,.06)'}';this.style.transform='none'">
-      <div style="width:54px;height:54px;border-radius:14px;background:rgba(232,98,26,.1);display:flex;align-items:center;justify-content:center;font-size:28px">${icon}</div>
-      <div><div style="font-size:17px;font-weight:700;color:var(--text-primary);margin-bottom:5px">${escHtml(name)}</div><div style="font-size:11.5px;color:var(--text-secondary)">${hasLink?'Google Drive document':'No link attached'}</div></div>
-      <div style="margin-top:auto">${hasLink?'<a href="'+escAttr(url)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:600;text-decoration:none;transition:background .2s" onmouseover="this.style.background=\'rgba(232,98,26,.2)\'" onmouseout="this.style.background=\'rgba(232,98,26,.1)\'">Open Document ↗</a>':'<div style="font-size:11px;color:var(--text-secondary);text-align:center;padding:10px;border:1px dashed rgba(255,255,255,.08);border-radius:8px">Link not yet available</div>'}</div>
-    </div>`;
+  var files = rows.filter(function(r){ return r && String(r[0]||'').trim(); });
+  var h = '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6">Key project documents and references. Click any card to open.</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">';
+
+  files.forEach(function(r){
+    var name    = String(r[0]||'').trim();
+    var parsed  = parseHyperlink(String(r[1]||''));
+    var url     = parsed.url;
+    var icon    = fileIcon(url);
+    var hasLink = !!url;
+
+    h += '<div style="background:var(--card-bg);border:1px solid ';
+    h += hasLink ? 'rgba(232,98,26,.15)' : 'var(--card-border)';
+    h += ';border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;gap:18px;transition:all .25s">';
+    h += '<div style="width:54px;height:54px;border-radius:14px;background:rgba(232,98,26,.1);display:flex;align-items:center;justify-content:center;font-size:28px">' + icon + '</div>';
+    h += '<div><div style="font-size:17px;font-weight:700;color:var(--text-primary);margin-bottom:5px">' + escHtml(name) + '</div>';
+    h += '<div style="font-size:11.5px;color:var(--text-secondary)">' + (hasLink ? 'Google Drive document' : 'No link attached') + '</div></div>';
+    h += '<div style="margin-top:auto">';
+    if(hasLink){
+      h += '<a href="' + escAttr(url) + '" target="_blank" rel="noopener"';
+      h += ' style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;';
+      h += 'background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);';
+      h += 'font-size:12px;font-weight:600;text-decoration:none">';
+      h += 'Open Document \u2197</a>';
+    } else {
+      h += '<div style="font-size:11px;color:var(--text-secondary);text-align:center;padding:10px;border:1px dashed rgba(255,255,255,.08);border-radius:8px">Link not yet available</div>';
+    }
+    h += '</div></div>';
   });
-  h+=`</div><div style="margin-top:16px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--text-secondary)'">↗ Add files in Google Sheets</a></div>`;
+
+  h += '</div>';
+  h += '<div style="margin-top:16px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/' + GS_CONFIG.sheetId + '/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none">\u2197 Add files in Google Sheets</a></div>';
   return h;
 }
 
-/* INVOICING */
+/* ═══════════════════════════════════════════
+   INVOICING
+═══════════════════════════════════════════ */
 function renderInvoicing(rows){
-  const invoices=[],docLinks={};
-  rows.forEach(r=>{
-    if(!r||!r[0])return;
-    const key=String(r[0]).trim(),kl=key.toLowerCase();
-    if(kl==='po'||kl==='quotation'){const{url}=parseHyperlink(String(r[1]||''));if(url)docLinks[key]=url;return;}
-    if(kl==='invoice'||kl==='retainer')return;
-    if(!isNaN(key)||key.match(/^inv/i))invoices.push({num:key,date:String(r[1]||''),term:String(r[2]||''),status:String(r[3]||'').trim()});
+  var invoices = [], docLinks = {};
+  rows.forEach(function(r){
+    if(!r || !r[0]) return;
+    var key = String(r[0]).trim();
+    var kl  = key.toLowerCase();
+    if(kl === 'po' || kl === 'quotation'){
+      var p = parseHyperlink(String(r[1]||''));
+      if(p.url) docLinks[key] = p.url;
+      return;
+    }
+    if(kl === 'invoice' || kl === 'retainer') return;
+    if(!isNaN(key) || key.match(/^inv/i)){
+      invoices.push({num:key, date:String(r[1]||''), term:String(r[2]||''), status:String(r[3]||'').trim()});
+    }
   });
-  let h='';
-  const docEntries=Object.entries(docLinks);
-  if(docEntries.length)h+=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;padding:16px 20px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-right:4px">Project Documents</div>${docEntries.map(([n,u])=>openBtn(u,n)).join('')}</div>`;
-  h+=`<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:14px">Retainer Invoices</div>`;
-  if(!invoices.length)h+=`<div style="text-align:center;padding:48px;color:var(--text-secondary);font-size:13px">No invoices recorded yet.</div>`;
-  else invoices.forEach((inv,i)=>{
-    const isPending=!inv.status;
-    h+=`<div style="background:var(--card-bg);border:1px solid ${isPending?'var(--card-border)':'rgba(232,98,26,.14)'};border-radius:14px;padding:22px 26px;margin-bottom:10px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(232,98,26,.25)'" onmouseout="this.style.borderColor='${isPending?'rgba(255,255,255,.06)':'rgba(232,98,26,.14)'}'">
-      <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:4px">Invoice</div><div style="font-size:32px;font-weight:700;color:var(--orange);line-height:1">${escHtml(inv.num)}</div></div>
-      <div style="flex:1;min-width:140px"><div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:4px">${escHtml(inv.date)}</div><div style="font-size:12px;color:var(--text-secondary)">${escHtml(inv.term)}</div></div>
-      ${statusPill(inv.status||'Pending')}
-    </div>`;
-  });
-  h+=`<div style="margin-top:12px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--text-secondary)'">↗ Update in Google Sheets</a></div>`;
+
+  var h = '';
+
+  /* Document links */
+  var docEntries = Object.keys(docLinks);
+  if(docEntries.length > 0){
+    h += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;padding:16px 20px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px">';
+    h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-right:4px">Project Documents</div>';
+    docEntries.forEach(function(name){ h += openBtn(docLinks[name], name); });
+    h += '</div>';
+  }
+
+  h += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);margin-bottom:14px">Retainer Invoices</div>';
+
+  if(!invoices.length){
+    h += '<div style="text-align:center;padding:48px;color:var(--text-secondary);font-size:13px">No invoices recorded yet.</div>';
+  } else {
+    invoices.forEach(function(inv){
+      var isPending = !inv.status;
+      var bdr = isPending ? 'var(--card-border)' : 'rgba(232,98,26,.14)';
+      h += '<div style="background:var(--card-bg);border:1px solid ' + bdr + ';border-radius:14px;padding:22px 26px;margin-bottom:10px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">';
+      h += '<div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:4px">Invoice</div>';
+      h += '<div style="font-size:32px;font-weight:700;color:var(--orange);line-height:1">' + escHtml(inv.num) + '</div></div>';
+      h += '<div style="flex:1;min-width:140px">';
+      h += '<div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:4px">' + escHtml(inv.date) + '</div>';
+      h += '<div style="font-size:12px;color:var(--text-secondary)">' + escHtml(inv.term) + '</div></div>';
+      h += statusPill(inv.status || 'Pending');
+      h += '</div>';
+    });
+  }
+
+  h += '<div style="margin-top:12px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/' + GS_CONFIG.sheetId + '/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none">\u2197 Update in Google Sheets</a></div>';
   return h;
 }
 
-/* THIRD PARTIES */
+/* ═══════════════════════════════════════════
+   THIRD PARTIES
+═══════════════════════════════════════════ */
 function renderThirdParty(rows){
-  const vendors=rows.filter(r=>{if(!r||!r[0])return false;const k=String(r[0]).toLowerCase();return!k.includes('retainer')&&!k.includes('supplier')&&k.trim()!=='';});
-  if(!vendors.length)return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center">
-    <div style="width:68px;height:68px;border-radius:18px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px">🤝</div>
-    <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:8px">No Vendors Added Yet</div>
-    <div style="font-size:13px;color:var(--text-secondary);max-width:380px;line-height:1.65;margin-bottom:24px">Third-party suppliers will appear here as they're added — production houses, freelancers, media buyers, influencers, PR outlets, fabricators.</div>
-    <a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);border-radius:10px;color:var(--orange);font-size:13px;font-weight:600;text-decoration:none">↗ Add Vendors in Google Sheets</a>
-    <div style="margin-top:32px;padding:16px 22px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;max-width:500px;width:100%">
-      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:12px">Will Track</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">${['Supplier','Invoice','Date','Payment Terms','Status'].map(l=>'<span style="padding:4px 12px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--text-secondary)">'+l+'</span>').join('')}</div>
-    </div>
-  </div>`;
-  let h='';
-  vendors.forEach(r=>{
-    const supplier=String(r[0]||'').trim();
-    const inv=parseHyperlink(String(r[1]||''));
-    const date=String(r[2]||'').trim(),term=String(r[3]||'').trim(),status=String(r[4]||'').trim();
-    const initials=supplier.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-    h+=`<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(255,255,255,.1)'" onmouseout="this.style.borderColor='rgba(255,255,255,.06)'">
-      <div style="width:42px;height:42px;border-radius:10px;background:rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--orange);flex-shrink:0">${escHtml(initials)}</div>
-      <div style="flex:1;min-width:140px"><div style="font-size:14px;font-weight:600;color:var(--text-primary)">${escHtml(supplier)}</div>${date?'<div style="font-size:12px;color:var(--text-secondary);margin-top:2px">'+escHtml(date)+(term?' · '+escHtml(term):'')+'</div>':''}</div>
-      ${inv.url?openBtn(inv.url,'Invoice'):''}
-      ${status?statusPill(status):''}
-    </div>`;
+  var vendors = rows.filter(function(r){
+    if(!r || !r[0]) return false;
+    var k = String(r[0]).toLowerCase();
+    return k.indexOf('retainer') === -1 && k.indexOf('supplier') === -1 && k.trim() !== '';
   });
-  h+=`<div style="margin-top:12px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none">↗ Manage in Google Sheets</a></div>`;
+
+  if(!vendors.length){
+    var h = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center">';
+    h += '<div style="width:68px;height:68px;border-radius:18px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px">\uD83E\uDD1D</div>';
+    h += '<div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:8px">No Vendors Added Yet</div>';
+    h += '<div style="font-size:13px;color:var(--text-secondary);max-width:380px;line-height:1.65;margin-bottom:24px">Third-party suppliers will appear here as they\'re added &mdash; production houses, freelancers, media buyers, influencers, PR outlets, fabricators.</div>';
+    h += '<a href="https://docs.google.com/spreadsheets/d/' + GS_CONFIG.sheetId + '/edit" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);border-radius:10px;color:var(--orange);font-size:13px;font-weight:600;text-decoration:none">\u2197 Add Vendors in Google Sheets</a>';
+    h += '<div style="margin-top:32px;padding:16px 22px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;max-width:500px;width:100%">';
+    h += '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:12px">Will Track</div>';
+    h += '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">';
+    ['Supplier','Invoice','Date','Payment Terms','Status'].forEach(function(label){
+      h += '<span style="padding:4px 12px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--text-secondary)">' + label + '</span>';
+    });
+    h += '</div></div></div>';
+    return h;
+  }
+
+  var h = '';
+  vendors.forEach(function(r){
+    var supplier = String(r[0]||'').trim();
+    var invParsed = parseHyperlink(String(r[1]||''));
+    var date   = String(r[2]||'').trim();
+    var term   = String(r[3]||'').trim();
+    var status = String(r[4]||'').trim();
+    var initials = supplier.split(' ').map(function(w){ return w[0]||''; }).join('').substring(0,2).toUpperCase();
+
+    h += '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">';
+    h += '<div style="width:42px;height:42px;border-radius:10px;background:rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--orange);flex-shrink:0">' + escHtml(initials) + '</div>';
+    h += '<div style="flex:1;min-width:140px">';
+    h += '<div style="font-size:14px;font-weight:600;color:var(--text-primary)">' + escHtml(supplier) + '</div>';
+    if(date){
+      h += '<div style="font-size:12px;color:var(--text-secondary);margin-top:2px">' + escHtml(date);
+      if(term) h += ' &middot; ' + escHtml(term);
+      h += '</div>';
+    }
+    h += '</div>';
+    if(invParsed.url) h += openBtn(invParsed.url, 'Invoice');
+    if(status) h += statusPill(status);
+    h += '</div>';
+  });
+
+  h += '<div style="margin-top:12px;text-align:right"><a href="https://docs.google.com/spreadsheets/d/' + GS_CONFIG.sheetId + '/edit" target="_blank" rel="noopener" style="font-size:11px;color:var(--text-secondary);text-decoration:none">\u2197 Manage in Google Sheets</a></div>';
   return h;
 }
-
 
 
 /* ── Hook into existing tab switcher ── */
