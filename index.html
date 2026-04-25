@@ -2263,11 +2263,34 @@ function renderSheetContent(tabId, sheetName, rows, links, el){
   else if(tabId==='gs-thirdparty')  el.innerHTML = renderThirdParty(rows, links);
 }
 
-/* Helper: get URL from cell — checks links metadata first, then HYPERLINK formula fallback */
+/* ── Link helpers ── */
+
+/* Get URL from a specific cell */
 function cellUrl(links, rowIdx, colIdx){
-  var fromMeta = (links[rowIdx] || [])[colIdx];
-  if(fromMeta) return fromMeta;
-  return null;
+  return (links[rowIdx] || [])[colIdx] || null;
+}
+
+/* Get ALL links found anywhere in a row — returns [{url, label, colIdx}] */
+function rowLinks(links, rowIdx, rows){
+  var found = [];
+  var linkRow = links[rowIdx] || [];
+  var dataRow = (rows && rows[rowIdx]) || [];
+  linkRow.forEach(function(url, colIdx){
+    if(!url) return;
+    var label = String(dataRow[colIdx] || '').trim();
+    // Skip if label is just a number, empty, or a status word — those aren't link labels
+    if(!label || label === 'Here' || !isNaN(label)) label = null;
+    found.push({ url: url, label: label, colIdx: colIdx });
+  });
+  return found;
+}
+
+/* Render all links in a row as buttons, with smart labels */
+function rowLinkBtns(links, rowIdx, rows, skipCols){
+  skipCols = skipCols || [];
+  var found = rowLinks(links, rowIdx, rows).filter(function(l){ return skipCols.indexOf(l.colIdx) === -1; });
+  if(!found.length) return '';
+  return found.map(function(l){ return openBtn(l.url, l.label || 'Open'); }).join(' ');
 }
 
 /* ═══════════════════════════════════════════
@@ -2300,8 +2323,8 @@ function renderScope(rows, links){
     var r = rows[i] || [];
     var projNum = String(r[2]||'').trim();
     if(projNum.indexOf('MT') !== 0) continue;
-    // col 3 = project name (may have a folder link via Insert>Link)
-    var folderUrl = cellUrl(links, i, 3);
+    // Folder link may be on the Project name (col 3) or Project Number (col 2)
+    var folderUrl = cellUrl(links, i, 3) || (rowLinks(links, i, rows)[0]||{}).url || null;
     var suffix = parseInt(projNum.split('-').pop()) || 0;
     deliverables.push({
       projectNum: projNum,
@@ -2450,7 +2473,12 @@ function renderFiles(rows, links){
   var files = [];
   rows.forEach(function(r, rowIdx){
     if(!r || !String(r[0]||'').trim()) return;
-    files.push({ name: String(r[0]||'').trim(), url: cellUrl(links, rowIdx, 1), rowIdx: rowIdx });
+    // Scan every cell in this row for a hyperlink
+    var allRowLinks = rowLinks(links, rowIdx, rows);
+    var url = allRowLinks.length ? allRowLinks[0].url : null;
+    // If multiple links in a row, collect all
+    var extraLinks = allRowLinks.slice(1);
+    files.push({ name: String(r[0]||'').trim(), url: url, extraLinks: extraLinks, rowIdx: rowIdx });
   });
 
   var h = '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6">Key project documents and references. Click any card to open.</div>';
@@ -2474,6 +2502,18 @@ function renderFiles(rows, links){
       h += 'background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);';
       h += 'font-size:12px;font-weight:600;text-decoration:none">';
       h += 'Open Document \u2197</a>';
+      // Show any additional links found in this row
+      if(f.extraLinks && f.extraLinks.length){
+        h += '<div style="margin-top:8px;display:flex;flex-direction:column;gap:6px">';
+        f.extraLinks.forEach(function(l){
+          h += '<a href="' + escAttr(l.url) + '" target="_blank" rel="noopener"';
+          h += ' style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9px;';
+          h += 'background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--text-secondary);';
+          h += 'font-size:11px;font-weight:500;text-decoration:none">';
+          h += fileIcon(l.url) + ' ' + escHtml(l.label || 'Additional Link') + ' \u2197</a>';
+        });
+        h += '</div>';
+      }
     } else {
       h += '<div style="font-size:11px;color:var(--text-secondary);text-align:center;padding:10px;border:1px dashed rgba(255,255,255,.08);border-radius:8px">Link not yet available</div>';
     }
@@ -2496,14 +2536,22 @@ function renderInvoicing(rows, links){
     var key = String(r[0]).trim();
     var kl  = key.toLowerCase();
     if(kl === 'po' || kl === 'quotation'){
-      // Check cell metadata first, then fall back to cell value
-      var url = cellUrl(links, rowIdx, 1) || String(r[1]||'');
+      // Scan full row for any link
+      var url = (rowLinks(links, rowIdx, rows)[0]||{}).url || String(r[1]||'');
       if(url) docLinks[key] = url;
       return;
     }
     if(kl === 'invoice' || kl === 'retainer') return;
     if(!isNaN(key) || key.match(/^inv/i)){
-      invoices.push({num:key, date:String(r[1]||''), term:String(r[2]||''), status:String(r[3]||'').trim()});
+      // Collect ALL links found anywhere in this invoice row
+      var invLinks = rowLinks(links, rowIdx, rows);
+      invoices.push({
+        num:    key,
+        date:   String(r[1]||''),
+        term:   String(r[2]||''),
+        status: String(r[3]||'').trim(),
+        links:  invLinks
+      });
     }
   });
 
@@ -2533,6 +2581,8 @@ function renderInvoicing(rows, links){
       h += '<div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:4px">' + escHtml(inv.date) + '</div>';
       h += '<div style="font-size:12px;color:var(--text-secondary)">' + escHtml(inv.term) + '</div></div>';
       h += statusPill(inv.status || 'Pending');
+      // Show all links found in this invoice row
+      inv.links.forEach(function(l){ h += openBtn(l.url, l.label || 'View Invoice'); });
       h += '</div>';
     });
   }
@@ -2546,17 +2596,21 @@ function renderInvoicing(rows, links){
 ═══════════════════════════════════════════ */
 function renderThirdParty(rows, links){
   links = links || [];
-  var vendors = rows.filter(function(r){
-    if(!r || !r[0]) return false;
+
+  // Track row indices to look up hyperlinks, filtering out header/section rows
+  var vendorItems = [];
+  rows.forEach(function(r, rowIdx){
+    if(!r || !r[0]) return;
     var k = String(r[0]).toLowerCase();
-    return k.indexOf('retainer') === -1 && k.indexOf('supplier') === -1 && k.trim() !== '';
+    if(k.indexOf('retainer') > -1 || k.indexOf('supplier') > -1 || k.trim() === '') return;
+    vendorItems.push({ r: r, rowIdx: rowIdx });
   });
 
-  if(!vendors.length){
+  if(!vendorItems.length){
     var h = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center">';
     h += '<div style="width:68px;height:68px;border-radius:18px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px">\uD83E\uDD1D</div>';
     h += '<div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:8px">No Vendors Added Yet</div>';
-    h += '<div style="font-size:13px;color:var(--text-secondary);max-width:380px;line-height:1.65;margin-bottom:24px">Third-party suppliers will appear here as they\'re added &mdash; production houses, freelancers, media buyers, influencers, PR outlets, fabricators.</div>';
+    h += '<div style="font-size:13px;color:var(--text-secondary);max-width:380px;line-height:1.65;margin-bottom:24px">Third-party suppliers will appear here as they are added &mdash; production houses, freelancers, media buyers, influencers, PR outlets, fabricators.</div>';
     h += '<a href="https://docs.google.com/spreadsheets/d/' + GS_CONFIG.sheetId + '/edit" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);border-radius:10px;color:var(--orange);font-size:13px;font-weight:600;text-decoration:none">\u2197 Add Vendors in Google Sheets</a>';
     h += '<div style="margin-top:32px;padding:16px 22px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;max-width:500px;width:100%">';
     h += '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:12px">Will Track</div>';
@@ -2569,13 +2623,15 @@ function renderThirdParty(rows, links){
   }
 
   var h = '';
-  vendors.forEach(function(r){
+  vendorItems.forEach(function(item){
+    var r = item.r, rowIdx = item.rowIdx;
     var supplier = String(r[0]||'').trim();
-    var invParsed = parseHyperlink(String(r[1]||''));
     var date   = String(r[2]||'').trim();
     var term   = String(r[3]||'').trim();
     var status = String(r[4]||'').trim();
     var initials = supplier.split(' ').map(function(w){ return w[0]||''; }).join('').substring(0,2).toUpperCase();
+    // Scan all cells in row for hyperlinks
+    var allLinks = rowLinks(links, rowIdx, rows);
 
     h += '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">';
     h += '<div style="width:42px;height:42px;border-radius:10px;background:rgba(232,98,26,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--orange);flex-shrink:0">' + escHtml(initials) + '</div>';
@@ -2587,7 +2643,8 @@ function renderThirdParty(rows, links){
       h += '</div>';
     }
     h += '</div>';
-    if(invParsed.url) h += openBtn(invParsed.url, 'Invoice');
+    // Show every link found in this row as a button
+    allLinks.forEach(function(l){ h += openBtn(l.url, l.label || 'Document'); });
     if(status) h += statusPill(status);
     h += '</div>';
   });
