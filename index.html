@@ -295,6 +295,90 @@
   .tm2-sup-role{font-size:11px;color:var(--text-secondary)}
   @media(max-width:900px){.tm2-layout{grid-template-columns:1fr}.tm2-row{grid-template-columns:repeat(2,1fr)}}
 
+
+
+  /* ═══ MEASUREMENT TAB ═══ */
+  .sw-wrap{overflow-x:auto;padding-bottom:12px}
+  .sw-grid{min-width:900px}
+  .sw-header{display:grid;grid-template-columns:160px repeat(9,1fr);gap:0;margin-bottom:2px}
+  .sw-hcell{padding:8px 6px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary)}
+  .sw-hcell.phase1{color:#F97316;border-bottom:2px solid #F97316}
+  .sw-hcell.phase2{color:#1D4ED8;border-bottom:2px solid #1D4ED8}
+  .sw-hcell.phase3{color:#16A34A;border-bottom:2px solid #16A34A}
+  .sw-hcell.idle{color:var(--card-border);border-bottom:2px solid var(--card-border)}
+  .sw-lane{display:grid;grid-template-columns:160px repeat(9,1fr);gap:0;margin-bottom:3px;align-items:center;min-height:38px}
+  .sw-lane-lbl{padding:6px 10px;font-size:11px;font-weight:700;color:var(--text-primary);background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px 0 0 8px;display:flex;align-items:center;gap:6px}
+  .sw-lane-lbl span{font-size:9px;color:var(--text-secondary);font-weight:400;display:block}
+  .sw-cell{height:38px;border-top:1px solid rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.03);position:relative}
+  .sw-block{position:absolute;inset:4px 2px;border-radius:5px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;cursor:default;transition:opacity .2s}
+  .sw-block:hover{opacity:.85}
+  .sw-block.span2{right:-100%}
+  .sw-block.span3{right:-200%}
+  .sw-block.span5{right:-400%}
+  .sw-idle{background:rgba(255,255,255,.02);border-radius:4px;margin:6px 2px;height:26px}
+
+  .sw-section-row{display:grid;grid-template-columns:160px repeat(9,1fr);gap:0;margin:10px 0 3px}
+  .sw-section-lbl{grid-column:1/-1;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.6);padding:4px 0;border-bottom:1px solid rgba(232,98,26,.1)}
+
+  /* KPI cards */
+  .ms-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+  .ms-phase{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px}
+  .ms-phase-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .ms-kpi-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+  .ms-kpi-row:last-child{border-bottom:none}
+  .ms-kpi-val{font-size:16px;font-weight:700;min-width:48px;flex-shrink:0;color:var(--orange)}
+  .ms-kpi-info{flex:1}
+  .ms-kpi-name{font-size:11.5px;color:var(--text-primary);margin-bottom:2px}
+  .ms-kpi-owner{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+  .ms-philosophy{background:rgba(232,98,26,.05);border:1px solid rgba(232,98,26,.12);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:24px}
+
+  /* ═══ CAMPAIGN ROLLOUT TAB ═══ */
+  .rl-timeline{display:grid;grid-template-columns:repeat(9,1fr);gap:0;margin-bottom:32px;border-radius:12px;overflow:hidden;border:1px solid var(--card-border)}
+  .rl-month{padding:10px 8px;text-align:center;border-right:1px solid var(--card-border);cursor:pointer;transition:all .2s}
+  .rl-month:last-child{border-right:none}
+  .rl-month:hover{background:rgba(255,255,255,.04)}
+  .rl-month.active{background:rgba(232,98,26,.08);border-bottom:2px solid var(--orange)}
+  .rl-m-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:4px}
+  .rl-m-phase{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:2px 6px;border-radius:4px;display:inline-block}
+  .rl-m-camp{font-size:9px;color:var(--text-secondary);margin-top:3px;line-height:1.3}
+
+  .rl-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+  .rl-phase{border-radius:12px;padding:16px 18px;border:1px solid var(--card-border);background:var(--card-bg)}
+  .rl-phase-num{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .rl-phase-name{font-size:15px;font-weight:700;margin-bottom:2px}
+  .rl-phase-months{font-size:11px;color:var(--text-secondary)}
+
+  .rl-campaigns{display:flex;flex-direction:column;gap:8px}
+  .rl-camp{border-radius:12px;overflow:hidden;border:1px solid var(--card-border);background:var(--card-bg);transition:border-color .2s}
+  .rl-camp.o{border-color:rgba(232,98,26,.15)}
+  .rl-camp-h{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none}
+  .rl-camp-h:hover{background:rgba(255,255,255,.02)}
+  .rl-camp-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+  .rl-camp-meta{flex:1}
+  .rl-camp-title{font-size:14px;font-weight:600;margin-bottom:2px}
+  .rl-camp-sub{font-size:11px;color:var(--text-secondary)}
+  .rl-camp-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;flex-shrink:0}
+  .rl-camp-bd{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .rl-camp.o .rl-camp-bd{max-height:2000px}
+  .rl-camp.o .sb-c{transform:rotate(180deg)}
+  .rl-camp-in{padding:0 20px 20px}
+
+  .rl-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .rl-col-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .rl-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+  .rl-item:last-child{border-bottom:none}
+  .rl-item-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+  .rl-item-text{font-size:11.5px;color:var(--text-secondary);line-height:1.4;flex:1}
+  .rl-item-scope{font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px}
+
+  .rl-kpis{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.05)}
+  .rl-kpi-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(232,98,26,.7);margin-bottom:8px}
+  .rl-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .rl-kpi-card{background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border:1px solid rgba(255,255,255,.05)}
+  .rl-kpi-val{font-size:13px;font-weight:700;color:var(--orange);margin-bottom:2px}
+  .rl-kpi-name{font-size:10px;color:var(--text-secondary);line-height:1.3}
+  .rl-kpi-owner{font-size:9px;font-weight:600;margin-top:4px}
+
   /* ═══ TAKEAWAYS ═══ */
   .tg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .tc{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:26px;transition:all .3s}
@@ -312,7 +396,60 @@
   .df{text-align:center;padding:32px;font-size:11px;color:var(--text-secondary);border-top:1px solid var(--card-border);margin-top:32px}
 
   @media(max-width:768px){nav{padding:10px 14px;flex-wrap:wrap;gap:6px}.nt{flex-wrap:wrap}.sec{padding:28px 14px}.mh{flex-direction:column;gap:20px}.mh-r{width:100%}.sc{flex:1}.ss{grid-template-columns:repeat(3,1fr)}.at-grid{grid-template-columns:1fr}.tg{grid-template-columns:1fr}.og{grid-template-columns:1fr}}
+
+  .ntb.gs-tab{border-left:1px solid rgba(232,98,26,.2)}
+  .ntb.gs-tab::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.5;display:inline-block;margin-right:5px;vertical-align:middle}
+  .ntb.gs-tab.a::before{opacity:1;box-shadow:0 0 6px rgba(232,98,26,.6)}
+  /* ═══ GOOGLE SHEETS INTEGRATION ═══ */
+  .gs-auth-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 22px;background:rgba(232,98,26,.05);border:1px solid rgba(232,98,26,.15);border-radius:12px;margin-bottom:24px;flex-wrap:wrap}
+  .gs-auth-bar p{font-size:13px;color:var(--text-secondary);margin:0}
+  .gs-signin-btn{display:inline-flex;align-items:center;gap:9px;padding:10px 20px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .2s;white-space:nowrap;flex-shrink:0}
+  .gs-signin-btn:hover{opacity:.85}
+  .gs-user-bar{display:none;align-items:center;gap:12px;padding:10px 16px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.18);border-radius:10px;margin-bottom:22px}
+  .gs-user-bar.on{display:flex}
+  .gs-user-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 8px rgba(52,211,153,.5)}
+  .gs-user-name{font-size:12px;color:var(--green);font-weight:600;flex:1}
+  .gs-signout-btn{padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--card-border);color:var(--text-secondary);font-size:11px;cursor:pointer;transition:background .2s}
+  .gs-signout-btn:hover{background:rgba(255,255,255,.08)}
+  .gs-refresh-btn{padding:5px 12px;border-radius:6px;background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.15);color:var(--orange);font-size:11px;cursor:pointer;font-weight:600;transition:background .2s}
+  .gs-refresh-btn:hover{background:rgba(232,98,26,.15)}
+
+  /* Table renderer */
+  .sh-tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--card-border);background:var(--card-bg)}
+  .sh-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+  .sh-tbl th{padding:11px 14px;background:rgba(232,98,26,.08);color:var(--orange);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;text-align:left;border-bottom:1px solid rgba(232,98,26,.15);white-space:nowrap;position:sticky;top:0}
+  .sh-tbl td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-primary);vertical-align:middle;line-height:1.5}
+  .sh-tbl tr:last-child td{border-bottom:none}
+  .sh-tbl tr:hover td{background:rgba(255,255,255,.025)}
+  .sh-tbl a{color:var(--orange);text-decoration:none;display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:6px;background:rgba(232,98,26,.07);border:1px solid rgba(232,98,26,.12);font-size:11px;font-weight:600;transition:all .2s;white-space:nowrap}
+  .sh-tbl a:hover{background:rgba(232,98,26,.14)}
+
+  /* Status pills auto-detected */
+  .sh-tbl td[data-status="paid"],.sh-tbl td[data-s="paid"]{color:#34D399}
+  .sh-tbl td[data-status="pending"],.sh-tbl td[data-s="pending"]{color:var(--orange)}
+  .sh-tbl td[data-status="overdue"],.sh-tbl td[data-s="overdue"]{color:#EF4444}
+  .sh-pill{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .sh-pill-green{background:rgba(52,211,153,.12);color:#34D399}
+  .sh-pill-orange{background:rgba(232,98,26,.12);color:var(--orange)}
+  .sh-pill-red{background:rgba(239,68,68,.12);color:#EF4444}
+  .sh-pill-yellow{background:rgba(251,191,36,.12);color:#FBBF24}
+  .sh-pill-blue{background:rgba(99,102,241,.12);color:#818CF8}
+  .sh-pill-gray{background:rgba(255,255,255,.06);color:var(--text-secondary)}
+
+  /* Loading / locked states */
+  .sh-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 20px;gap:16px;text-align:center}
+  .sh-spinner{width:34px;height:34px;border:2px solid rgba(232,98,26,.2);border-top-color:var(--orange);border-radius:50%;animation:sh-spin .8s linear infinite}
+  @keyframes sh-spin{to{transform:rotate(360deg)}}
+  .sh-state p{color:var(--text-secondary);font-size:13px;max-width:340px;line-height:1.6}
+  .sh-state .sh-icon{font-size:36px;opacity:.35}
+  .sh-meta{display:flex;gap:20px;margin-bottom:18px;flex-wrap:wrap}
+  .sh-meta-card{padding:14px 18px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;flex:1;min-width:160px}
+  .sh-meta-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:4px}
+  .sh-meta-val{font-size:18px;font-weight:700;color:var(--orange)}
+  .sh-meta-sub{font-size:11px;color:var(--text-secondary);margin-top:2px}
+  .sh-section-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.6);padding:14px 0 6px;border-bottom:1px solid rgba(232,98,26,.1);margin-bottom:10px}
 </style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -379,7 +516,14 @@
     <div class="ntb" data-tab="scope">Scope</div>
     <div class="ntb" data-tab="workplan">Work Plan</div>
     <div class="ntb" data-tab="direction">Direction Review</div>
+    <div class="ntb" data-tab="rollout">Campaign Rollout</div>
+    <div class="ntb" data-tab="fulltimeline">Rollout Timeline</div>
+    <div class="ntb" data-tab="measurement">Measurement</div>
     <div class="ntb" data-tab="takeaways">Key Takeaways</div>
+    <div class="ntb gs-tab" data-tab="gs-scope">📊 Scope Tracker</div>
+    <div class="ntb gs-tab" data-tab="gs-files">📁 Files</div>
+    <div class="ntb gs-tab" data-tab="gs-invoicing">🧾 Invoicing</div>
+    <div class="ntb gs-tab" data-tab="gs-thirdparty">🤝 3rd Parties</div>
   </div>
 </nav>
 
@@ -608,6 +752,11 @@
     <div class="ph-block-bd">
       <div class="ph-block-in">
 
+        <div class="ph-sub-label">Key Visuals</div>
+        <div class="sl">
+          <div class="sr"><div class="sd"></div><div class="si"><div class="sn">Campaign Key Visual System</div><div class="sdesc">Hero visual + visual system (color, type, texture, motion elements) + channel adaptations — master reference for all campaign design</div></div><div class="sq">1</div></div>
+        </div>
+
         <div class="ph-sub-label">Strategy & Concept</div>
         <div class="sl">
           <div class="sr"><div class="sd"></div><div class="si"><div class="sn">Overarching Campaign Concept</div><div class="sdesc">Core idea, tagline framework, messaging pillars, visual identity direction</div></div><div class="sq">1</div></div>
@@ -736,6 +885,842 @@
   </div>
 
 </div>
+
+
+<!-- TAB ROLLOUT -->
+<div class="sec" id="rollout">
+  <div class="sh"><h2><span class="n">—</span>Campaign Rollout Plan</h2><p>180-day delivery plan — Mad Tomato deliverables mapped to Bahri's 5-campaign calendar.</p></div>
+
+  <!-- Phase summary -->
+  <div class="rl-phases">
+    <div class="rl-phase">
+      <div class="rl-phase-num" style="color:#F97316">Phase 1 — Launch</div>
+      <div class="rl-phase-name">April – May 2026</div>
+      <div class="rl-phase-months">Weeks 1–6 · Hero Film + Campaign 1 · Internal first, External May 15</div>
+    </div>
+    <div class="rl-phase">
+      <div class="rl-phase-num" style="color:#1D4ED8">Phase 2 — Deepen</div>
+      <div class="rl-phase-name">June – September 2026</div>
+      <div class="rl-phase-months">Weeks 7–22 · BU Spotlights × 4 campaigns · BSM → BOT/BCP/BL/Bli/BA → BDB+Marine</div>
+    </div>
+    <div class="rl-phase">
+      <div class="rl-phase-num" style="color:#16A34A">Phase 3 — Sustain</div>
+      <div class="rl-phase-name">October – November 2026</div>
+      <div class="rl-phase-months">Weeks 23–30 · ESG Campaign + Experiential Concepts</div>
+    </div>
+  </div>
+
+  <!-- Campaigns -->
+  <div class="rl-campaigns">
+
+    <!-- C1 -->
+    <div class="rl-camp" id="rlc1">
+      <div class="rl-camp-h" onclick="this.closest('.rl-camp').classList.toggle('o')">
+        <div class="rl-camp-num" style="background:#F97316">01</div>
+        <div class="rl-camp-meta">
+          <div class="rl-camp-title">Theme Launch</div>
+          <div class="rl-camp-sub">May 2026 · Q2 M5 · Laws of Bahri · Campaign Activation</div>
+        </div>
+        <div class="rl-camp-badge" style="background:rgba(249,115,22,.12);color:#F97316">Phase 1</div>
+        <span class="sb-c">▼</span>
+      </div>
+      <div class="rl-camp-bd"><div class="rl-camp-in">
+        <div class="rl-cols">
+          <div>
+            <div class="rl-col-lbl" style="color:#1E40AF">Internal</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Employee Engagement Guide</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">CEO Theme Announcement — Internal Portal</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Company-wide Email — Copy + Design</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Internal Screens Content ×3</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Laptop Screen Saver</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Printed Materials / Posters</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">On-ground Event — Concept + Materials</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+          </div>
+          <div>
+            <div class="rl-col-lbl" style="color:#9A3412">External</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Main Campaign Video — Hero Film 60s</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Hero Video Launch Posts ×2 (EN+AR)</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Theme Announcement Posts ×2 (EN+AR)</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">CEO LinkedIn Post</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Website Theme Banner + Landing Page</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Partners Engagement Posts + Toolkit ≤3</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Email Marketing — External Clients</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#DC2626"></div><div class="rl-item-text">Public On-ground Activation — Execution</div><div class="rl-item-scope" style="color:#DC2626">✗</div></div>
+          </div>
+        </div>
+        <div class="rl-kpis">
+          <div class="rl-kpi-lbl">Phase 1 KPIs</div>
+          <div class="rl-kpi-grid">
+            <div class="rl-kpi-card"><div class="rl-kpi-val">+100K</div><div class="rl-kpi-name">Hero Film Organic Views — first 7 days</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>4%</div><div class="rl-kpi-name">LinkedIn Engagement Rate (industry avg. ~2%)</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">+30%</div><div class="rl-kpi-name">Website Traffic Uplift vs. Baseline</div><div class="rl-kpi-owner" style="color:#B45309">Advisory</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>60%</div><div class="rl-kpi-name">Internal Adoption — employees watched film</div><div class="rl-kpi-owner" style="color:#B45309">Advisory</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">5+</div><div class="rl-kpi-name">Earned Media Mentions — Theme Launch</div><div class="rl-kpi-owner" style="color:#1D4ED8">Shared</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">—</div><div class="rl-kpi-name">Paid Media Reach — per media plan</div><div class="rl-kpi-owner" style="color:#B45309">Advisory</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- C2 -->
+    <div class="rl-camp" id="rlc2">
+      <div class="rl-camp-h" onclick="this.closest('.rl-camp').classList.toggle('o')">
+        <div class="rl-camp-num" style="background:#1D4ED8">02</div>
+        <div class="rl-camp-meta">
+          <div class="rl-camp-title">BSM Spotlight</div>
+          <div class="rl-camp-sub">Jun 2026 · Q3 M6 · Continuity Impact</div>
+        </div>
+        <div class="rl-camp-badge" style="background:rgba(29,78,216,.12);color:#1D4ED8">Phase 2</div>
+        <span class="sb-c">▼</span>
+      </div>
+      <div class="rl-camp-bd"><div class="rl-camp-in">
+        <div class="rl-cols">
+          <div>
+            <div class="rl-col-lbl" style="color:#1E40AF">Internal</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Leadership Clip — BSM + Company Email</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Internal Screens — BSM Video</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BSM Spotlight — Internal Portal</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Laptop Screen Saver — Campaign Visual</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+          </div>
+          <div>
+            <div class="rl-col-lbl" style="color:#9A3412">External</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Leadership Video + Crew Stories Post</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BU Infographic + Proof Point Post</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BU Page Messaging Copy — BSM</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Email Marketing — External Clients</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#DC2626"></div><div class="rl-item-text">Tech Talk Trade Arabia + Al Riyadh Ads</div><div class="rl-item-scope" style="color:#DC2626">✗</div></div>
+          </div>
+        </div>
+        <div class="rl-kpis">
+          <div class="rl-kpi-lbl">Phase 2 KPIs (per BU campaign)</div>
+          <div class="rl-kpi-grid">
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>500</div><div class="rl-kpi-name">BU Content Saves + Shares (LinkedIn)</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>40%</div><div class="rl-kpi-name">B2B Audience Share of Engagements</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>25%</div><div class="rl-kpi-name">External Client Email Open Rate</div><div class="rl-kpi-owner" style="color:#B45309">Advisory</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- C3 -->
+    <div class="rl-camp" id="rlc3">
+      <div class="rl-camp-h" onclick="this.closest('.rl-camp').classList.toggle('o')">
+        <div class="rl-camp-num" style="background:#7C3AED">03</div>
+        <div class="rl-camp-meta">
+          <div class="rl-camp-title">BOT · BCP · BL · Bli · BA Spotlight</div>
+          <div class="rl-camp-sub">Aug 2026 · Q3 M8 · Industries & Economies Impact</div>
+        </div>
+        <div class="rl-camp-badge" style="background:rgba(124,58,237,.12);color:#7C3AED">Phase 2</div>
+        <span class="sb-c">▼</span>
+      </div>
+      <div class="rl-camp-bd"><div class="rl-camp-in">
+        <div class="rl-cols">
+          <div>
+            <div class="rl-col-lbl" style="color:#1E40AF">Internal</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Leadership Clips ×5 + Company Email</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Internal Screens — BU Videos ×5</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BU Spotlights — Internal Portal ×5</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Laptop Screen Saver — Campaign Visual</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+          </div>
+          <div>
+            <div class="rl-col-lbl" style="color:#9A3412">External</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Leadership Videos + Infographics ×5</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Proof Point Posts ×5</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BU Page Messaging Copy ×5</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Email Marketing — External Clients</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#DC2626"></div><div class="rl-item-text">Arab News / Lloyds List / Chemical Week</div><div class="rl-item-scope" style="color:#DC2626">✗</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- C4 -->
+    <div class="rl-camp" id="rlc4">
+      <div class="rl-camp-h" onclick="this.closest('.rl-camp').classList.toggle('o')">
+        <div class="rl-camp-num" style="background:#0891B2">04</div>
+        <div class="rl-camp-meta">
+          <div class="rl-camp-title">BDB · Bahri Marine Spotlight</div>
+          <div class="rl-camp-sub">Sep 2026 · Q3 M9 · Life & Populations Impact</div>
+        </div>
+        <div class="rl-camp-badge" style="background:rgba(8,145,178,.12);color:#0891B2">Phase 2</div>
+        <span class="sb-c">▼</span>
+      </div>
+      <div class="rl-camp-bd"><div class="rl-camp-in">
+        <div class="rl-cols">
+          <div>
+            <div class="rl-col-lbl" style="color:#1E40AF">Internal</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Leadership Clips ×2 + Company Email</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Internal Screens — BDB + Marine Video</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BDB + Marine Spotlight — Internal Portal</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Laptop Screen Saver — Campaign Visual</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+          </div>
+          <div>
+            <div class="rl-col-lbl" style="color:#9A3412">External</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Leadership Videos + Guinness + Food Security</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Proof Point Posts ×2</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">BU Page Messaging Copy ×2</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Email Marketing — External Clients</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#DC2626"></div><div class="rl-item-text">Water World/MEED · Al Eqtisadiah · The Business Year</div><div class="rl-item-scope" style="color:#DC2626">✗</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- C5 -->
+    <div class="rl-camp" id="rlc5">
+      <div class="rl-camp-h" onclick="this.closest('.rl-camp').classList.toggle('o')">
+        <div class="rl-camp-num" style="background:#16A34A">05</div>
+        <div class="rl-camp-meta">
+          <div class="rl-camp-title">ESG Campaign</div>
+          <div class="rl-camp-sub">Nov 2026 · Q4 M11 · Sustainability Impact</div>
+        </div>
+        <div class="rl-camp-badge" style="background:rgba(22,163,74,.12);color:#16A34A">Phase 3</div>
+        <span class="sb-c">▼</span>
+      </div>
+      <div class="rl-camp-bd"><div class="rl-camp-in">
+        <div class="rl-cols">
+          <div>
+            <div class="rl-col-lbl" style="color:#1E40AF">Internal</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">ESG Email — Company-wide</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Internal Screens — ESG Initiatives</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">ESG Spotlight — Internal Portal</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Laptop Screen Saver — ESG Visual</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+          </div>
+          <div>
+            <div class="rl-col-lbl" style="color:#9A3412">External</div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#F59E0B"></div><div class="rl-item-text">ESG Content Series ≤6 (contingent on data)</div><div class="rl-item-scope" style="color:#F59E0B">⚠</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#16A34A"></div><div class="rl-item-text">Email Marketing — External Clients</div><div class="rl-item-scope" style="color:#16A34A">✓</div></div>
+            <div class="rl-item"><div class="rl-item-dot" style="background:#DC2626"></div><div class="rl-item-text">ESG News ME Published Interview</div><div class="rl-item-scope" style="color:#DC2626">✗</div></div>
+          </div>
+        </div>
+        <div class="rl-kpis">
+          <div class="rl-kpi-lbl">Phase 3 KPIs</div>
+          <div class="rl-kpi-grid">
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>3%</div><div class="rl-kpi-name">ESG Content Engagement Rate</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">>80%</div><div class="rl-kpi-name">Campaign Sentiment Score (positive)</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+            <div class="rl-kpi-card"><div class="rl-kpi-val">+15%</div><div class="rl-kpi-name">Cumulative Organic Follower Growth</div><div class="rl-kpi-owner" style="color:#16A34A">MT</div></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,.06);border-radius:8px;border:1px solid rgba(245,158,11,.15)">
+          <span style="font-size:11px;color:#B45309;font-weight:600">⚠ ESG content is contingent on Bahri providing approved data and validated messaging before October 1, 2026.</span>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div style="margin-top:24px;display:flex;gap:20px;flex-wrap:wrap">
+    <span style="font-size:11px;color:#16A34A;font-weight:600">✓ In Scope</span>
+    <span style="font-size:11px;color:#DC2626;font-weight:600">✗ Out of Scope — Bahri / 3rd party</span>
+    <span style="font-size:11px;color:#F59E0B;font-weight:600">⚠ Contingent</span>
+    <span style="font-size:11px;color:#16A34A;font-weight:600">MT = Mad Tomato owns KPI</span>
+    <span style="font-size:11px;color:#B45309;font-weight:600">Advisory = Bahri owns, MT guides</span>
+  </div>
+</div>
+
+
+<!-- TAB MEASUREMENT -->
+<div class="sec" id="measurement">
+  <div class="sh">
+    <h2><span class="n">—</span>Campaign Measurement</h2>
+    <p>KPI framework + production swimlane — 9 months, 5 campaigns, full team visibility.</p>
+  </div>
+
+  <!-- Philosophy -->
+  <div class="ms-philosophy">
+    <strong style="font-size:13px;color:var(--orange)">Measurement Philosophy</strong>
+    <p style="font-size:12px;color:var(--text-secondary);margin-top:6px;line-height:1.6">
+      Mad Tomato owns all organic and content performance metrics. Paid media KPIs are tracked by Bahri and the media buyer — Mad Tomato plays an <strong style="color:var(--orange)">advisory role only</strong>, guiding strategy without carrying responsibility for paid outcomes.
+    </p>
+  </div>
+
+  <!-- KPIs by phase -->
+  <div class="sh"><h2 style="font-size:18px"><span class="n">—</span>KPIs by Phase</h2></div>
+  <div class="ms-phases">
+
+    <!-- Phase 1 -->
+    <div class="ms-phase">
+      <div class="ms-phase-hdr" style="color:#F97316">Phase 1 — Launch · May 2026</div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">+100K</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Hero Film Organic Views — first 7 days</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>4%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">LinkedIn Engagement Rate (industry avg. ~2%)</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">+30%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Website Traffic Uplift vs. Baseline</div><div class="ms-kpi-owner" style="color:#B45309">Advisory</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>60%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Internal Adoption — employees watched film</div><div class="ms-kpi-owner" style="color:#B45309">Advisory</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">5+</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Earned Media Mentions — Theme Launch</div><div class="ms-kpi-owner" style="color:#1D4ED8">Shared</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">—</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Paid Media Reach — per media plan</div><div class="ms-kpi-owner" style="color:#B45309">Advisory</div></div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="ms-phase">
+      <div class="ms-phase-hdr" style="color:#1D4ED8">Phase 2 — Deepen · Jun–Sep 2026</div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>500</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">BU Content Saves + Shares per spotlight</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>40%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">B2B Audience Share of Engagements</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">+20%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Partner Post Reach vs. non-partner</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>25%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">External Client Email Open Rate</div><div class="ms-kpi-owner" style="color:#B45309">Advisory</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">+20%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Website BU Page Traffic Uplift per BU</div><div class="ms-kpi-owner" style="color:#B45309">Advisory</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">—</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Paid Placement Performance</div><div class="ms-kpi-owner" style="color:#B45309">Advisory</div></div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="ms-phase">
+      <div class="ms-phase-hdr" style="color:#16A34A">Phase 3 — Sustain · Oct–Nov 2026</div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>3%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">ESG Content Engagement Rate</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">>80%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Campaign Sentiment Score — positive</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">+15%</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Cumulative Organic Follower Growth</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">Brand Shift</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Media language: "shipping co." → "global enabler"</div><div class="ms-kpi-owner" style="color:#1D4ED8">Shared</div></div>
+      </div>
+      <div class="ms-kpi-row">
+        <div class="ms-kpi-val">Dec 26</div>
+        <div class="ms-kpi-info"><div class="ms-kpi-name">Check-in 03 — Full Campaign Wrap</div><div class="ms-kpi-owner" style="color:#16A34A">MT</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Swimlane -->
+  <div class="sh"><h2 style="font-size:18px"><span class="n">—</span>Production Swimlane</h2></div>
+  <div class="sw-wrap">
+    <div class="sw-grid">
+
+      <!-- Month headers -->
+      <div class="sw-header">
+        <div class="sw-hcell" style="text-align:left;padding-left:10px">Team</div>
+        <div class="sw-hcell phase1">Apr</div>
+        <div class="sw-hcell phase1">May</div>
+        <div class="sw-hcell phase2">Jun</div>
+        <div class="sw-hcell idle">Jul</div>
+        <div class="sw-hcell phase2">Aug</div>
+        <div class="sw-hcell phase2">Sep</div>
+        <div class="sw-hcell idle">Oct</div>
+        <div class="sw-hcell phase3">Nov</div>
+        <div class="sw-hcell idle">Dec</div>
+      </div>
+
+      <!-- ECD -->
+      <div class="sw-lane">
+        <div class="sw-lane-lbl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          ECD<span>حسام</span>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block span2" style="background:#0A1E3D">Film Direction + Script</div>
+        </div>
+        <div class="sw-cell"></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#1D4ED8">BSM Direction</div>
+        </div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#7C3AED">BOT–BA Direction</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#0891B2">BDB Direction</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">Experiential</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">ESG Direction</div>
+        </div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+      </div>
+
+      <!-- Copywriter -->
+      <div class="sw-lane">
+        <div class="sw-lane-lbl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+          Copywriter<span>Senior</span>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block span2" style="background:#F97316">Script + C1 All Copy</div>
+        </div>
+        <div class="sw-cell"></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#1D4ED8">BSM Copy</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#7C3AED">BOT–BA Copy</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#7C3AED">BOT–BA Copy</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#0891B2">BDB Copy</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">ESG Copy</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">ESG Copy</div>
+        </div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+      </div>
+
+      <!-- Design x2 -->
+      <div class="sw-lane">
+        <div class="sw-lane-lbl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 0 0-7 7c0 3.87 3.13 7 7 7"/></svg>
+          Design<span>×2</span>
+        </div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block span2" style="background:#F97316">C1 All Visuals</div>
+        </div>
+        <div class="sw-cell"></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block span2" style="background:#7C3AED">BOT–BA Design ×5</div>
+        </div>
+        <div class="sw-cell"></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#0891B2">BDB Design</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">ESG Design</div>
+        </div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+      </div>
+
+      <!-- Production -->
+      <div class="sw-lane">
+        <div class="sw-lane-lbl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 2l2 5M8 2l2 5"/></svg>
+          Production<span>×3</span>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block span2" style="background:#0A1E3D;border:1px solid #E8621A">Film Pre-Prod → Post</div>
+        </div>
+        <div class="sw-cell"></div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#1D4ED8">Leadership Edit ×6</div>
+        </div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+        <div class="sw-cell"><div class="sw-idle"></div></div>
+      </div>
+
+      <!-- Account -->
+      <div class="sw-lane">
+        <div class="sw-lane-lbl">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Account<span>Manager</span>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#64748B">Kick-off</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#F97316">C1 Approvals</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#1D4ED8">C2 Approvals</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#7C3AED">C3 Prep</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#7C3AED">C3 Approvals</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#0891B2">C4 Approvals</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">C5 Prep</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#16A34A">C5 Approvals</div>
+        </div>
+        <div class="sw-cell" style="position:relative">
+          <div class="sw-block" style="background:#475569">Wrap Report</div>
+        </div>
+      </div>
+
+      <!-- Campaigns row -->
+      <div style="margin-top:12px">
+        <div class="sw-header" style="margin-bottom:4px">
+          <div class="sw-hcell" style="text-align:left;padding-left:10px;font-size:9px">Campaign</div>
+          <div class="sw-hcell" style="font-size:9px">Apr</div>
+          <div class="sw-hcell" style="font-size:9px">May</div>
+          <div class="sw-hcell" style="font-size:9px">Jun</div>
+          <div class="sw-hcell" style="font-size:9px">Jul</div>
+          <div class="sw-hcell" style="font-size:9px">Aug</div>
+          <div class="sw-hcell" style="font-size:9px">Sep</div>
+          <div class="sw-hcell" style="font-size:9px">Oct</div>
+          <div class="sw-hcell" style="font-size:9px">Nov</div>
+          <div class="sw-hcell" style="font-size:9px">Dec</div>
+        </div>
+        <div class="sw-lane">
+          <div class="sw-lane-lbl" style="font-size:10px">Launch</div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block" style="background:#475569;font-size:9px">Pre-Prod</div></div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block span2" style="background:#F97316">★ Theme Launch — May 15</div></div>
+          <div class="sw-cell"></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+        </div>
+        <div class="sw-lane">
+          <div class="sw-lane-lbl" style="font-size:10px">Deepen</div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block" style="background:#1D4ED8;font-size:9px">BSM</div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block" style="background:#7C3AED;font-size:9px">BOT·BCP·BL·Bli·BA</div></div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block" style="background:#0891B2;font-size:9px">BDB · Marine</div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+        </div>
+        <div class="sw-lane">
+          <div class="sw-lane-lbl" style="font-size:10px">Sustain</div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell"><div class="sw-idle"></div></div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block" style="background:#16A34A;font-size:9px">Experiential</div></div>
+          <div class="sw-cell" style="position:relative"><div class="sw-block span2" style="background:#16A34A;font-size:9px">ESG Campaign</div></div>
+          <div class="sw-cell"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div style="margin-top:20px;display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+    <span style="font-size:11px;color:#16A34A;font-weight:700">■ MT</span><span style="font-size:11px;color:var(--text-secondary)">Mad Tomato owns metric</span>
+    <span style="font-size:11px;color:#B45309;font-weight:700">■ Advisory</span><span style="font-size:11px;color:var(--text-secondary)">Bahri owns, MT guides</span>
+    <span style="font-size:11px;color:#1D4ED8;font-weight:700">■ Shared</span><span style="font-size:11px;color:var(--text-secondary)">Both parties contribute</span>
+  </div>
+
+</div>
+
+
+<!-- TAB FULL ROLLOUT TIMELINE -->
+<div class="sec" id="fulltimeline">
+  <div class="sh">
+    <h2><span class="n">—</span>Full Rollout Timeline</h2>
+    <p>180-day production plan — all deliverables, parallel tracks, preparation windows, and KPI milestones.</p>
+  </div>
+
+  <div id="rl-legend" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
+    <!-- Toggle -->
+    <div style="display:flex;border:1px solid var(--card-border);border-radius:8px;overflow:hidden;margin-right:8px">
+      <button id="rl-btn-phase" onclick="rlToggle('phase')" style="padding:6px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--orange);color:#fff;letter-spacing:.5px">By Phase</button>
+      <button id="rl-btn-camp" onclick="rlToggle('camp')" style="padding:6px 16px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text-secondary);letter-spacing:.5px">By Campaign</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:10px;border-radius:3px;background:#E8621A"></div><span style="font-size:11px;color:var(--text-secondary)">Agency</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:10px;border-radius:3px;background:#10B981"></div><span style="font-size:11px;color:var(--text-secondary)">Bahri (Client Action)</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:10px;border-radius:3px;background:rgba(232,98,26,.25);border:1px dashed #E8621A"></div><span style="font-size:11px;color:var(--text-secondary)">Early Prep (for later launch)</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;background:#E8621A;transform:rotate(45deg)"></div><span style="font-size:11px;color:var(--text-secondary)">Milestone</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;background:#10B981;transform:rotate(45deg)"></div><span style="font-size:11px;color:var(--text-secondary)">Launch</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;background:#7C3AED;transform:rotate(45deg)"></div><span style="font-size:11px;color:var(--text-secondary)">KPI Check</span></div>
+  </div>
+
+  <div id="rl-gantt-wrap" style="overflow-x:auto;overflow-y:visible;padding-bottom:20px">
+    <div id="rl-gantt"></div>
+  </div>
+  <div id="rl-tooltip" style="position:fixed;display:none;background:#0a1e3d;border:1px solid rgba(232,98,26,.35);color:#f0f2f5;font-size:11px;font-weight:500;padding:7px 13px;border-radius:8px;pointer-events:none;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.5);white-space:nowrap;max-width:320px;line-height:1.5"></div>
+</div>
+
+<script>
+(function(){
+  const N=30,LW=200,WW=44,RH=30;
+  const weeks=['Apr 19','Apr 26','May 3','May 10','May 17','May 24','Jun 1','Jun 8','Jun 15','Jun 22','Jun 29','Jul 6','Jul 13','Jul 20','Jul 27','Aug 3','Aug 10','Aug 17','Aug 24','Aug 31','Sep 7','Sep 14','Sep 21','Sep 28','Oct 5','Oct 12','Oct 19','Oct 26','Nov 2','Nov 9'];
+  const months=[{label:'APRIL',s:0,e:1,ph:1},{label:'MAY',s:2,e:5,ph:1},{label:'JUNE',s:6,e:10,ph:2},{label:'JULY',s:11,e:14,ph:2},{label:'AUGUST',s:15,e:19,ph:2},{label:'SEPTEMBER',s:20,e:23,ph:2},{label:'OCTOBER',s:24,e:27,ph:3},{label:'NOVEMBER',s:28,e:29,ph:3}];
+  const phaseColors={1:'#F97316',2:'#1D4ED8',3:'#16A34A'};
+  const campColors={1:'#F97316',2:'#1D4ED8',3:'#7C3AED',4:'#0891B2',5:'#16A34A',0:'#7C3AED'};
+
+  const allTasks=[
+    {g:'Hero Film Production',ph:1,camp:1,t:'Client Footage Collection (Bahri)',s:0,e:0,tp:'client',n:'Apr 19-22 - Bahri provides existing footage and B-Rolls'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Director Reviews All Footage',s:0,e:1,tp:'agency',n:'Apr 20-23 - Parallel with footage collection'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Script Finalization',s:0,e:0,tp:'agency',n:'Apr 20-21 - Based on approved direction'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Script Approval (Bahri)',s:1,e:1,tp:'ms-c',n:'Apr 22-23 - Bahri approval gate'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Storyboard + Director Treatment',s:1,e:1,tp:'agency',n:'Apr 26-28 - After footage + script approval'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Treatment and Direction Approval',s:1,e:1,tp:'ms-c',n:'Apr 29-30 - Gate for production start'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'AI Scene Creation',s:1,e:2,tp:'agency',n:'Apr 30-May 5 - AI + stock treatment'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'On-Site Filming - Riyadh',s:2,e:2,tp:'ms',n:'May 5 - 1 day - location TBC with Bahri'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Post-Production',s:2,e:3,tp:'agency',n:'May 5-10 - Edit + grade + sound'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Client Revisions + Final Cut',s:3,e:3,tp:'client',n:'May 10-13 - R1 + final revision'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Hero Film Delivered - Publish May 15',s:3,e:3,tp:'final',n:'May 14 - Online delivery',ch:'S,W'},
+    {g:'Employee Engagement Guide',ph:1,camp:1,t:'Employee Guide — Key Messages + Tone',s:1,e:1,tp:'agency',n:'Apr 26-30 - ECD writes core messages, Do and Don\'ts, social voice - no client data needed'},
+    {g:'Employee Engagement Guide',ph:1,camp:1,t:'Employee Guide — Full Copywriting',s:1,e:2,tp:'agency',n:'Apr 28-May 5 - Copywriter writes all sections - story, participation steps, LinkedIn posts, hashtags'},
+    {g:'Employee Engagement Guide',ph:1,camp:1,t:'Employee Guide — Design + Layout',s:2,e:2,tp:'agency',n:'May 1-8 - Designer builds 12-16 page document - placeholder for film stills',ch:'I'},
+    {g:'Employee Engagement Guide',ph:1,camp:1,t:'Employee Guide — Bahri Review',s:3,e:3,tp:'client',n:'May 10 - Bahri reviews before launch - 3-day turnaround needed'},
+    {g:'Employee Engagement Guide',ph:1,camp:1,t:'Employee Guide — Add Film Stills + Final',s:3,e:3,tp:'agency',n:'May 14 - Add hero film screenshots after film delivery - final version ready',ch:'I'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Key Visual System — Concept + Direction',s:1,e:2,tp:'agency',n:'Apr 26-May 5 - Hero visual + color, type, texture, motion elements - based on approved direction, no film needed',ch:'S,W,I'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Key Visual — Bahri Approval',s:2,e:3,tp:'client',n:'May 5-10 - Approve key visual before design work begins - gates all visual production'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Company-wide Email — Copy',s:1,e:2,tp:'agency',n:'Apr 26-May 5 - Copy only, independent of film',ch:'E,I'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Theme + Hero Posts — Copy x4 (EN+AR)',s:1,e:2,tp:'agency',n:'Apr 26-May 5 - All copy written before film delivery',ch:'S'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Partner Toolkit x3 — Templates',s:2,e:2,tp:'agency',n:'May 3-9 - Structure from Key Visual, finalize after film stills',ch:'S'},
+    // Design work — all depend on film rough cut (available May 10)
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Internal Screens x3 — Design',s:3,e:3,tp:'agency',n:'May 10-14 - Film stills extracted from rough cut - tight 4-day window',ch:'I'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Screen Saver + Printed Materials — Design',s:3,e:3,tp:'agency',n:'May 10-14 - Film stills required',ch:'I'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Website Banner + Landing Page — Design',s:3,e:3,tp:'agency',n:'May 10-14 - Film stills required - parallel with other design',ch:'W'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Theme + Hero Posts — Design x4',s:3,e:3,tp:'agency',n:'May 10-14 - Apply design to pre-written copy',ch:'S'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Company-wide Email — Design',s:3,e:3,tp:'agency',n:'May 10-14 - Film stills required',ch:'E,I'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Email Marketing External — Design',s:3,e:3,tp:'agency',n:'May 10-14 - Film stills required',ch:'E'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'CAMPAIGN 1 LAUNCH',s:4,e:4,tp:'final',n:'May 15 - Hero Film + all content live',ch:'S,W,I,E'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Creative Treatment - Leadership Clips',s:1,e:2,tp:'prep',n:'Apr 26-May 5 - Visual approach, tone, format per clip - starts after script approval'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Leadership Brief Preparation',s:2,e:2,tp:'agency',n:'May 1-5 - Messaging guide + talking points per BU leader - enables leaders to prepare',ch:'I'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Brief Delivered to Bahri Leaders',s:3,e:3,tp:'ms-c',n:'May 10 - Leaders receive brief - minimum 1 week prep before filming',ch:'I'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Leadership Filming - Riyadh (2 days)',s:4,e:4,tp:'ms',n:'May 19-20 - All 6 BU leaders - CRITICAL DATE'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Post-Production x6',s:4,e:5,tp:'agency',n:'May 21-28 - Edit + grade + subtitles'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'All Clips Ready for Distribution',s:6,e:6,tp:'final',n:'Jun 1 - All 6 clips delivered',ch:'S,I'},
+    {g:'BU Content — Copy & Design',ph:2,camp:2,t:'[PREP] BSM Infographic + Proof Point',s:4,e:4,tp:'prep',n:'May 18-22 - Early prep before June launch',ch:'S,W'},
+    {g:'BU Content — Copy & Design',ph:2,camp:2,t:'[PREP] BSM Copy + Portal Spotlight',s:4,e:5,tp:'prep',n:'May 22-28 - BU page + portal copy',ch:'W,I'},
+    {g:'BU Content — Copy & Design',ph:2,camp:2,t:'[PREP] BSM Email Marketing',s:4,e:5,tp:'prep',n:'May 25-29 - External client email',ch:'E'},
+    {g:'BU Content — Copy & Design',ph:2,camp:2,t:'Bahri Approval Round',s:5,e:5,tp:'client',n:'May 25-29 - 5-day approval window'},
+    {g:'BU Content — Copy & Design',ph:2,camp:2,t:'BSM LAUNCH',s:6,e:6,tp:'final',n:'Jun 1 - Leadership Clip + BU Content live',ch:'S,W,I,E'},
+    // C3
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'Send BU Raw Data + Assets (Bahri)',s:5,e:5,tp:'client',n:'May 24 - Bahri sends stats, data, and assets for all 5 BUs before prep starts'},
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'[PREP] Infographics x5',s:6,e:9,tp:'prep',n:'Jun 1-Jul 1 - 1 BU per week - starts right after C2 launches',ch:'S,W'},
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'[PREP] BU Page Messaging Copy x5',s:6,e:9,tp:'prep',n:'Jun 1-Jul 1 - Website copy per BU - parallel with infographics',ch:'W'},
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'Proof Point Posts x5',s:9,e:11,tp:'agency',n:'Jun 22-Jul 10 - Social content per BU',ch:'S'},
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'Internal Spotlights x5 + Email',s:10,e:12,tp:'agency',n:'Jun 29-Jul 17 - Portal + email marketing',ch:'I,E'},
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'Bahri Approval Round',s:12,e:12,tp:'client',n:'Jul 13-17 - 5-day buffer'},
+    {g:'BU Content — Copy & Design',ph:2,camp:3,t:'BOT BCP BL BLi BA LAUNCH',s:13,e:13,tp:'final',n:'Jul 20 - All 5 BU packages live - 2 weeks earlier than original',ch:'S,W,I,E'},
+    // C4
+    {g:'BU Content — Copy & Design',ph:2,camp:4,t:'Send BDB + Marine Raw Data (Bahri)',s:11,e:11,tp:'client',n:'Jul 6-10 - Bahri sends data during C3 approval window - enables immediate C4 start'},
+    {g:'BU Content — Copy & Design',ph:2,camp:4,t:'Infographics + Copy x2',s:13,e:14,tp:'agency',n:'Jul 20-31 - Starts immediately after C3 launches',ch:'S,W'},
+    {g:'BU Content — Copy & Design',ph:2,camp:4,t:'Proof Points + Spotlights x2',s:14,e:15,tp:'agency',n:'Jul 27-Aug 7 - Social + portal',ch:'S,I'},
+    {g:'BU Content — Copy & Design',ph:2,camp:4,t:'Email Marketing - External',s:15,e:15,tp:'agency',n:'Aug 3-7',ch:'E'},
+    {g:'BU Content — Copy & Design',ph:2,camp:4,t:'Bahri Approval Round',s:16,e:16,tp:'client',n:'Aug 10-14 - 5-day buffer'},
+    {g:'BU Content — Copy & Design',ph:2,camp:4,t:'BDB + MARINE LAUNCH',s:17,e:17,tp:'final',n:'Aug 17 - BDB + Marine content live - 2 weeks earlier than original',ch:'S,W,I,E'},
+    // C5
+    {g:'ESG Content',ph:3,camp:5,t:'Send ESG Approved Data + Assets (Bahri)',s:14,e:14,tp:'client',n:'Jul 27 - CRITICAL: ESG content cannot start without validated Bahri data - request early'},
+    {g:'Experiential Concepts',ph:3,camp:5,t:'Experiential Concepts (1-2)',s:16,e:17,tp:'agency',n:'Aug 10-21 - Creative concept + materials - pending Bahri brief'},
+    {g:'ESG Content',ph:3,camp:5,t:'ESG Content x6',s:18,e:20,tp:'agency',n:'Aug 24-Sep 11 - Contingent on Bahri approved data received by Jul 27',ch:'S,W'},
+    {g:'ESG Content',ph:3,camp:5,t:'ESG Email + Socials Series',s:20,e:21,tp:'agency',n:'Sep 7-18',ch:'S,E'},
+    {g:'ESG Content',ph:3,camp:5,t:'Bahri Approval Round',s:22,e:22,tp:'client',n:'Sep 21-25 - 5-day buffer'},
+    {g:'ESG Content',ph:3,camp:5,t:'ESG CAMPAIGN LAUNCH',s:23,e:23,tp:'final',n:'Sep 28 - ESG content + socials live - 5 weeks earlier than original',ch:'S,W,I,E'},
+    {g:'KPI Milestones',ph:0,camp:0,t:'Baseline Data from Bahri — Deadline',s:3,e:3,tp:'kpi',n:'May 10 - LinkedIn, website, media data required before launch'},
+    {g:'KPI Milestones',ph:0,camp:0,t:'Check-in 01 — Post-Launch',s:6,e:6,tp:'kpi',n:'Jun 1 - 2-week review: film views, engagement rate, internal adoption'},
+    {g:'KPI Milestones',ph:0,camp:0,t:'Check-in 02 — Phase 2 Mid',s:18,e:18,tp:'kpi',n:'Aug 24 - BU spotlight performance: saves, shares, B2B audience quality'},
+    {g:'KPI Milestones',ph:0,camp:0,t:'Check-in 03 — Campaign Wrap',s:24,e:24,tp:'kpi',n:'Oct 5 - Full campaign review: sentiment shift, follower growth, media mentions'},
+  ];
+
+  const phaseGroups=[
+    {key:'ph1',label:'PHASE 1 — LAUNCH',sub:'Serves Campaign 1 · Theme Launch',ph:1,
+     subGroups:['Hero Film Production','Content — Copy & Design','Employee Engagement Guide','Leadership Clips x6']},
+    {key:'ph2',label:'PHASE 2 — DEEPEN',sub:'Serves Campaigns 2, 3, 4',ph:2,
+     subGroups:['BU Content — Copy & Design']},
+    {key:'ph3',label:'PHASE 3 — SUSTAIN',sub:'Serves Campaign 5 · ESG and Experiential',ph:3,
+     subGroups:['Experiential Concepts','ESG Content']},
+  ];
+
+  const campGroups=[
+    {key:'c1',label:'CAMPAIGN 1 - THEME LAUNCH',sub:'Phase 1 - May 2026',ph:1,camp:1},
+    {key:'c2',label:'CAMPAIGN 2 - BSM SPOTLIGHT',sub:'Phase 2 - Jun 2026',ph:2,camp:2},
+    {key:'c3',label:'CAMPAIGN 3 - BOT BCP BL BLi BA',sub:'Phase 2 - Jul 2026',ph:2,camp:3},
+    {key:'c4',label:'CAMPAIGN 4 - BDB + BAHRI MARINE',sub:'Phase 2 - Aug 2026',ph:2,camp:4},
+    {key:'c5',label:'CAMPAIGN 5 - ESG + EXPERIENTIAL',sub:'Phase 3 - Sep 2026',ph:3,camp:5},
+  ];
+
+  function pct(n){return (n/N*100).toFixed(3)+'%';}
+  function barL(s){return pct(s);}
+  function barW(s,e){return pct(e-s+1);}
+  function phaseBg(ph){const m={1:'rgba(249,115,22,.03)',2:'rgba(29,78,216,.03)',3:'rgba(22,163,74,.03)'};return m[ph]||'transparent';}
+
+  function renderHeader(){
+    let h='';
+    h+=`<div style="display:flex;min-width:${LW+N*WW}px;margin-bottom:1px">`;
+    h+=`<div style="width:${LW}px;flex-shrink:0"></div>`;
+    months.forEach(m=>{const w=(m.e-m.s+1)*WW;const col=m.ph?phaseColors[m.ph]:'#475569';h+=`<div style="width:${w}px;flex-shrink:0;text-align:center;padding:5px 0;font-size:9px;font-weight:700;letter-spacing:1px;color:${col};border-bottom:2px solid ${col};border-right:1px solid rgba(255,255,255,.05)">${m.label}</div>`;});
+    h+='</div>';
+    h+=`<div style="display:flex;min-width:${LW+N*WW}px;margin-bottom:6px">`;
+    h+=`<div style="width:${LW}px;flex-shrink:0;font-size:9px;color:var(--text-secondary);padding:4px 8px;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Deliverable</div>`;
+    for(let i=0;i<N;i++) h+=`<div style="width:${WW}px;flex-shrink:0;text-align:center;font-size:9px;color:rgba(255,255,255,.3);padding:3px 0;border-left:1px solid rgba(255,255,255,.04)">${weeks[i].split(' ')[1]}</div>`;
+    h+='</div>';
+    return h;
+  }
+
+  function renderTask(t,ti){
+    const chColors={S:'#F97316',W:'#3B82F6',I:'#8B5CF6',E:'#10B981'};
+    const chLabels={S:'Socials',W:'Web',I:'Internal',E:'Email'};
+    const channels=t.ch?(t.ch.split(',')):[]; 
+    const rowBg=ti%2===0?'rgba(255,255,255,.01)':'transparent';
+    const chStr=channels.length?(' || Channels: '+channels.map(c=>chLabels[c]||c).join(' · ')):'';
+    const tipData=encodeURIComponent(t.t+'||'+t.n+chStr);
+    let h=`<div style="display:flex;min-width:${LW+N*WW}px;height:${RH}px;background:${rowBg}">`;
+    h+=`<div style="width:${LW}px;flex-shrink:0;padding:0 8px;display:flex;align-items:center;font-size:11px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid rgba(255,255,255,.05)" title="${t.t}">${t.t}</div>`;
+    h+=`<div style="flex:1;position:relative;background:${phaseBg(t.ph)}">`;
+    for(let i=0;i<N;i++) h+=`<div style="position:absolute;left:${pct(i)};top:0;bottom:0;width:1px;background:rgba(255,255,255,.03)"></div>`;
+    const tp=t.tp;
+    if(tp==='ms'||tp==='ms-c'||tp==='final'||tp==='kpi'){
+      const cx=`calc(${pct(t.s+0.5)} - 8px)`;
+      const col=tp==='final'?'#10B981':tp==='kpi'?'#7C3AED':tp==='ms-c'?'#10B981':'#E8621A';
+      const glow=tp==='kpi'?'rgba(124,58,237,.4)':tp==='final'?'rgba(16,185,129,.4)':'rgba(232,98,26,.4)';
+      h+=`<div data-tip="${tipData}" style="position:absolute;left:${cx};top:50%;margin-top:-8px;width:16px;height:16px;background:${col};transform:rotate(45deg);border:2px solid rgba(6,14,26,.8);box-shadow:0 0 10px ${glow};z-index:3;cursor:default" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
+    } else if(tp==='prep'){
+      h+=`<div data-tip="${tipData}" style="position:absolute;left:${barL(t.s)};width:${barW(t.s,t.e)};height:9px;top:50%;margin-top:-4.5px;border-radius:4px;background:rgba(232,98,26,.2);border:1px dashed rgba(232,98,26,.5);cursor:default" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
+    } else {
+      const col=tp==='client'?'#10B981':'#E8621A';
+      h+=`<div data-tip="${tipData}" style="position:absolute;left:${barL(t.s)};width:${barW(t.s,t.e)};height:9px;top:50%;margin-top:-4.5px;border-radius:4px;background:${col};cursor:default" onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
+    }
+    h+='</div></div>';
+    return h;
+  }
+
+  function renderKPIOverlay(){
+    const kpiTasks=allTasks.filter(t=>t.camp===0);
+    let h='';
+    kpiTasks.forEach(t=>{
+      const tipData=encodeURIComponent(t.t+'||'+t.n);
+      const leftPx=LW + (t.s + 0.5) * WW - 8;
+      h+=`<div style="position:absolute;left:${leftPx+8}px;top:0;bottom:24px;width:1px;background:rgba(124,58,237,.25);pointer-events:none;z-index:2;border-left:1px dashed rgba(124,58,237,.35)"></div>`;
+      h+=`<div data-tip="${tipData}"
+        style="position:absolute;left:${leftPx}px;top:10px;width:16px;height:16px;background:#7C3AED;transform:rotate(45deg);border:2px solid rgba(6,14,26,.9);box-shadow:0 0 12px rgba(124,58,237,.6);z-index:5;cursor:default"
+        onmouseenter="rlTip(this,event)" onmouseleave="rlHide()"></div>`;
+    });
+    return h;
+  }
+
+  function renderSubGroupHdr(name,ph){
+    const gc=phaseColors[ph]||'#475569';
+    return `<div style="display:flex;min-width:${LW+N*WW}px;margin:6px 0 0">
+      <div style="width:${LW}px;flex-shrink:0;padding:4px 8px 4px 18px;font-size:9px;font-weight:700;color:${gc};opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid rgba(255,255,255,.05)">&#9492; ${name}</div>
+      <div style="flex:1;border-bottom:1px solid ${gc}18;background:${gc}06"></div>
+    </div>`;
+  }
+
+  function wrapWithKPI(inner){
+    const totalW=LW+N*WW;
+    return `<div style="position:relative;width:${totalW}px">${inner}${renderKPIOverlay()}</div>`;
+  }
+
+  function buildByPhase(){
+    let h=renderHeader();
+    phaseGroups.forEach((g,gi)=>{
+      const allPhaseTasks=allTasks.filter(t=>t.ph===g.ph);
+      if(!allPhaseTasks.length) return;
+      const gc=phaseColors[g.ph]||'#475569';
+      h+=`<div style="display:flex;min-width:${LW+N*WW}px;margin:${gi>0?'14px':'2px'} 0 4px">
+        <div style="width:100%;padding:7px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:${gc};border-left:3px solid ${gc};background:${gc}10;border-radius:0 8px 8px 0">
+          ${g.label} <span style="opacity:.5;font-weight:400;text-transform:none;font-size:10px">— ${g.sub}</span>
+        </div>
+      </div>`;
+      g.subGroups.forEach(sgName=>{
+        const sgTasks=allTasks.filter(t=>t.g===sgName);
+        if(!sgTasks.length) return;
+        h+=renderSubGroupHdr(sgName,g.ph);
+        sgTasks.forEach((t,ti)=>{ h+=renderTask(t,ti); });
+      });
+    });
+    h+=renderPhaseBand();
+    return wrapWithKPI(h);
+  }
+
+  function buildByCampaign(){
+    let h=renderHeader();
+    campGroups.forEach((g,gi)=>{
+      const campTasks=allTasks.filter(t=>t.camp===g.camp);
+      if(!campTasks.length) return;
+      const gc=campColors[g.camp]||'#475569';
+      h+=`<div style="display:flex;min-width:${LW+N*WW}px;margin:${gi>0?'14px':'2px'} 0 4px">
+        <div style="width:100%;padding:7px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:${gc};border-left:3px solid ${gc};background:${gc}10;border-radius:0 8px 8px 0">
+          ${g.label} <span style="opacity:.5;font-weight:400;text-transform:none;font-size:10px">— ${g.sub}</span>
+        </div>
+      </div>`;
+      const subGroupNames=[...new Set(campTasks.map(t=>t.g))];
+      subGroupNames.forEach(sgName=>{
+        const sgTasks=campTasks.filter(t=>t.g===sgName);
+        if(!sgTasks.length) return;
+        if(subGroupNames.length>1) h+=renderSubGroupHdr(sgName,g.ph);
+        sgTasks.forEach((t,ti)=>{ h+=renderTask(t,ti); });
+      });
+    });
+    h+=renderPhaseBand();
+    return wrapWithKPI(h);
+  }
+
+  function renderPhaseBand(){
+    let h=`<div style="display:flex;min-width:${LW+N*WW}px;margin-top:10px;height:6px"><div style="width:${LW}px;flex-shrink:0"></div>`;
+    months.forEach(m=>{h+=`<div style="width:${(m.e-m.s+1)*WW}px;flex-shrink:0;background:${m.ph?phaseColors[m.ph]:'transparent'};opacity:.35;border-radius:2px"></div>`;});
+    h+='</div>';
+    return h;
+  }
+
+  document.getElementById('rl-gantt').innerHTML=buildByPhase();
+
+  window.rlToggle=function(m){
+    document.getElementById('rl-btn-phase').style.background=m==='phase'?'var(--orange)':'transparent';
+    document.getElementById('rl-btn-phase').style.color=m==='phase'?'#fff':'var(--text-secondary)';
+    document.getElementById('rl-btn-camp').style.background=m==='camp'?'var(--orange)':'transparent';
+    document.getElementById('rl-btn-camp').style.color=m==='camp'?'#fff':'var(--text-secondary)';
+    document.getElementById('rl-gantt').innerHTML=m==='phase'?buildByPhase():buildByCampaign();
+  };
+  window.rlTip=function(el,e){
+    const parts=decodeURIComponent(el.dataset.tip).split('||');
+    const tt=document.getElementById('rl-tooltip');
+    let html='<strong>'+parts[0]+'</strong>';
+    if(parts[1]) html+='<br><span style="opacity:.65;font-size:10px">'+parts[1]+'</span>';
+    if(parts[2]){
+      const chColors={Socials:'#F97316',Web:'#3B82F6',Internal:'#8B5CF6',Email:'#10B981'};
+      const chList=parts[2].replace('Channels: ','').split(' · ');
+      const dots=chList.map(c=>`<span style="display:inline-flex;align-items:center;gap:4px;margin-right:8px"><span style="width:7px;height:7px;border-radius:50%;background:${chColors[c]||'#888'};display:inline-block"></span><span style="font-size:10px;color:${chColors[c]||'#aaa'}">${c}</span></span>`).join('');
+      html+='<div style="margin-top:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,.1)">'+dots+'</div>';
+    }
+    tt.innerHTML=html;
+    tt.style.display='block';
+    tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-10)+'px';
+  };
+  window.rlHide=function(){const tt=document.getElementById('rl-tooltip');if(tt)tt.style.display='none';};
+  document.addEventListener('mousemove',function(e){const tt=document.getElementById('rl-tooltip');if(tt&&tt.style.display!=='none'){tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-10)+'px';}});
+})();
+</script>
 
 
 <!-- TAB 4: KEY TAKEAWAYS -->
@@ -953,6 +1938,334 @@ document.addEventListener('mousemove',e=>{
   if(t&&t.style.display==='block'){t.style.left=(e.clientX+14)+'px';t.style.top=(e.clientY-36)+'px'}
 });
 buildGantt();
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     GOOGLE SHEETS TAB 1 — SCOPE TRACKER
+════════════════════════════════════════════════ -->
+<div class="sec" id="gs-scope">
+  <div class="sh"><h2><span class="n">—</span>Scope Tracker</h2><p>Live from Google Sheets · MT251014-Retainer tab · Scope quantities, remaining budget & project timeline.</p></div>
+  <div id="gs-scope-auth"></div>
+  <div id="gs-scope-user" class="gs-user-bar"></div>
+  <div id="gs-scope-content">
+    <div class="sh-state"><div class="sh-icon">🔒</div><p>Sign in with your Google account to load live scope data from the project sheet.</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     GOOGLE SHEETS TAB 2 — IMPORTANT FILES
+════════════════════════════════════════════════ -->
+<div class="sec" id="gs-files">
+  <div class="sh"><h2><span class="n">—</span>Important Files</h2><p>Live from Google Sheets · Key project documents & assets — updated automatically when the sheet is edited.</p></div>
+  <div id="gs-files-auth"></div>
+  <div id="gs-files-user" class="gs-user-bar"></div>
+  <div id="gs-files-content">
+    <div class="sh-state"><div class="sh-icon">🔒</div><p>Sign in with your Google account to load the project files directory.</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     GOOGLE SHEETS TAB 3 — INVOICING
+════════════════════════════════════════════════ -->
+<div class="sec" id="gs-invoicing">
+  <div class="sh"><h2><span class="n">—</span>Invoicing</h2><p>Live from Google Sheets · Project invoices, payment status & linked documents.</p></div>
+  <div id="gs-invoicing-auth"></div>
+  <div id="gs-invoicing-user" class="gs-user-bar"></div>
+  <div id="gs-invoicing-content">
+    <div class="sh-state"><div class="sh-icon">🔒</div><p>Sign in with your Google account to load invoicing data.</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     GOOGLE SHEETS TAB 4 — THIRD PARTIES
+════════════════════════════════════════════════ -->
+<div class="sec" id="gs-thirdparty">
+  <div class="sh"><h2><span class="n">—</span>Third Parties</h2><p>Live from Google Sheets · Third-party quotations, invoices & settlement status.</p></div>
+  <div id="gs-thirdparty-auth"></div>
+  <div id="gs-thirdparty-user" class="gs-user-bar"></div>
+  <div id="gs-thirdparty-content">
+    <div class="sh-state"><div class="sh-icon">🔒</div><p>Sign in with your Google account to load third-party data.</p></div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════
+   GOOGLE SHEETS LIVE INTEGRATION
+   Sheet ID: 1KDGZPBYAkRlvL5Xn-kdEomQvEsvmQbjYVMFx8ZUDQro
+   Tabs: MT251014-Retainer | Important Files | invoicing | Third Parties
+════════════════════════════════════════════════ */
+const GS_CONFIG = {
+  clientId: '486267482877-c7scbpiscffo5tbcibmk6nmg4lqs36u7.apps.googleusercontent.com',
+  sheetId: '1KDGZPBYAkRlvL5Xn-kdEomQvEsvmQbjYVMFx8ZUDQro',
+  tabs: {
+    'gs-scope':      'MT251014-Retainer',
+    'gs-files':      'Important Files',
+    'gs-invoicing':  'invoicing',
+    'gs-thirdparty': 'Third Parties'
+  }
+};
+
+let gsToken = null;
+let gsUser  = null;
+let tokenClient = null;
+let loadedTabs = {};
+
+/* ── Initialise Google Identity Services ── */
+window.addEventListener('load', () => {
+  if (typeof google === 'undefined') return;
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GS_CONFIG.clientId,
+    scope: 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+    callback: handleTokenResponse,
+  });
+  renderAuthBars();
+});
+
+/* ── Build auth bar for every sheet tab ── */
+function renderAuthBars() {
+  const tabIds = Object.keys(GS_CONFIG.tabs);
+  tabIds.forEach(id => {
+    const el = document.getElementById(id + '-auth');
+    if (!el) return;
+    if (gsToken) {
+      el.innerHTML = '';
+    } else {
+      el.innerHTML = `
+        <div class="gs-auth-bar">
+          <p>🔐 This tab pulls live data from a private Google Sheet. Sign in with a Google account that has access to the sheet.</p>
+          <button class="gs-signin-btn" onclick="gsSignIn()">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#fff"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#fff"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fff"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#fff"/></svg>
+            Sign in with Google
+          </button>
+        </div>`;
+    }
+  });
+}
+
+/* ── User bar once signed in ── */
+function renderUserBars() {
+  const tabIds = Object.keys(GS_CONFIG.tabs);
+  tabIds.forEach(id => {
+    const el = document.getElementById(id + '-user');
+    if (!el) return;
+    if (gsToken && gsUser) {
+      el.innerHTML = `
+        <div class="gs-user-dot"></div>
+        <span class="gs-user-name">Signed in as ${gsUser.email}</span>
+        <button class="gs-refresh-btn" onclick="gsRefreshTab('${id}')">↺ Refresh</button>
+        <button class="gs-signout-btn" onclick="gsSignOut()">Sign out</button>`;
+      el.classList.add('on');
+    } else {
+      el.innerHTML = '';
+      el.classList.remove('on');
+    }
+  });
+}
+
+/* ── Sign In ── */
+function gsSignIn() {
+  if (!tokenClient) {
+    alert('Google Identity Services not loaded yet. Please wait a moment and try again.');
+    return;
+  }
+  tokenClient.requestAccessToken({ prompt: 'consent' });
+}
+
+/* ── Handle token response ── */
+async function handleTokenResponse(resp) {
+  if (resp.error) { console.error('OAuth error:', resp.error); return; }
+  gsToken = resp.access_token;
+  // Fetch user info
+  try {
+    const r = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: { Authorization: `Bearer ${gsToken}` }
+    });
+    gsUser = await r.json();
+  } catch(e) { gsUser = { email: 'Google Account' }; }
+  renderAuthBars();
+  renderUserBars();
+  // Auto-load whichever gs tab is currently active
+  const activeTab = document.querySelector('.sec.a');
+  if (activeTab && GS_CONFIG.tabs[activeTab.id]) {
+    gsLoadTab(activeTab.id);
+  }
+}
+
+/* ── Sign Out ── */
+function gsSignOut() {
+  if (gsToken) google.accounts.oauth2.revoke(gsToken);
+  gsToken = null;
+  gsUser = null;
+  loadedTabs = {};
+  renderAuthBars();
+  renderUserBars();
+  // Reset content areas
+  Object.keys(GS_CONFIG.tabs).forEach(id => {
+    const el = document.getElementById(id + '-content');
+    if (el) el.innerHTML = `<div class="sh-state"><div class="sh-icon">🔒</div><p>Sign in with your Google account to load this data.</p></div>`;
+  });
+}
+
+/* ── Refresh a specific tab ── */
+function gsRefreshTab(tabId) {
+  loadedTabs[tabId] = false;
+  gsLoadTab(tabId);
+}
+
+/* ── Load sheet data for a tab ── */
+async function gsLoadTab(tabId) {
+  if (!gsToken) return;
+  if (loadedTabs[tabId]) return;
+  const sheetName = GS_CONFIG.tabs[tabId];
+  if (!sheetName) return;
+  const contentEl = document.getElementById(tabId + '-content');
+  if (!contentEl) return;
+  contentEl.innerHTML = `<div class="sh-state"><div class="sh-spinner"></div><p>Loading ${sheetName}…</p></div>`;
+  try {
+    const range = encodeURIComponent(`'${sheetName}'`);
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GS_CONFIG.sheetId}/values/${range}?valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=FORMATTED_STRING`;
+    const r = await fetch(url, { headers: { Authorization: `Bearer ${gsToken}` } });
+    if (!r.ok) {
+      const err = await r.json();
+      throw new Error(err.error?.message || 'Failed to fetch sheet');
+    }
+    const data = await r.json();
+    const rows = data.values || [];
+    if (rows.length === 0) {
+      contentEl.innerHTML = `<div class="sh-state"><div class="sh-icon">📭</div><p>The sheet "${sheetName}" appears to be empty.</p></div>`;
+      loadedTabs[tabId] = true;
+      return;
+    }
+    renderSheetContent(tabId, sheetName, rows, contentEl);
+    loadedTabs[tabId] = true;
+  } catch(e) {
+    contentEl.innerHTML = `<div class="sh-state"><div class="sh-icon">⚠️</div><p>Error loading sheet: ${e.message}<br><br>Make sure you're signed in with an account that has access to this sheet.</p></div>`;
+    loadedTabs[tabId] = false;
+  }
+}
+
+/* ── Render sheet rows as a styled table ── */
+function renderSheetContent(tabId, sheetName, rows, el) {
+  const headers = rows[0] || [];
+  const dataRows = rows.slice(1).filter(r => r.some(c => c !== '' && c !== null && c !== undefined));
+
+  // Build summary cards for scope tab
+  let metaHtml = '';
+  if (tabId === 'gs-scope') {
+    // Try to extract project dates & summary info from headers/data
+    metaHtml = buildScopeMeta(headers, dataRows);
+  }
+
+  // Build table
+  let tableHtml = `<div class="sh-tbl-wrap"><table class="sh-tbl"><thead><tr>`;
+  headers.forEach(h => {
+    tableHtml += `<th>${escHtml(String(h ?? ''))}</th>`;
+  });
+  tableHtml += `</tr></thead><tbody>`;
+
+  dataRows.forEach(row => {
+    tableHtml += `<tr>`;
+    headers.forEach((h, i) => {
+      const val = row[i] ?? '';
+      tableHtml += `<td>${renderCell(String(h).toLowerCase(), String(val))}</td>`;
+    });
+    tableHtml += `</tr>`;
+  });
+
+  tableHtml += `</tbody></table></div>`;
+
+  const lastRefresh = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  el.innerHTML = `
+    ${metaHtml}
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:11px;color:var(--text-secondary)">📊 <strong style="color:var(--text-primary)">${dataRows.length}</strong> rows · Last loaded at <strong style="color:var(--text-primary)">${lastRefresh}</strong></div>
+      <a href="https://docs.google.com/spreadsheets/d/${GS_CONFIG.sheetId}/edit" target="_blank" style="font-size:11px;color:var(--orange);text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:7px;background:rgba(232,98,26,.07);border:1px solid rgba(232,98,26,.12);font-weight:600">↗ Open in Google Sheets</a>
+    </div>
+    ${tableHtml}`;
+}
+
+/* ── Build scope meta cards ── */
+function buildScopeMeta(headers, rows) {
+  // Look for date columns and quantity columns
+  let startDate = '', endDate = '', totalItems = rows.length;
+  const lh = headers.map(h => String(h).toLowerCase());
+
+  rows.forEach(row => {
+    lh.forEach((h, i) => {
+      if ((h.includes('start') || h.includes('kick')) && !startDate && row[i]) startDate = row[i];
+      if ((h.includes('end') || h.includes('deadline') || h.includes('delivery')) && !endDate && row[i]) endDate = row[i];
+    });
+  });
+
+  let cards = `<div class="sh-meta">
+    <div class="sh-meta-card"><div class="sh-meta-label">Total Line Items</div><div class="sh-meta-val">${totalItems}</div><div class="sh-meta-sub">Scope deliverables tracked</div></div>`;
+  if (startDate) cards += `<div class="sh-meta-card"><div class="sh-meta-label">Project Start</div><div class="sh-meta-val" style="font-size:14px">${escHtml(String(startDate))}</div></div>`;
+  if (endDate)   cards += `<div class="sh-meta-card"><div class="sh-meta-label">Project End</div><div class="sh-meta-val" style="font-size:14px">${escHtml(String(endDate))}</div></div>`;
+  cards += `</div>`;
+  return cards;
+}
+
+/* ── Smart cell renderer ── */
+function renderCell(headerLower, val) {
+  if (!val || val === 'undefined') return '<span style="opacity:.3">—</span>';
+
+  // Detect URLs / Google Drive links
+  if (val.startsWith('http://') || val.startsWith('https://')) {
+    const label = val.includes('drive.google') ? '📄 Open File' :
+                  val.includes('docs.google')  ? '📝 Open Doc'  :
+                  val.includes('sheets.google')? '📊 Open Sheet': '🔗 Open Link';
+    return `<a href="${escAttr(val)}" target="_blank">${label}</a>`;
+  }
+
+  // Status pills
+  const statusWords = { paid: 'green', settled: 'green', approved: 'green', complete: 'green', done: 'green',
+    pending: 'orange', 'in progress': 'orange', review: 'orange', sent: 'orange',
+    overdue: 'red', rejected: 'red', cancelled: 'red',
+    partial: 'yellow', 'partially paid': 'yellow',
+    draft: 'blue', new: 'blue' };
+  const valLow = val.toLowerCase().trim();
+  if (statusWords[valLow]) {
+    return `<span class="sh-pill sh-pill-${statusWords[valLow]}">${escHtml(val)}</span>`;
+  }
+
+  // Phase coloring
+  if (headerLower.includes('phase')) {
+    if (valLow.includes('1') || valLow.includes('launch')) return `<span class="sh-pill sh-pill-orange">${escHtml(val)}</span>`;
+    if (valLow.includes('2') || valLow.includes('deepen')) return `<span class="sh-pill sh-pill-blue">${escHtml(val)}</span>`;
+    if (valLow.includes('3') || valLow.includes('sustain')) return `<span class="sh-pill sh-pill-green">${escHtml(val)}</span>`;
+  }
+
+  // Numbers — right-align amounts
+  if (!isNaN(val) && val !== '') {
+    const num = parseFloat(val);
+    if (headerLower.includes('amount') || headerLower.includes('price') || headerLower.includes('cost') ||
+        headerLower.includes('budget') || headerLower.includes('total') || headerLower.includes('sar') || headerLower.includes('value')) {
+      return `<span style="font-weight:600;color:var(--text-primary)">${num.toLocaleString('en-SA')}</span>`;
+    }
+    if (headerLower.includes('remain') || headerLower.includes('balance')) {
+      const col = num < 0 ? '#EF4444' : num === 0 ? 'var(--text-secondary)' : 'var(--green)';
+      return `<span style="font-weight:700;color:${col}">${num.toLocaleString('en-SA')}</span>`;
+    }
+  }
+
+  return escHtml(val);
+}
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(s) { return String(s).replace(/"/g,'&quot;'); }
+
+/* ── Hook into existing tab switcher ── */
+// Patch the existing tab click logic to trigger sheet loads
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.ntb').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.tab;
+      if (GS_CONFIG.tabs[tabId]) {
+        setTimeout(() => gsLoadTab(tabId), 100);
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>
