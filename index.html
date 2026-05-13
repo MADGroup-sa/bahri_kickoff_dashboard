@@ -250,12 +250,13 @@
   #dashboard.vis{display:block}
   .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(232,98,26,.05) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 80% 100%,rgba(10,30,61,.3) 0%,transparent 60%)}
 
-  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--card-border)}
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:rgba(6,14,26,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--card-border)}
+  #dashboard{padding-top:54px}
   .nb{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:var(--text-secondary)}
   .nb .d{width:7px;height:7px;border-radius:50%;background:var(--orange)}
   .nb .h{color:var(--orange)}
   .nt{display:flex;gap:3px}
-  .ntb{padding:7px 16px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all .25s;border:1px solid transparent;background:0 0}
+  .ntb{padding:6px 13px;border-radius:7px;font-size:12px;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all .25s;border:1px solid transparent;background:0 0;white-space:nowrap}
   .ntb:hover{color:var(--text-primary);background:rgba(255,255,255,.04)}
   .ntb.a{color:var(--orange);background:var(--orange-glow);border-color:rgba(232,98,26,.2)}
 
@@ -529,67 +530,102 @@
   .hub-filter{padding:8px 14px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .2s}
   .hub-filter:hover{color:var(--text-primary)}
   .hub-filter.active{background:rgba(232,98,26,.1);border-color:rgba(232,98,26,.25);color:var(--orange)}
-  .hub-stats{display:flex;gap:14px;font-size:11px;color:var(--text-secondary);flex-wrap:wrap}
+  .hub-stats{display:flex;gap:14px;font-size:11px;color:var(--text-secondary);flex-wrap:wrap;margin-bottom:14px}
   .hub-stats b{color:var(--text-primary);font-weight:700;margin-right:3px}
 
-  .hub-grid{display:grid;grid-template-columns:1fr;gap:14px}
-  .hub-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px 22px;transition:border-color .2s}
-  .hub-card:hover{border-color:rgba(232,98,26,.15)}
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;align-items:stretch}
+  .hub-phase-hdr,.hub-group-hdr{grid-column:1/-1}
 
-  .hub-h{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;flex-wrap:wrap}
-  .hub-num{font-size:11px;font-weight:700;color:rgba(232,98,26,.7);min-width:24px;padding-top:3px;letter-spacing:.5px}
-  .hub-title-wrap{flex:1;min-width:200px}
-  .hub-title{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:5px;line-height:1.3}
-  .hub-meta{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:var(--text-secondary)}
-  .hub-meta-tag{padding:3px 9px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .hub-phase-hdr{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.85);padding:14px 14px 8px;border-left:3px solid var(--orange);background:rgba(232,98,26,.05);border-radius:0 8px 8px 0;margin:14px 0 4px;display:flex;align-items:center;justify-content:space-between}
+  .hub-phase-hdr:first-child{margin-top:0}
+  .hub-group-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(232,98,26,.5);padding:10px 4px 4px;margin-top:2px}
 
-  .hub-status{position:relative;flex-shrink:0}
-  .hub-status-pill{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid;display:inline-flex;align-items:center;gap:6px;transition:all .2s;background:transparent}
-  .hub-status-pill::after{content:'▾';font-size:8px;opacity:.6}
-  .hub-status-menu{position:absolute;top:calc(100% + 4px);right:0;background:#0a1830;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:5px;display:none;z-index:100;min-width:180px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+  /* Compact square card */
+  .hub-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.05);border-radius:12px;overflow:hidden;transition:all .2s;cursor:pointer;display:flex;flex-direction:column}
+  .hub-card:hover{box-shadow:0 2px 14px rgba(0,0,0,.2);transform:translateY(-1px)}
+
+  .hub-summary{padding:14px 16px;user-select:none;flex:1;display:flex;flex-direction:column;gap:10px}
+  .hub-sum-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .hub-sum-title{font-size:13.5px;font-weight:600;color:var(--text-primary);line-height:1.35;flex:1}
+  .hub-open-icon{font-size:11px;color:var(--text-secondary);opacity:.4;flex-shrink:0;padding-top:3px}
+  .hub-card:hover .hub-open-icon{opacity:.9;color:var(--orange)}
+
+  .hub-sum-tags{display:flex;gap:5px;flex-wrap:wrap}
+  .hub-sum-tag{padding:2px 8px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);font-size:10px;font-weight:600;color:var(--text-secondary);letter-spacing:.3px}
+
+  .hub-sum-rows{display:flex;flex-direction:column;gap:6px;flex:1}
+  .hub-sum-row{font-size:11.5px;color:var(--text-secondary);display:flex;gap:6px;align-items:center;line-height:1.3}
+  .hub-sum-row .ic{opacity:.5;font-size:11px;flex-shrink:0;width:14px;text-align:center}
+  .hub-sum-row b{color:var(--text-primary);font-weight:500}
+
+  .hub-sum-channels{display:flex;gap:3px;flex-wrap:wrap}
+  .hub-sum-ch{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(232,98,26,.07);color:var(--orange);border:1px solid rgba(232,98,26,.12);letter-spacing:.3px}
+
+  .hub-sum-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.04);margin-top:auto}
+  .hub-sum-status{flex-shrink:0}
+  .hub-sum-indicators{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--text-secondary)}
+  .hub-sum-indicators .ind{opacity:.35}
+  .hub-sum-indicators .ind.on{opacity:1;color:var(--orange)}
+  .hub-sum-indicators .ind .cnt{font-size:9px;font-weight:700;margin-left:1px}
+
+  /* Status pill (display only on cards — non-clickable for grid view) */
+  .hub-status-pill{padding:5px 11px;border-radius:100px;font-size:10.5px;font-weight:700;border:1px solid;display:inline-flex;align-items:center;gap:5px;background:transparent;white-space:nowrap}
+  .hub-status-pill.editable{cursor:pointer}
+  .hub-status-pill.editable::after{content:'▾';font-size:7px;opacity:.6;margin-left:2px}
+  .hub-status-menu{position:absolute;top:calc(100% + 4px);right:0;background:#0a1830;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:5px;display:none;z-index:10000;min-width:200px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
   .hub-status-menu.open{display:block}
   .hub-status-opt{padding:8px 12px;border-radius:6px;font-size:12px;color:var(--text-primary);cursor:pointer;display:flex;align-items:center;gap:8px}
   .hub-status-opt:hover{background:rgba(255,255,255,.04)}
   .hub-status-opt .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-  .hub-info-row{display:flex;gap:18px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);margin-bottom:14px}
-  .hub-info{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary)}
-  .hub-info b{color:var(--text-primary);font-weight:600}
-  .hub-info .ic{opacity:.5;font-size:13px}
+  /* ═══ MODAL ═══ */
+  .hub-modal-backdrop{position:fixed;inset:0;background:rgba(6,14,26,.85);backdrop-filter:blur(8px);z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;animation:fadeIn .25s ease}
+  .hub-modal-backdrop.open{display:flex}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .hub-modal{background:#0a1830;border:1px solid rgba(232,98,26,.2);border-radius:16px;width:640px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:slideUp .3s ease;position:relative}
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-  .hub-channels{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
-  .hub-ch{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(232,98,26,.08);color:var(--orange);border:1px solid rgba(232,98,26,.15)}
+  .hub-modal-header{padding:22px 26px 16px;border-bottom:1px solid rgba(255,255,255,.06);position:relative}
+  .hub-modal-close{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--text-secondary);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .hub-modal-close:hover{background:rgba(232,98,26,.1);color:var(--orange);border-color:rgba(232,98,26,.2)}
 
-  .hub-field{margin-bottom:12px}
-  .hub-field-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(232,98,26,.65);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .hub-modal-title{font-size:18px;font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:10px;padding-right:38px}
+  .hub-modal-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .hub-modal-meta-tag{padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);font-size:11px;font-weight:600;color:var(--text-secondary)}
+  .hub-modal-meta-row{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--text-secondary);margin-top:12px}
+  .hub-modal-meta-row .item{display:flex;gap:5px;align-items:center}
+  .hub-modal-meta-row .ic{opacity:.55;font-size:12px}
+  .hub-modal-meta-row b{color:var(--text-primary);font-weight:500}
+
+  .hub-modal-status-wrap{margin-top:12px;display:flex;align-items:center;gap:10px;position:relative}
+
+  .hub-modal-body{padding:20px 26px 24px;max-height:calc(85vh - 200px);overflow-y:auto}
+
+  /* Edit fields */
+  .hub-field{margin-bottom:18px}
+  .hub-field:last-child{margin-bottom:0}
+  .hub-field-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(232,98,26,.7);margin-bottom:7px;display:flex;align-items:center;gap:6px}
   .hub-field-label .save-ind{margin-left:auto;font-size:9px;font-weight:600;letter-spacing:0;text-transform:none;transition:opacity .3s}
-  .hub-input,.hub-textarea{width:100%;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:var(--text-primary);font-size:13px;padding:10px 12px;box-sizing:border-box;font-family:inherit;transition:border-color .2s;line-height:1.5}
-  .hub-input:focus,.hub-textarea:focus{outline:none;border-color:rgba(232,98,26,.3);background:rgba(255,255,255,.035)}
-  .hub-textarea{resize:vertical;min-height:60px}
+  .hub-input,.hub-textarea{width:100%;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:var(--text-primary);font-size:13px;padding:10px 12px;box-sizing:border-box;font-family:inherit;transition:border-color .2s;line-height:1.5}
+  .hub-input:focus,.hub-textarea:focus{outline:none;border-color:rgba(232,98,26,.4);background:rgba(255,255,255,.04)}
+  .hub-textarea{resize:vertical;min-height:65px}
   .hub-link-wrap{display:flex;gap:8px;align-items:center}
   .hub-link-wrap .hub-input{flex:1}
   .hub-link-open{padding:9px 14px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap}
   .hub-link-open:hover{background:rgba(232,98,26,.18)}
 
-  .hub-comments-list{display:flex;flex-direction:column;gap:7px;margin-bottom:8px;max-height:200px;overflow-y:auto}
-  .hub-comment{padding:9px 12px;background:rgba(255,255,255,.025);border-left:3px solid rgba(232,98,26,.4);border-radius:0 8px 8px 0;font-size:12px;color:var(--text-primary);line-height:1.5;white-space:pre-wrap}
-  .hub-comment-meta{font-size:10px;color:rgba(232,98,26,.7);font-weight:600;margin-bottom:3px}
-  .hub-comment-empty{font-size:12px;color:var(--text-secondary);font-style:italic;padding:8px 0}
-
+  .hub-comments-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;max-height:240px;overflow-y:auto}
+  .hub-comment{padding:9px 12px;background:rgba(255,255,255,.025);border-left:3px solid rgba(232,98,26,.4);border-radius:0 7px 7px 0;font-size:12px;color:var(--text-primary);line-height:1.5;white-space:pre-wrap}
+  .hub-comment-meta{font-size:9.5px;color:rgba(232,98,26,.75);font-weight:600;margin-bottom:2px}
+  .hub-comment-empty{font-size:11.5px;color:var(--text-secondary);font-style:italic;padding:6px 0;opacity:.7}
   .hub-comment-add{display:flex;gap:8px;align-items:flex-start}
   .hub-comment-add textarea{flex:1}
-  .hub-comment-btn{padding:9px 14px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;align-self:stretch;display:flex;align-items:center}
-  .hub-comment-btn:hover{background:rgba(232,98,26,.18)}
-  .hub-comment-btn:disabled{opacity:.4;cursor:not-allowed}
-
-  .hub-phase-hdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);padding:18px 16px 8px;border-left:3px solid var(--orange);background:rgba(232,98,26,.04);border-radius:0 10px 10px 0;margin:18px 0 4px;display:flex;align-items:center;justify-content:space-between}
-  .hub-phase-hdr:first-child{margin-top:0}
-  .hub-phase-sub{font-weight:400;text-transform:none;font-size:11px;opacity:.7;letter-spacing:0}
+  .hub-comment-btn{padding:9px 16px;border-radius:8px;background:rgba(232,98,26,.12);border:1px solid rgba(232,98,26,.25);color:var(--orange);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;align-self:stretch}
+  .hub-comment-btn:hover{background:rgba(232,98,26,.2)}
 
   .save-ind.saving{color:#7b8ea0;opacity:1}
   .save-ind.saved{color:#34D399;opacity:1}
   .save-ind.error{color:#EF4444;opacity:1}
-
   /* ═══ GOOGLE SHEETS LIVE TABS ═══ */
   .ntb.gs-tab::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.5;display:inline-block;margin-right:5px;vertical-align:middle}
   .ntb.gs-tab.a::before{opacity:1;box-shadow:0 0 6px rgba(232,98,26,.6)}
@@ -681,17 +717,17 @@
     <img src="data:image/png;base64,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" class="nb-logo" alt="Bahri">
   </div>
   <div class="nt">
-    <div class="ntb a" data-tab="meeting">Kickoff Meeting</div>
+    <div class="ntb a" data-tab="meeting">Kickoff</div>
+    <div class="ntb" data-tab="hub">Deliverables</div>
     <div class="ntb" data-tab="team">Team</div>
     <div class="ntb" data-tab="scope">Scope</div>
-    <div class="ntb" data-tab="workplan">Video Production Plan</div>
-    <div class="ntb" data-tab="rollout">Campaign Rollout</div>
-    <div class="ntb" data-tab="hub">Deliverables Hub</div>
-    <div class="ntb" data-tab="fulltimeline">Project Timeline</div>
-    <div class="ntb" data-tab="scopetracker">Scope Tracker</div>
-    <div class="ntb gs-tab" data-tab="gs-files">Important Files</div>
+    <div class="ntb" data-tab="workplan">Video Plan</div>
+    <div class="ntb" data-tab="rollout">Rollout</div>
+    <div class="ntb" data-tab="fulltimeline">Timeline</div>
+    <div class="ntb" data-tab="scopetracker">Tracker</div>
+    <div class="ntb gs-tab" data-tab="gs-files">Files</div>
     <div class="ntb gs-tab" data-tab="gs-invoicing">Invoicing</div>
-    <div class="ntb gs-tab" data-tab="gs-thirdparty">Third Parties</div>
+    <div class="ntb gs-tab" data-tab="gs-thirdparty">Vendors</div>
   </div>
   <button id="theme-toggle" onclick="toggleTheme()">
     <svg id="theme-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -738,7 +774,7 @@
   <div class="sh" style="margin-top:0"><h2><span class="n">—</span>Updated Creative Direction</h2></div>
   <div class="slides-wrap">
     <iframe
-      src="https://docs.google.com/presentation/d/1i3c2K_RDd0KTnHnzmrVJbHl-be6-5GlX/embed?start=false&loop=false&delayms=5000&rm=minimal"
+      src="https://docs.google.com/presentation/d/17y9IGYt7qg6KeDc3fxV_wtYoW7r2xe7w/embed?start=false&loop=false&delayms=5000&rm=minimal"
       class="slides-frame"
       frameborder="0"
       allowfullscreen
@@ -1108,17 +1144,16 @@
 <div class="sec" id="hub">
   <div class="sh">
     <h2><span class="n">—</span>Deliverables Hub</h2>
-    <p>كل deliverable في كرت واحد · الحالة، الـ Copy، الـ Link، والتعليقات — تتعدّل مباشرة وتُحفظ في الشيت فوراً.</p>
+    <p>All Project Timeline tasks as editable cards · Status, Copy, Link and Comments — saved directly to the sheet.</p>
   </div>
 
   <div class="hub-toolbar">
-    <input type="text" class="hub-search" id="hub-search" placeholder="ابحث في deliverable..." oninput="hubFilter()">
-    <button class="hub-filter active" data-camp="all" onclick="hubSetFilter('all')">All</button>
-    <button class="hub-filter" data-camp="C1" onclick="hubSetFilter('C1')">C1</button>
-    <button class="hub-filter" data-camp="C2" onclick="hubSetFilter('C2')">C2</button>
-    <button class="hub-filter" data-camp="C3" onclick="hubSetFilter('C3')">C3</button>
-    <button class="hub-filter" data-camp="C4" onclick="hubSetFilter('C4')">C4</button>
-    <button class="hub-filter" data-camp="C5" onclick="hubSetFilter('C5')">C5</button>
+    <input type="text" class="hub-search" id="hub-search" placeholder="ابحث في مهمة أو owner..." oninput="hubFilter()">
+    <button class="hub-filter active" data-phase="all" onclick="hubSetFilter('all')">All Phases</button>
+    <button class="hub-filter" data-phase="1" onclick="hubSetFilter('1')">Phase 1 · Launch</button>
+    <button class="hub-filter" data-phase="2" onclick="hubSetFilter('2')">Phase 2 · Deepen</button>
+    <button class="hub-filter" data-phase="3" onclick="hubSetFilter('3')">Phase 3 · Sustain</button>
+    <button class="hub-filter" onclick="hubLoadFromSheet(true)" title="إعادة تحميل من الشيت" style="padding:8px 12px">↺ Refresh</button>
   </div>
 
   <div class="hub-stats" id="hub-stats"></div>
@@ -2853,8 +2888,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 /* ════════════════════════════════════════════════
-   DELIVERABLES HUB — Live editable cards
+   DELIVERABLES HUB — Grid cards + Modal popup
 ════════════════════════════════════════════════ */
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzp4SlIpSw_GAmlmKv-vAFV52IEOs4UFTHq1pytS2Qwp46P2708d7aDBVt02gkaNqLAiA/exec';
 
 const HUB_STATUSES = [
   {v:'Scheduled',       col:'#7b8ea0', bg:'rgba(123,142,160,.12)'},
@@ -2871,216 +2908,169 @@ const HUB_STATUSES = [
 
 const CHANNEL_LABELS = {S:'Socials',W:'Website',I:'Internal',E:'Email',LI:'LinkedIn',Ext:'External'};
 
-// 25 deliverables with all fields (owner from Project Timeline, rest from Campaign Rollout)
-const HUB_DELIVERABLES = [
-  // ── C1 THEME LAUNCH ──────────────────────────────────────────────────
-  {n:1, t:'Hero Film', tp:'Video', ph:1, camp:'C1', aud:'External',
-   owner:'Mohamed Elmouhnds', start:'Apr 19', due:'May 19', pub:'May 31',
-   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
-  {n:2, t:'CEO Theme Announcement (Copy + Visual Direction)', tp:'Copy + Design', ph:1, camp:'C1', aud:'External',
-   owner:'Osama Farfour', start:'May 10', due:'May 19', pub:'May 31',
-   ch:['W'], status:'In Progress'},
-  {n:3, t:'Key Visual  (3 KVs)', tp:'KV', ph:1, camp:'C1', aud:'External',
-   owner:'Osama Farfour', start:'May 7', due:'May 19', pub:'May 31',
-   ch:['S','W','I','LI','Ext'], status:'Scheduled'},
-  {n:4, t:'Company-Wide Launch Email', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
-   owner:'Osama Farfour', start:'May 10', due:'May 19', pub:'May 31',
-   ch:['E'], status:'Scheduled'},
-  {n:5, t:'Email Marketing External', tp:'Copy + Design', ph:1, camp:'C1', aud:'External',
-   owner:'Shaima Agil', start:'May 17', due:'May 19', pub:'May 31',
-   ch:['E'], status:'Scheduled'},
-  {n:6, t:'Internal Screens Content ×3', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
-   owner:'Osama Farfour', start:'May 17', due:'May 19', pub:'May 31',
-   ch:['I'], status:'Scheduled'},
-  {n:7, t:'Printed Materials ', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
-   owner:'Osama Farfour', start:'May 17', due:'May 19', pub:'May 31',
-   ch:['I'], status:'Scheduled'},
-  {n:8, t:'Employee Engagement Guide', tp:'Guide + Doc', ph:1, camp:'C1', aud:'Internal',
-   owner:'Osama Farfour', start:'May 11', due:'May 19', pub:'May 31',
-   ch:['I'], status:'Scheduled'},
-  {n:9, t:'Partner Toolkit ×3 ', tp:'Guide + Doc', ph:1, camp:'C1', aud:'External',
-   owner:'Osama Farfour', start:'May 11', due:'May 19', pub:'May 24',
-   ch:['Ext'], status:'Scheduled'},
-  {n:10, t:'Screen Saver', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
-   owner:'Osama Farfour', start:'May 17', due:'May 19', pub:'May 31',
-   ch:['I'], status:'Scheduled'},
-  {n:11, t:'Internal Activation Deck', tp:'Guide + Doc', ph:1, camp:'C1', aud:'Internal',
-   owner:'Saad Abumuti', start:'May 19', due:'May 24', pub:'May 25',
-   ch:['I'], status:'Scheduled'},
-  // ── C2 BSM SPOTLIGHT ─────────────────────────────────────────────────
-  {n:12, t:'BSM Leadership Clip', tp:'Video', ph:2, camp:'C2', aud:'External',
-   owner:'Mohamed Elmouhnds', start:'May 5', due:'Jun 17', pub:'Jun 21',
-   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
-  {n:13, t:'BSM Infographic + Proof Point', tp:'Infographic', ph:2, camp:'C2', aud:'External',
-   owner:'Shaima Agil', start:'May 26', due:'Jun 8', pub:'Jun 21',
-   ch:['S','W','LI','Ext'], status:'Scheduled'},
-  {n:14, t:'BSM Portal Spotlight Copy', tp:'Content', ph:2, camp:'C2', aud:'Internal',
-   owner:'Shaima Agil', start:'Jun 1', due:'Jun 10', pub:'Jun 21',
-   ch:['I'], status:'Scheduled'},
-  {n:15, t:'BSM Internal Email', tp:'Copy + Design', ph:2, camp:'C2', aud:'External',
-   owner:'Shaima Agil', start:'Jun 1', due:'Jun 10', pub:'Jun 21',
-   ch:['I'], status:'Scheduled'},
-  // ── C3 BOT-BA-BIL-BCP ────────────────────────────────────────────────
-  {n:16, t:'BOT- BA- BIL- BCP Leadership Clips', tp:'Video', ph:2, camp:'C3', aud:'External',
-   owner:'Mohamed Elmouhnds', start:'May 5', due:'Jun 17', pub:'Aug 2',
-   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
-  {n:17, t:'BOT- BA- BIL- BCP Infographics + Proof Point', tp:'Infographic', ph:2, camp:'C3', aud:'External',
-   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Aug 2',
-   ch:['S','W','LI','Ext'], status:'Scheduled'},
-  {n:18, t:'BOT- BA- BIL- BCP Portal Spotlight Copy', tp:'Content', ph:2, camp:'C3', aud:'External',
-   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Aug 2',
-   ch:['I'], status:'Scheduled'},
-  {n:20, t:'BOT- BA- BIL- BCP Internal Email', tp:'Copy + Design', ph:2, camp:'C3', aud:'Internal',
-   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Aug 2',
-   ch:['I'], status:'Scheduled'},
-  // ── C4 BDB + MARINE ──────────────────────────────────────────────────
-  {n:21, t:'BDB- BM Leadership Clips', tp:'Video', ph:2, camp:'C4', aud:'External',
-   owner:'Mohamed Elmouhnds', start:'May 5', due:'Jun 17', pub:'Oct 4',
-   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
-  {n:22, t:'BDB- BM Infographics Infographics + Proof Point', tp:'Infographic', ph:2, camp:'C4', aud:'External',
-   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Oct 4',
-   ch:['S','W','LI','Ext'], status:'Scheduled'},
-  {n:23, t:'BDB- BM Portal Spotlight Copy', tp:'Content', ph:2, camp:'C4', aud:'Internal',
-   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Oct 4',
-   ch:['I'], status:'Scheduled'},
-  {n:'23b', t:'BDB- BM  Internal Email', tp:'Copy + Design', ph:2, camp:'C4', aud:'Internal',
-   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Oct 4',
-   ch:['I'], status:'Scheduled'},
-  // ── C5 ESG ───────────────────────────────────────────────────────────
-  {n:24, t:'ESG Infographics', tp:'Infographic', ph:3, camp:'C5', aud:'External',
-   owner:'Osama Farfour', start:'Jul 7', due:'Jul 22', pub:'Dec 6',
-   ch:['S','W','I','E','LI','Ext'], status:'Scheduled'},
-  {n:27, t:'ESG Socials + Email', tp:'Copy + Design', ph:3, camp:'C5', aud:'External',
-   owner:'Shaima Agil', start:'Jul 7', due:'Jul 22', pub:'Dec 6',
-   ch:['S','W','I','E','LI','Ext'], status:'Scheduled'}
-];
+let hubTasks = [];
+let hubLoaded = false;
+let hubFilterPhase = 'all';
+let hubOpenTaskId = null;
 
-// In-memory state: holds Copy, Link, Comments for each deliverable
-const hubState = {};
-let hubFilterCamp = 'all';
-
-// Status helpers
 function statusMeta(v){ return HUB_STATUSES.find(s => s.v === v) || HUB_STATUSES[0]; }
-
-function pillHtml(status, id){
-  const m = statusMeta(status);
-  return `<span class="hub-status-pill" onclick="hubToggleStatusMenu('${id}', event)" 
-    style="background:${m.bg};border-color:${m.col}33;color:${m.col}">${escHtml(status)}</span>`;
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function escAttr(s){return String(s||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;")}
+function commentCount(notes){
+  if(!notes || !notes.trim()) return 0;
+  return notes.split('\n').filter(l => l.trim()).length;
 }
 
-function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+// Format date strings — handles JS Date toString format from Apps Script
+function fmtDate(s){
+  if(!s) return '';
+  s = String(s).trim();
+  if(/^[A-Z][a-z]{2}\s+[A-Z][a-z]{2}\s+\d+\s+\d{4}/.test(s)){
+    const d = new Date(s);
+    if(!isNaN(d)){
+      const m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear();
+    }
+  }
+  return s;
+}
+
+function taskPhaseNum(t){
+  if(!t.phase) return null;
+  if(t.phase.indexOf('PHASE 1') > -1) return 1;
+  if(t.phase.indexOf('PHASE 2') > -1) return 2;
+  if(t.phase.indexOf('PHASE 3') > -1) return 3;
+  return null;
+}
+
+function isRealTask(t){
+  if(!t.task) return false;
+  const x = t.task.toLowerCase();
+  if(x.indexOf('project timeline') > -1) return false;
+  if(x.indexOf('kickoff:') > -1) return false;
+  if(x.indexOf('bahri × mad tomato') > -1) return false;
+  if(x.indexOf('90-day production') > -1) return false;
+  return true;
+}
+
+function pillHtml(status, editable){
+  const m = statusMeta(status || 'Scheduled');
+  return `<span class="hub-status-pill ${editable ? 'editable' : ''}" ${editable ? `onclick="event.stopPropagation();hubToggleStatusMenu(event)"` : ''}
+    style="background:${m.bg};border-color:${m.col}33;color:${m.col}">${escHtml(status || 'Scheduled')}</span>`;
+}
+
+async function hubLoadFromSheet(force){
+  const grid = document.getElementById('hub-grid');
+  if(hubLoaded && !force) return;
+  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-secondary)"><div style="display:inline-block;width:30px;height:30px;border:2px solid rgba(232,98,26,.2);border-top-color:var(--orange);border-radius:50%;animation:sh-spin .8s linear infinite"></div><div style="margin-top:14px">جاري تحميل المهام من الشيت...</div></div>';
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method:'POST', headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify({action:'getTimeline'})
+    });
+    const data = await res.json();
+    if(data.success && data.tasks){
+      hubTasks = data.tasks;
+      hubLoaded = true;
+      renderHub();
+    } else {
+      if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:#EF4444">⚠ خطأ: ' + escHtml(data.error || 'unknown') + '</div>';
+    }
+  } catch(e) {
+    if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:#EF4444">⚠ خطأ في الاتصال<br><span style="font-size:11px;opacity:.6">' + escHtml(e.message) + '</span></div>';
+  }
+}
 
 function renderHub(){
   const grid = document.getElementById('hub-grid');
   if(!grid) return;
+  if(!hubLoaded){ hubLoadFromSheet(); return; }
 
-  let filtered = HUB_DELIVERABLES.filter(d => {
-    if(hubFilterCamp !== 'all' && d.camp !== hubFilterCamp) return false;
-    const q = (document.getElementById('hub-search').value || '').toLowerCase().trim();
-    if(q && !d.t.toLowerCase().includes(q) && !d.owner.toLowerCase().includes(q)) return false;
+  const q = (document.getElementById('hub-search').value || '').toLowerCase().trim();
+  const filtered = hubTasks.filter(t => {
+    if(!isRealTask(t)) return false;
+    if(hubFilterPhase !== 'all' && taskPhaseNum(t) !== parseInt(hubFilterPhase)) return false;
+    if(q && !t.task.toLowerCase().includes(q) && !t.owner.toLowerCase().includes(q)) return false;
     return true;
   });
 
-  // Group by campaign
-  const groups = {};
-  filtered.forEach(d => { (groups[d.camp] = groups[d.camp] || []).push(d); });
-
-  const campTitles = {
-    'C1':'C1 · Theme Launch — Publishes May 31',
-    'C2':'C2 · BSM Spotlight — Publishes Jun 21',
-    'C3':'C3 · BOT BCP BL BLi BA — Publishes Aug 2',
-    'C4':'C4 · BDB + Bahri Marine — Publishes Oct 4',
-    'C5':'C5 · ESG + Experiential — Publishes Dec 6'
-  };
-
   let html = '';
-  ['C1','C2','C3','C4','C5'].forEach(camp => {
-    if(!groups[camp]) return;
-    html += `<div class="hub-phase-hdr">${escHtml(campTitles[camp])}<span class="hub-phase-sub">${groups[camp].length} deliverables</span></div>`;
-    groups[camp].forEach(d => { html += cardHtml(d); });
+  let lastPhase = '__INIT__';
+  let lastGroup = '__INIT__';
+
+  filtered.forEach(t => {
+    if(t.phase !== lastPhase){
+      html += `<div class="hub-phase-hdr">${escHtml(t.phase || 'Other')}</div>`;
+      lastPhase = t.phase;
+      lastGroup = '__INIT__';
+    }
+    if(t.group !== lastGroup){
+      if(t.group){
+        html += `<div class="hub-group-hdr">▸ ${escHtml(t.group)}</div>`;
+      }
+      lastGroup = t.group;
+    }
+    html += cardHtml(t);
   });
 
   if(!filtered.length){
-    html = '<div style="text-align:center;padding:60px;color:var(--text-secondary)">لا توجد deliverables تطابق البحث.</div>';
+    html = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-secondary)">لا توجد مهام تطابق البحث.</div>';
   }
 
   grid.innerHTML = html;
   renderHubStats();
 }
 
-function cardHtml(d){
-  const id = `D${d.n}`;
-  const state = hubState[id] = hubState[id] || {copy:'', link:'', comments:'', status:d.status};
+function cardHtml(t){
+  const id = 'T' + t.row;
+  const statusM = statusMeta(t.status);
 
-  const channelChips = (d.ch || []).map(c => 
-    `<span class="hub-ch" title="${escHtml(CHANNEL_LABELS[c]||c)}">${escHtml(c)}</span>`
-  ).join('');
+  const channelChips = ['s','w','i','e','li','ext']
+    .filter(k => t.channels && t.channels[k])
+    .map(k => {
+      const label = k === 'ext' ? 'Ext' : k.toUpperCase();
+      return `<span class="hub-sum-ch" title="${escAttr(CHANNEL_LABELS[label]||label)}">${escHtml(label)}</span>`;
+    }).join('');
 
-  // Parse comments string into individual entries
-  const commentsHtml = parseComments(state.comments);
+  const hasCopy = !!(t.copy && t.copy.trim());
+  const hasLink = !!(t.link && t.link.trim());
+  const nComments = commentCount(t.notes);
+
+  const indicators = `
+    <span class="ind ${hasCopy ? 'on' : ''}" title="${hasCopy ? 'Has copy' : 'Empty'}">📝</span>
+    <span class="ind ${hasLink ? 'on' : ''}" title="${hasLink ? 'Has link' : 'Empty'}">🔗</span>
+    <span class="ind ${nComments > 0 ? 'on' : ''}" title="${nComments} comments">💬${nComments > 0 ? `<span class="cnt">${nComments}</span>` : ''}</span>
+  `;
+
+  // Status-colored border (subtle) — left edge highlighted with full color
+  const borderStyle = `border-color:${statusM.col}40;border-left:3px solid ${statusM.col}`;
 
   return `
-  <div class="hub-card" data-id="${id}" data-camp="${d.camp}">
-    <div class="hub-h">
-      <span class="hub-num">#${d.n}</span>
-      <div class="hub-title-wrap">
-        <div class="hub-title">${escHtml(d.t)}</div>
-        <div class="hub-meta">
-          <span class="hub-meta-tag">${escHtml(d.tp||'—')}</span>
-          <span class="hub-meta-tag">Phase ${d.ph}</span>
-          <span class="hub-meta-tag">${escHtml(d.aud)}</span>
-        </div>
+  <div class="hub-card" data-id="${id}" style="${borderStyle}" onclick="hubOpenModal('${id}')">
+    <div class="hub-summary">
+      <div class="hub-sum-top">
+        <div class="hub-sum-title">${escHtml(t.task)}</div>
+        <span class="hub-open-icon">↗</span>
       </div>
-      <div class="hub-status" id="${id}-status-wrap">
-        ${pillHtml(state.status, id)}
-        <div class="hub-status-menu" id="${id}-menu">
-          ${HUB_STATUSES.map(s => 
-            `<div class="hub-status-opt" onclick="hubSetStatus('${id}','${s.v}')">
-              <span class="dot" style="background:${s.col}"></span>${s.v}
-            </div>`
-          ).join('')}
-        </div>
+      <div class="hub-sum-tags">
+        ${t.type ? `<span class="hub-sum-tag">${escHtml(t.type)}</span>` : ''}
+        ${t.camp ? `<span class="hub-sum-tag">${escHtml(t.camp)}</span>` : ''}
       </div>
-    </div>
-
-    <div class="hub-info-row">
-      <div class="hub-info"><span class="ic">👤</span><b>${escHtml(d.owner)}</b></div>
-      <div class="hub-info"><span class="ic">⏰</span>Due: <b>${escHtml(d.due)}</b></div>
-      <div class="hub-info"><span class="ic">🚀</span>Publish: <b>${escHtml(d.pub)}</b></div>
-      <div class="hub-info"><span class="ic">📡</span><div class="hub-channels">${channelChips}</div></div>
-    </div>
-
-    <div class="hub-field">
-      <div class="hub-field-label">📝 Copy / Caption<span class="save-ind" id="${id}-copy-ind"></span></div>
-      <textarea class="hub-textarea" id="${id}-copy" 
-        placeholder="اكتب الـ copy أو الـ caption هنا..." 
-        onblur="hubSaveField('${id}','copy',this.value)">${escHtml(state.copy)}</textarea>
-    </div>
-
-    <div class="hub-field">
-      <div class="hub-field-label">🔗 Asset Link<span class="save-ind" id="${id}-link-ind"></span></div>
-      <div class="hub-link-wrap">
-        <input type="text" class="hub-input" id="${id}-link" 
-          placeholder="https://..." value="${escHtml(state.link)}"
-          onblur="hubSaveField('${id}','link',this.value)">
-        ${state.link ? `<a href="${escHtml(state.link)}" target="_blank" class="hub-link-open">Open ↗</a>` : ''}
+      <div class="hub-sum-rows">
+        ${t.owner ? `<div class="hub-sum-row"><span class="ic">👤</span><b>${escHtml(t.owner)}</b></div>` : ''}
+        ${t.start ? `<div class="hub-sum-row"><span class="ic">⏰</span>${escHtml(fmtDate(t.start))} → ${escHtml(fmtDate(t.end))}</div>` : ''}
+        ${channelChips ? `<div class="hub-sum-row"><span class="ic">📡</span><div class="hub-sum-channels">${channelChips}</div></div>` : ''}
       </div>
-    </div>
-
-    <div class="hub-field">
-      <div class="hub-field-label">💬 Bahri Comments<span class="save-ind" id="${id}-comments-ind"></span></div>
-      <div class="hub-comments-list">${commentsHtml}</div>
-      <div class="hub-comment-add">
-        <textarea class="hub-textarea" id="${id}-newcomment" 
-          placeholder="أضف تعليقاً جديداً..." rows="2"></textarea>
-        <button class="hub-comment-btn" onclick="hubAddComment('${id}')">+ Add</button>
+      <div class="hub-sum-bottom">
+        <div class="hub-sum-status">${pillHtml(t.status, false)}</div>
+        <div class="hub-sum-indicators">${indicators}</div>
       </div>
     </div>
   </div>`;
 }
 
 function parseComments(raw){
-  if(!raw || !raw.trim()) return '<div class="hub-comment-empty">لا توجد تعليقات حتى الآن.</div>';
+  if(!raw || !raw.trim()) return '<div class="hub-comment-empty">لا توجد ملاحظات حتى الآن.</div>';
   const lines = raw.split('\n').filter(l => l.trim());
   return lines.map(line => {
     const m = line.match(/^\[([^\]]+)\]:\s*(.*)$/);
@@ -3094,23 +3084,110 @@ function parseComments(raw){
   }).join('');
 }
 
-function hubToggleStatusMenu(id, e){
-  if(e) e.stopPropagation();
-  // Close all other menus
-  document.querySelectorAll('.hub-status-menu.open').forEach(m => {
-    if(m.id !== id + '-menu') m.classList.remove('open');
-  });
-  document.getElementById(id + '-menu')?.classList.toggle('open');
+// ═══ MODAL ═══════════════════════════════════════════════════════════════
+function hubOpenModal(id){
+  const task = hubTasks.find(t => 'T' + t.row === id);
+  if(!task) return;
+  hubOpenTaskId = id;
+
+  const channelChips = ['s','w','i','e','li','ext']
+    .filter(k => task.channels && task.channels[k])
+    .map(k => {
+      const label = k === 'ext' ? 'Ext' : k.toUpperCase();
+      return `<span class="hub-sum-ch">${escHtml(label)}</span>`;
+    }).join('');
+
+  const modal = document.getElementById('hub-modal');
+  modal.innerHTML = `
+    <div class="hub-modal-header">
+      <button class="hub-modal-close" onclick="hubCloseModal()" title="إغلاق">×</button>
+      <div class="hub-modal-title">${escHtml(task.task)}</div>
+      <div class="hub-modal-meta">
+        ${task.type ? `<span class="hub-modal-meta-tag">${escHtml(task.type)}</span>` : ''}
+        ${task.camp ? `<span class="hub-modal-meta-tag">${escHtml(task.camp)}</span>` : ''}
+        ${task.phase ? `<span class="hub-modal-meta-tag">${escHtml(task.phase.split('—')[1] ? task.phase.split('—')[1].trim().split('·')[0].trim() : task.phase)}</span>` : ''}
+      </div>
+      <div class="hub-modal-meta-row">
+        ${task.owner ? `<div class="item"><span class="ic">👤</span><b>${escHtml(task.owner)}</b></div>` : ''}
+        ${task.start ? `<div class="item"><span class="ic">⏰</span>${escHtml(fmtDate(task.start))} → ${escHtml(fmtDate(task.end))}</div>` : ''}
+        ${channelChips ? `<div class="item"><span class="ic">📡</span>${channelChips}</div>` : ''}
+      </div>
+      <div class="hub-modal-status-wrap">
+        <span style="font-size:11px;color:var(--text-secondary);font-weight:600">Status:</span>
+        <div id="modal-status-wrap" style="position:relative">
+          ${pillHtml(task.status, true)}
+          <div class="hub-status-menu" id="modal-menu">
+            ${HUB_STATUSES.map(s =>
+              `<div class="hub-status-opt" onclick="event.stopPropagation();hubSetStatusModal('${s.v}')">
+                <span class="dot" style="background:${s.col}"></span>${s.v}
+              </div>`
+            ).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hub-modal-body">
+      <div class="hub-field">
+        <div class="hub-field-label">📝 Copy / Caption<span class="save-ind" id="modal-copy-ind"></span></div>
+        <textarea class="hub-textarea" id="modal-copy" rows="4"
+          placeholder="اكتب الـ copy أو الـ caption هنا..."
+          onblur="hubSaveFieldModal('copy',this.value)">${escHtml(task.copy)}</textarea>
+      </div>
+
+      <div class="hub-field">
+        <div class="hub-field-label">🔗 Asset Link<span class="save-ind" id="modal-link-ind"></span></div>
+        <div class="hub-link-wrap">
+          <input type="text" class="hub-input" id="modal-link"
+            placeholder="https://..." value="${escAttr(task.link)}"
+            onblur="hubSaveFieldModal('link',this.value)">
+          ${task.link ? `<a href="${escAttr(task.link)}" target="_blank" class="hub-link-open">Open ↗</a>` : ''}
+        </div>
+      </div>
+
+      <div class="hub-field">
+        <div class="hub-field-label">💬 Notes / Comments<span class="save-ind" id="modal-notes-ind"></span></div>
+        <div class="hub-comments-list" id="modal-comments-list">${parseComments(task.notes)}</div>
+        <div class="hub-comment-add">
+          <textarea class="hub-textarea" id="modal-newcomment"
+            placeholder="أضف ملاحظة أو تعليق..." rows="2"></textarea>
+          <button class="hub-comment-btn" onclick="hubAddCommentModal()">+ Add</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('hub-modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
+function hubCloseModal(){
+  hubOpenTaskId = null;
+  document.getElementById('hub-modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && hubOpenTaskId) hubCloseModal();
+});
+
+function hubToggleStatusMenu(e){
+  if(e) e.stopPropagation();
+  document.getElementById('modal-menu')?.classList.toggle('open');
+}
 document.addEventListener('click', () => {
   document.querySelectorAll('.hub-status-menu.open').forEach(m => m.classList.remove('open'));
 });
 
-function hubSetStatus(id, status){
-  hubState[id].status = status;
+function hubSetStatusModal(status){
+  const id = hubOpenTaskId;
+  if(!id) return;
+  const task = hubTasks.find(t => 'T' + t.row === id);
+  if(task) task.status = status;
+
+  // Update modal pill
   const m = statusMeta(status);
-  const wrap = document.getElementById(id + '-status-wrap');
+  const wrap = document.getElementById('modal-status-wrap');
   if(wrap){
     const pill = wrap.querySelector('.hub-status-pill');
     if(pill){
@@ -3120,56 +3197,93 @@ function hubSetStatus(id, status){
       pill.style.color = m.col;
     }
   }
-  document.getElementById(id + '-menu')?.classList.remove('open');
-  hubSendUpdate(id, 'status', status);
+  document.getElementById('modal-menu')?.classList.remove('open');
+
+  // Update underlying card
+  const card = document.querySelector(`[data-id="${id}"]`);
+  if(card){
+    card.style.borderColor = m.col + '40';
+    card.style.borderLeft = '3px solid ' + m.col;
+    const cardPill = card.querySelector('.hub-status-pill');
+    if(cardPill){
+      cardPill.textContent = status;
+      cardPill.style.background = m.bg;
+      cardPill.style.borderColor = m.col + '33';
+      cardPill.style.color = m.col;
+    }
+  }
+
+  hubSendUpdateModal('status', status);
+  renderHubStats();
 }
 
-function hubSaveField(id, field, value){
-  if(hubState[id][field] === value) return; // no change
-  hubState[id][field] = value;
-  hubSendUpdate(id, field, value);
-}
-
-function hubAddComment(id){
-  const ta = document.getElementById(id + '-newcomment');
-  const val = (ta.value || '').trim();
-  if(!val) return;
-
-  hubSendUpdate(id, 'comments', val, () => {
-    // After success, append to local state with timestamp
-    const ts = new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
-    const entry = `[${ts} · Bahri]: ${val}`;
-    const existing = hubState[id].comments || '';
-    hubState[id].comments = existing ? existing + '\n' + entry : entry;
-    ta.value = '';
-    // Re-render comments list only
+function hubSaveFieldModal(field, value){
+  const id = hubOpenTaskId;
+  if(!id) return;
+  const task = hubTasks.find(t => 'T' + t.row === id);
+  if(task && task[field] === value) return;
+  if(task) task[field] = value;
+  hubSendUpdateModal(field, value, () => {
+    // Update underlying card indicator
     const card = document.querySelector(`[data-id="${id}"]`);
     if(card){
-      const list = card.querySelector('.hub-comments-list');
-      if(list) list.innerHTML = parseComments(hubState[id].comments);
+      const inds = card.querySelectorAll('.hub-sum-indicators .ind');
+      if(field === 'copy' && inds[0]) inds[0].classList.toggle('on', !!value.trim());
+      if(field === 'link' && inds[1]) inds[1].classList.toggle('on', !!value.trim());
     }
   });
 }
 
-function hubSendUpdate(id, field, value, onSuccess){
-  const deliv = HUB_DELIVERABLES.find(d => `D${d.n}` === id);
-  if(!deliv) return;
+function hubAddCommentModal(){
+  const id = hubOpenTaskId;
+  if(!id) return;
+  const ta = document.getElementById('modal-newcomment');
+  const val = (ta.value || '').trim();
+  if(!val) return;
 
-  const indEl = document.getElementById(id + '-' + field + '-ind');
+  hubSendUpdateModal('notes', val, () => {
+    const task = hubTasks.find(t => 'T' + t.row === id);
+    if(task){
+      const ts = new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
+      const entry = `[${ts} · Bahri]: ${val}`;
+      task.notes = task.notes ? task.notes + '\n' + entry : entry;
+
+      // Update modal comments list
+      const list = document.getElementById('modal-comments-list');
+      if(list) list.innerHTML = parseComments(task.notes);
+      ta.value = '';
+
+      // Update underlying card indicator
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if(card){
+        const inds = card.querySelectorAll('.hub-sum-indicators .ind');
+        if(inds[2]){
+          const n = commentCount(task.notes);
+          inds[2].classList.toggle('on', n > 0);
+          inds[2].innerHTML = `💬${n > 0 ? `<span class="cnt">${n}</span>` : ''}`;
+        }
+      }
+    }
+  });
+}
+
+function hubSendUpdateModal(field, value, onSuccess){
+  const id = hubOpenTaskId;
+  if(!id) return;
+  const task = hubTasks.find(t => 'T' + t.row === id);
+  if(!task) return;
+
+  const indEl = document.getElementById('modal-' + field + '-ind');
   if(indEl){
     indEl.textContent = '⟳ saving...';
     indEl.className = 'save-ind saving';
   }
 
   fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: {'Content-Type':'text/plain'},
+    method:'POST', headers:{'Content-Type':'text/plain'},
     body: JSON.stringify({
-      action: 'updateRollout',
-      deliverable: deliv.t,
-      field: field,
-      value: value,
-      author: 'Bahri'
+      action:'updateTimeline', task: task.task,
+      field: field, value: value, author:'Bahri'
     })
   })
   .then(r => r.json())
@@ -3178,7 +3292,7 @@ function hubSendUpdate(id, field, value, onSuccess){
       if(data.success){
         indEl.textContent = '✓ saved';
         indEl.className = 'save-ind saved';
-        setTimeout(() => { indEl.textContent = ''; indEl.className = 'save-ind'; }, 2000);
+        setTimeout(() => { if(indEl) { indEl.textContent = ''; indEl.className = 'save-ind'; } }, 2000);
       } else {
         indEl.textContent = '⚠ ' + (data.error || 'error');
         indEl.className = 'save-ind error';
@@ -3187,20 +3301,19 @@ function hubSendUpdate(id, field, value, onSuccess){
     if(data.success && onSuccess) onSuccess();
   })
   .catch(e => {
-    // CORS may block reading the response but the write likely succeeded
     if(indEl){
-      indEl.textContent = '✓ sent (check sheet)';
+      indEl.textContent = '✓ sent';
       indEl.className = 'save-ind saved';
-      setTimeout(() => { indEl.textContent = ''; indEl.className = 'save-ind'; }, 3000);
+      setTimeout(() => { if(indEl) { indEl.textContent = ''; indEl.className = 'save-ind'; } }, 3000);
     }
     if(onSuccess) onSuccess();
   });
 }
 
-function hubSetFilter(camp){
-  hubFilterCamp = camp;
+function hubSetFilter(phase){
+  hubFilterPhase = phase;
   document.querySelectorAll('.hub-filter').forEach(b => {
-    b.classList.toggle('active', b.dataset.camp === camp);
+    b.classList.toggle('active', b.dataset.phase === phase);
   });
   renderHub();
 }
@@ -3208,58 +3321,36 @@ function hubSetFilter(camp){
 function hubFilter(){ renderHub(); }
 
 function renderHubStats(){
-  const counts = {total:HUB_DELIVERABLES.length};
-  HUB_DELIVERABLES.forEach(d => {
-    const s = (hubState[`D${d.n}`]?.status) || d.status;
+  const counts = {total:hubTasks.length};
+  hubTasks.forEach(t => {
+    const s = t.status || 'Scheduled';
     counts[s] = (counts[s] || 0) + 1;
   });
   const el = document.getElementById('hub-stats');
   if(!el) return;
   let html = `<span><b>${counts.total}</b> total</span>`;
-  ['In Progress','Bahri Action','Approved','Completed','Scheduled'].forEach(s => {
+  ['Bahri Action','In Progress','Approved','Completed','Scheduled'].forEach(s => {
     if(counts[s]) html += `<span><b style="color:${statusMeta(s).col}">${counts[s]}</b> ${s}</span>`;
   });
   el.innerHTML = html;
 }
 
-// Load latest data from sheet on tab open
-async function hubLoadFromSheet(){
-  try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain'},
-      body: JSON.stringify({action:'getRollout'})
-    });
-    const data = await res.json();
-    if(data.success && data.deliverables){
-      data.deliverables.forEach(d => {
-        const local = HUB_DELIVERABLES.find(x => x.t.trim() === d.title.trim());
-        if(local){
-          const id = `D${local.n}`;
-          hubState[id] = {
-            copy: d.copy || '',
-            link: d.link || '',
-            comments: d.comments || '',
-            status: d.status || local.status
-          };
-        }
-      });
-      renderHub();
-    }
-  } catch(e) {
-    // Use local defaults silently
-  }
-}
-
-// Wire up tab click
 document.querySelectorAll('.ntb').forEach(btn => {
   if(btn.dataset.tab === 'hub') {
     btn.addEventListener('click', () => {
-      setTimeout(() => { renderHub(); hubLoadFromSheet(); }, 80);
+      setTimeout(() => {
+        if(!hubLoaded) hubLoadFromSheet();
+        else renderHub();
+      }, 80);
     });
   }
 });
 </script>
+
+<!-- Deliverables Hub Modal -->
+<div class="hub-modal-backdrop" id="hub-modal-backdrop" onclick="if(event.target===this) hubCloseModal()">
+  <div class="hub-modal" id="hub-modal"></div>
+</div>
 
 </body>
 </html>
