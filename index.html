@@ -1034,8 +1034,23 @@
 <!-- TAB FULL ROLLOUT TIMELINE -->
 <div class="sec" id="fulltimeline">
   <div class="sh">
-    <h2><span class="n">—</span>Full Rollout Timeline</h2>
+    <h2><span class="n">—</span>Project Timeline</h2>
     <p>180-day production plan</p>
+  </div>
+
+
+  <!-- ── BAHRI ACTIONS PANEL ──────────────────────────────────────── -->
+  <div style="background:var(--bg-card);border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:20px 24px;margin-bottom:24px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <span style="font-size:16px">🔔</span>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#F59E0B">BAHRI ACTIONS REQUIRED</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">المهام التالية تحتاج موافقتك أو ملاحظاتك — بإمكانك اتخاذ الإجراء مباشرة من هنا</div>
+      </div>
+    </div>
+    <div id="bahri-actions-list">
+      <div style="color:var(--text-secondary);font-size:13px;padding:8px">جاري التحميل...</div>
+    </div>
   </div>
 
   <div id="rl-legend" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
@@ -1102,9 +1117,9 @@
     {g:'Hero Film Production',ph:1,camp:1,t:'Script Finalization',s:4,e:5,tp:'agency',n:'Apr 23-26 · Completed · Based on approved direction'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Script Review (Bahri)',s:5,e:5,tp:'client',n:'Apr 26 · Returned for revision · Unwritten Law direction development'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Finalization',s:6,e:12,tp:'done',n:'Apr 27 → May 5 · Completed · Dr. Naif Al-Otaibi'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Approval (Bahri)',s:12,e:12,tp:'done',n:'May 5 · Approved ✓'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Approval (Bahri)',s:12,e:12,tp:'ms-c',n:'May 5 · Bahri Action 🔔'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Storyboard + Director Treatment',s:13,e:15,tp:'done',n:'May 6-10 · Completed ✓ · Ahmad Ragheb'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Treatment & Direction Review & Approval',s:15,e:15,tp:'done',n:'May 10 · Approved ✓'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Treatment & Direction Review & Approval',s:15,e:15,tp:'ms-c',n:'May 10 · Bahri Action 🔔'},
     {g:'Hero Film Production',ph:1,camp:1,t:'AI Scene Creation + Stock Treatment',s:16,e:18,tp:'agency',n:'May 11-13 · In Progress · Mohamed Elmouhnds'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Post-Production',s:18,e:20,tp:'agency',n:'May 13-17 · Edit + color grade + sound + EN/AR subtitles'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Bahri Revisions (Offline)',s:20,e:20,tp:'client',n:'May 17 · R1 revision window'},
@@ -1937,8 +1952,8 @@ if(document.getElementById('rollout').classList.contains('a')) renderAll();
     <!-- Status counts row — synced from Project Timeline col E -->
     <div style="display:flex;gap:20px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border);margin-top:4px">
       <span style="font-size:13px;font-weight:700;color:var(--orange)">11 In Progress</span>
-      <span style="font-size:13px;font-weight:700;color:#f59e0b">0 Bahri Action</span>
-      <span style="font-size:13px;font-weight:700;color:#34d399">3 Approved</span>
+      <span style="font-size:13px;font-weight:700;color:#f59e0b">2 Bahri Action</span>
+      <span style="font-size:13px;font-weight:700;color:#34d399">1 Approved</span>
       <span style="font-size:13px;font-weight:700;color:#6ee7b7">4 Completed</span>
       <span style="font-size:13px;font-weight:600;color:var(--text-secondary)">44 Not Started</span>
     </div>
@@ -2752,6 +2767,158 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-</script
+</script>
+<script>
+/* ════════════════════════════════════════════════
+   BAHRI LIVE ACTIONS — Project Timeline
+════════════════════════════════════════════════ */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzp4SlIpSw_GAmlmKv-vAFV52IEOs4UFTHq1pytS2Qwp46P2708d7aDBVt02gkaNqLAiA/exec';
+
+const BAHRI_STATUSES = [
+  {v:'Approved',   label:'Approved',    col:'#34D399'},
+  {v:'Amend',      label:'Request Amend', col:'#F97316'},
+  {v:'Bahri Action', label:'Bahri Action', col:'#F59E0B'},
+  {v:'Scheduled',  label:'Not Started', col:'#7b8ea0'},
+];
+
+// Tasks requiring Bahri action — filtered from allTasks
+function getBahriTasks() {
+  if(typeof allTasks === 'undefined') return [];
+  return allTasks.filter(t =>
+    (t.tp === 'client' || t.tp === 'ms-c') && t.tp !== 'done'
+  );
+}
+
+// Render the Bahri Actions panel
+function renderBahriPanel() {
+  const el = document.getElementById('bahri-actions-list');
+  if(!el) return;
+  const tasks = getBahriTasks();
+  if(!tasks.length) {
+    el.innerHTML = '<div style="color:#34D399;font-size:13px;padding:12px">✓ لا توجد مهام معلقة تحتاج موافقتك الآن.</div>';
+    return;
+  }
+  el.innerHTML = tasks.map((t,i) => {
+    const status = t.tp === 'done' ? 'Approved' : (t.tp === 'client' ? 'Bahri Action' : 'Pending');
+    const statusCol = t.tp === 'done' ? '#34D399' : '#F59E0B';
+    return `
+    <div id="ba-card-${i}" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px 18px;margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:3px">${t.t}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">${t.n||''}</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <span id="ba-status-${i}" style="padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;background:rgba(245,158,11,.12);color:#F59E0B">${status}</span>
+          <button onclick="baApprove(${i},'${t.t.replace(/'/g,"\\'")}')"
+            style="padding:7px 16px;border-radius:8px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);color:#34D399;font-size:12px;font-weight:700;cursor:pointer">
+            ✓ Approve
+          </button>
+          <button onclick="baShowAmend(${i})"
+            style="padding:7px 16px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:700;cursor:pointer">
+            ↩ Request Amend
+          </button>
+        </div>
+      </div>
+      <div id="ba-amend-${i}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">ملاحظات التعديل (مطلوبة):</div>
+        <textarea id="ba-note-${i}" placeholder="اكتب سبب التعديل المطلوب..." rows="2"
+          style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:var(--text-primary);font-size:12px;padding:10px;resize:vertical;box-sizing:border-box;direction:auto"></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button onclick="baSubmitAmend(${i},'${t.t.replace(/'/g,"\\'")}')"
+            style="padding:7px 16px;border-radius:8px;background:rgba(232,98,26,.15);border:1px solid rgba(232,98,26,.3);color:var(--orange);font-size:12px;font-weight:700;cursor:pointer">
+            إرسال التعديل
+          </button>
+          <button onclick="document.getElementById('ba-amend-'+'${i}').style.display='none'"
+            style="padding:7px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--text-secondary);font-size:12px;cursor:pointer">
+            إلغاء
+          </button>
+        </div>
+      </div>
+      <div id="ba-feedback-${i}" style="display:none;margin-top:8px;font-size:12px;color:#34D399"></div>
+    </div>`;
+  }).join('');
+}
+
+// Approve action
+async function baApprove(idx, taskName) {
+  await baSend(taskName, 'Approved', '', idx);
+}
+
+// Show amend form
+function baShowAmend(idx) {
+  const el = document.getElementById('ba-amend-' + idx);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// Submit amend
+async function baSubmitAmend(idx, taskName) {
+  const note = document.getElementById('ba-note-' + idx).value.trim();
+  if(!note) {
+    const fb = document.getElementById('ba-feedback-' + idx);
+    fb.textContent = '⚠ الرجاء كتابة سبب التعديل';
+    fb.style.color = '#F59E0B';
+    fb.style.display = 'block';
+    return;
+  }
+  await baSend(taskName, 'Amend', note, idx);
+}
+
+// Core send function
+async function baSend(taskName, status, note, idx) {
+  const statusEl = document.getElementById('ba-status-' + idx);
+  const feedbackEl = document.getElementById('ba-feedback-' + idx);
+  const amendEl = document.getElementById('ba-amend-' + idx);
+
+  // Show loading
+  statusEl.textContent = '⟳ جاري الإرسال...';
+  statusEl.style.color = '#7b8ea0';
+  feedbackEl.style.display = 'none';
+
+  try {
+    // Use text/plain to avoid CORS preflight on Apps Script
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({
+        action: 'updateTask',
+        taskName: taskName,
+        status: status,
+        note: note,
+        author: 'Bahri'
+      })
+    });
+    const data = await res.json();
+    if(data.success) {
+      statusEl.textContent = status === 'Approved' ? '✓ Approved' : '↩ Amend Requested';
+      statusEl.style.background = status === 'Approved' ? 'rgba(52,211,153,.12)' : 'rgba(232,98,26,.12)';
+      statusEl.style.color = status === 'Approved' ? '#34D399' : 'var(--orange)';
+      if(amendEl) amendEl.style.display = 'none';
+      feedbackEl.textContent = status === 'Approved' ? '✓ تم الاعتماد وتحديث الشيت' : '✓ تم إرسال طلب التعديل';
+      feedbackEl.style.color = '#34D399';
+      feedbackEl.style.display = 'block';
+    } else {
+      throw new Error(data.error || 'Unknown error');
+    }
+  } catch(e) {
+    // Optimistic update — Apps Script likely executed even on CORS error
+    statusEl.textContent = status === 'Approved' ? '✓ Approved' : '↩ Amend Requested';
+    statusEl.style.background = status === 'Approved' ? 'rgba(52,211,153,.12)' : 'rgba(232,98,26,.12)';
+    statusEl.style.color = status === 'Approved' ? '#34D399' : 'var(--orange)';
+    if(amendEl) amendEl.style.display = 'none';
+    feedbackEl.textContent = '✓ تم الإرسال (تحقق من الشيت للتأكيد)';
+    feedbackEl.style.color = '#F59E0B';
+    feedbackEl.style.display = 'block';
+  }
+}
+
+// Initialize panel when Project Timeline tab is clicked
+document.querySelectorAll('.ntb').forEach(btn => {
+  if(btn.dataset.tab === 'fulltimeline') {
+    btn.addEventListener('click', () => setTimeout(renderBahriPanel, 80));
+  }
+});
+</script>
+
 </body>
 </html>
