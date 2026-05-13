@@ -521,6 +521,75 @@
   .cb-output-link svg{opacity:.5;flex-shrink:0}
   .cb-dates{display:flex;gap:14px;padding:0 14px 10px;flex-wrap:wrap}
 
+
+  /* ═══ DELIVERABLES HUB ═══ */
+  .hub-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+  .hub-search{flex:1;min-width:240px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 14px;color:var(--text-primary);font-size:13px}
+  .hub-search:focus{outline:none;border-color:rgba(232,98,26,.3)}
+  .hub-filter{padding:8px 14px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .2s}
+  .hub-filter:hover{color:var(--text-primary)}
+  .hub-filter.active{background:rgba(232,98,26,.1);border-color:rgba(232,98,26,.25);color:var(--orange)}
+  .hub-stats{display:flex;gap:14px;font-size:11px;color:var(--text-secondary);flex-wrap:wrap}
+  .hub-stats b{color:var(--text-primary);font-weight:700;margin-right:3px}
+
+  .hub-grid{display:grid;grid-template-columns:1fr;gap:14px}
+  .hub-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px 22px;transition:border-color .2s}
+  .hub-card:hover{border-color:rgba(232,98,26,.15)}
+
+  .hub-h{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+  .hub-num{font-size:11px;font-weight:700;color:rgba(232,98,26,.7);min-width:24px;padding-top:3px;letter-spacing:.5px}
+  .hub-title-wrap{flex:1;min-width:200px}
+  .hub-title{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:5px;line-height:1.3}
+  .hub-meta{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:var(--text-secondary)}
+  .hub-meta-tag{padding:3px 9px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+  .hub-status{position:relative;flex-shrink:0}
+  .hub-status-pill{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid;display:inline-flex;align-items:center;gap:6px;transition:all .2s;background:transparent}
+  .hub-status-pill::after{content:'▾';font-size:8px;opacity:.6}
+  .hub-status-menu{position:absolute;top:calc(100% + 4px);right:0;background:#0a1830;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:5px;display:none;z-index:100;min-width:180px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+  .hub-status-menu.open{display:block}
+  .hub-status-opt{padding:8px 12px;border-radius:6px;font-size:12px;color:var(--text-primary);cursor:pointer;display:flex;align-items:center;gap:8px}
+  .hub-status-opt:hover{background:rgba(255,255,255,.04)}
+  .hub-status-opt .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+  .hub-info-row{display:flex;gap:18px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);margin-bottom:14px}
+  .hub-info{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary)}
+  .hub-info b{color:var(--text-primary);font-weight:600}
+  .hub-info .ic{opacity:.5;font-size:13px}
+
+  .hub-channels{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+  .hub-ch{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(232,98,26,.08);color:var(--orange);border:1px solid rgba(232,98,26,.15)}
+
+  .hub-field{margin-bottom:12px}
+  .hub-field-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(232,98,26,.65);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .hub-field-label .save-ind{margin-left:auto;font-size:9px;font-weight:600;letter-spacing:0;text-transform:none;transition:opacity .3s}
+  .hub-input,.hub-textarea{width:100%;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:var(--text-primary);font-size:13px;padding:10px 12px;box-sizing:border-box;font-family:inherit;transition:border-color .2s;line-height:1.5}
+  .hub-input:focus,.hub-textarea:focus{outline:none;border-color:rgba(232,98,26,.3);background:rgba(255,255,255,.035)}
+  .hub-textarea{resize:vertical;min-height:60px}
+  .hub-link-wrap{display:flex;gap:8px;align-items:center}
+  .hub-link-wrap .hub-input{flex:1}
+  .hub-link-open{padding:9px 14px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap}
+  .hub-link-open:hover{background:rgba(232,98,26,.18)}
+
+  .hub-comments-list{display:flex;flex-direction:column;gap:7px;margin-bottom:8px;max-height:200px;overflow-y:auto}
+  .hub-comment{padding:9px 12px;background:rgba(255,255,255,.025);border-left:3px solid rgba(232,98,26,.4);border-radius:0 8px 8px 0;font-size:12px;color:var(--text-primary);line-height:1.5;white-space:pre-wrap}
+  .hub-comment-meta{font-size:10px;color:rgba(232,98,26,.7);font-weight:600;margin-bottom:3px}
+  .hub-comment-empty{font-size:12px;color:var(--text-secondary);font-style:italic;padding:8px 0}
+
+  .hub-comment-add{display:flex;gap:8px;align-items:flex-start}
+  .hub-comment-add textarea{flex:1}
+  .hub-comment-btn{padding:9px 14px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;align-self:stretch;display:flex;align-items:center}
+  .hub-comment-btn:hover{background:rgba(232,98,26,.18)}
+  .hub-comment-btn:disabled{opacity:.4;cursor:not-allowed}
+
+  .hub-phase-hdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(232,98,26,.7);padding:18px 16px 8px;border-left:3px solid var(--orange);background:rgba(232,98,26,.04);border-radius:0 10px 10px 0;margin:18px 0 4px;display:flex;align-items:center;justify-content:space-between}
+  .hub-phase-hdr:first-child{margin-top:0}
+  .hub-phase-sub{font-weight:400;text-transform:none;font-size:11px;opacity:.7;letter-spacing:0}
+
+  .save-ind.saving{color:#7b8ea0;opacity:1}
+  .save-ind.saved{color:#34D399;opacity:1}
+  .save-ind.error{color:#EF4444;opacity:1}
+
   /* ═══ GOOGLE SHEETS LIVE TABS ═══ */
   .ntb.gs-tab::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.5;display:inline-block;margin-right:5px;vertical-align:middle}
   .ntb.gs-tab.a::before{opacity:1;box-shadow:0 0 6px rgba(232,98,26,.6)}
@@ -617,6 +686,7 @@
     <div class="ntb" data-tab="scope">Scope</div>
     <div class="ntb" data-tab="workplan">Video Production Plan</div>
     <div class="ntb" data-tab="rollout">Campaign Rollout</div>
+    <div class="ntb" data-tab="hub">Deliverables Hub</div>
     <div class="ntb" data-tab="fulltimeline">Project Timeline</div>
     <div class="ntb" data-tab="scopetracker">Scope Tracker</div>
     <div class="ntb gs-tab" data-tab="gs-files">Important Files</div>
@@ -1031,6 +1101,31 @@
 </div>
 
 
+
+<!-- ═══════════════════════════════════════════════
+     DELIVERABLES HUB — Live editable cards
+════════════════════════════════════════════════ -->
+<div class="sec" id="hub">
+  <div class="sh">
+    <h2><span class="n">—</span>Deliverables Hub</h2>
+    <p>كل deliverable في كرت واحد · الحالة، الـ Copy، الـ Link، والتعليقات — تتعدّل مباشرة وتُحفظ في الشيت فوراً.</p>
+  </div>
+
+  <div class="hub-toolbar">
+    <input type="text" class="hub-search" id="hub-search" placeholder="ابحث في deliverable..." oninput="hubFilter()">
+    <button class="hub-filter active" data-camp="all" onclick="hubSetFilter('all')">All</button>
+    <button class="hub-filter" data-camp="C1" onclick="hubSetFilter('C1')">C1</button>
+    <button class="hub-filter" data-camp="C2" onclick="hubSetFilter('C2')">C2</button>
+    <button class="hub-filter" data-camp="C3" onclick="hubSetFilter('C3')">C3</button>
+    <button class="hub-filter" data-camp="C4" onclick="hubSetFilter('C4')">C4</button>
+    <button class="hub-filter" data-camp="C5" onclick="hubSetFilter('C5')">C5</button>
+  </div>
+
+  <div class="hub-stats" id="hub-stats"></div>
+  <div style="height:14px"></div>
+  <div class="hub-grid" id="hub-grid"></div>
+</div>
+
 <!-- TAB FULL ROLLOUT TIMELINE -->
 <div class="sec" id="fulltimeline">
   <div class="sh">
@@ -1038,20 +1133,6 @@
     <p>180-day production plan</p>
   </div>
 
-
-  <!-- ── BAHRI ACTIONS PANEL ──────────────────────────────────────── -->
-  <div style="background:var(--bg-card);border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:20px 24px;margin-bottom:24px">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-      <span style="font-size:16px">🔔</span>
-      <div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#F59E0B">BAHRI ACTIONS REQUIRED</div>
-        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">المهام التالية تحتاج موافقتك أو ملاحظاتك — بإمكانك اتخاذ الإجراء مباشرة من هنا</div>
-      </div>
-    </div>
-    <div id="bahri-actions-list">
-      <div style="color:var(--text-secondary);font-size:13px;padding:8px">جاري التحميل...</div>
-    </div>
-  </div>
 
   <div id="rl-legend" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
     <!-- Toggle -->
@@ -1117,9 +1198,9 @@
     {g:'Hero Film Production',ph:1,camp:1,t:'Script Finalization',s:4,e:5,tp:'agency',n:'Apr 23-26 · Completed · Based on approved direction'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Script Review (Bahri)',s:5,e:5,tp:'client',n:'Apr 26 · Returned for revision · Unwritten Law direction development'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Finalization',s:6,e:12,tp:'done',n:'Apr 27 → May 5 · Completed · Dr. Naif Al-Otaibi'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Approval (Bahri)',s:12,e:12,tp:'ms-c',n:'May 5 · Bahri Action 🔔'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Approval (Bahri)',s:12,e:12,tp:'done',n:'May 5 · Approved ✓'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Storyboard + Director Treatment',s:13,e:15,tp:'done',n:'May 6-10 · Completed ✓ · Ahmad Ragheb'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Treatment & Direction Review & Approval',s:15,e:15,tp:'ms-c',n:'May 10 · Bahri Action 🔔'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Treatment & Direction Review & Approval',s:15,e:15,tp:'done',n:'May 10 · Approved ✓'},
     {g:'Hero Film Production',ph:1,camp:1,t:'AI Scene Creation + Stock Treatment',s:16,e:18,tp:'agency',n:'May 11-13 · In Progress · Mohamed Elmouhnds'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Post-Production',s:18,e:20,tp:'agency',n:'May 13-17 · Edit + color grade + sound + EN/AR subtitles'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Bahri Revisions (Offline)',s:20,e:20,tp:'client',n:'May 17 · R1 revision window'},
@@ -1139,7 +1220,7 @@
     {g:'Content — Copy & Design',ph:1,camp:1,t:'CEO Theme Announcement',s:15,e:18,tp:'agency',n:'May 10-13 · Shaima Agil',ch:'I,LI'},
     {g:'Content — Copy & Design',ph:1,camp:1,t:'Website Banner + Landing Page — Copy',s:15,e:18,tp:'agency',n:'May 10-13 · Shaima Agil',ch:'W'},
     {g:'Content — Copy & Design',ph:1,camp:1,t:'✅  Bahri Content Approval — Batch 1',s:18,e:18,tp:'ms-c',n:'May 13 · Copy batch approval gate'},
-    {g:'Content — Copy & Design',ph:1,camp:1,t:'Company-wide Email — Design',s:20,e:22,tp:'agency',n:'May 17-19 · Osama Farfour',ch:'E'},
+    {g:'Content — Copy & Design',ph:1,camp:1,t:'Company-wide Email — Design',s:20,e:22,tp:'agency',n:'May 17-19 · In Progress · Osama Farfour',ch:'E'},
     {g:'Content — Copy & Design',ph:1,camp:1,t:'KVs — Design ×3',s:20,e:22,tp:'agency',n:'May 17-19 · Osama Farfour',ch:'S,W,I,LI'},
     {g:'Content — Copy & Design',ph:1,camp:1,t:'Website Banner + Landing Page — Design',s:20,e:22,tp:'agency',n:'May 17-19 · Osama Farfour',ch:'W'},
     {g:'Content — Copy & Design',ph:1,camp:1,t:'Screen Saver + Printed Materials — Copy + Design',s:20,e:22,tp:'agency',n:'May 17-19 · Osama Farfour',ch:'I'},
@@ -1951,9 +2032,9 @@ if(document.getElementById('rollout').classList.contains('a')) renderAll();
 
     <!-- Status counts row — synced from Project Timeline col E -->
     <div style="display:flex;gap:20px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border);margin-top:4px">
-      <span style="font-size:13px;font-weight:700;color:var(--orange)">11 In Progress</span>
-      <span style="font-size:13px;font-weight:700;color:#f59e0b">2 Bahri Action</span>
-      <span style="font-size:13px;font-weight:700;color:#34d399">1 Approved</span>
+      <span style="font-size:13px;font-weight:700;color:var(--orange)">12 In Progress</span>
+      <span style="font-size:13px;font-weight:700;color:#f59e0b">0 Bahri Action</span>
+      <span style="font-size:13px;font-weight:700;color:#34d399">3 Approved</span>
       <span style="font-size:13px;font-weight:700;color:#6ee7b7">4 Completed</span>
       <span style="font-size:13px;font-weight:600;color:var(--text-secondary)">44 Not Started</span>
     </div>
@@ -2768,154 +2849,414 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+</script>
+
 <script>
 /* ════════════════════════════════════════════════
-   BAHRI LIVE ACTIONS — Project Timeline
+   DELIVERABLES HUB — Live editable cards
 ════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzp4SlIpSw_GAmlmKv-vAFV52IEOs4UFTHq1pytS2Qwp46P2708d7aDBVt02gkaNqLAiA/exec';
 
-const BAHRI_STATUSES = [
-  {v:'Approved',   label:'Approved',    col:'#34D399'},
-  {v:'Amend',      label:'Request Amend', col:'#F97316'},
-  {v:'Bahri Action', label:'Bahri Action', col:'#F59E0B'},
-  {v:'Scheduled',  label:'Not Started', col:'#7b8ea0'},
+const HUB_STATUSES = [
+  {v:'Scheduled',       col:'#7b8ea0', bg:'rgba(123,142,160,.12)'},
+  {v:'In Progress',     col:'#E8621A', bg:'rgba(232,98,26,.12)'},
+  {v:'Internal Review', col:'#818CF8', bg:'rgba(129,140,248,.12)'},
+  {v:'Ready to Share',  col:'#FBBF24', bg:'rgba(251,191,36,.12)'},
+  {v:'Bahri Action',    col:'#F59E0B', bg:'rgba(245,158,11,.15)'},
+  {v:'Amend',           col:'#FB923C', bg:'rgba(251,146,60,.15)'},
+  {v:'Approved',        col:'#34D399', bg:'rgba(52,211,153,.12)'},
+  {v:'Completed',       col:'#10B981', bg:'rgba(16,185,129,.18)'},
+  {v:'Hold',            col:'#94A3B8', bg:'rgba(148,163,184,.12)'},
+  {v:'Cancelled',       col:'#EF4444', bg:'rgba(239,68,68,.12)'}
 ];
 
-// Tasks requiring Bahri action — filtered from allTasks
-function getBahriTasks() {
-  if(typeof allTasks === 'undefined') return [];
-  return allTasks.filter(t =>
-    (t.tp === 'client' || t.tp === 'ms-c') && t.tp !== 'done'
-  );
+const CHANNEL_LABELS = {S:'Socials',W:'Website',I:'Internal',E:'Email',LI:'LinkedIn',Ext:'External'};
+
+// 25 deliverables with all fields (owner from Project Timeline, rest from Campaign Rollout)
+const HUB_DELIVERABLES = [
+  // ── C1 THEME LAUNCH ──────────────────────────────────────────────────
+  {n:1, t:'Hero Film', tp:'Video', ph:1, camp:'C1', aud:'External',
+   owner:'Mohamed Elmouhnds', start:'Apr 19', due:'May 19', pub:'May 31',
+   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
+  {n:2, t:'CEO Theme Announcement (Copy + Visual Direction)', tp:'Copy + Design', ph:1, camp:'C1', aud:'External',
+   owner:'Osama Farfour', start:'May 10', due:'May 19', pub:'May 31',
+   ch:['W'], status:'In Progress'},
+  {n:3, t:'Key Visual  (3 KVs)', tp:'KV', ph:1, camp:'C1', aud:'External',
+   owner:'Osama Farfour', start:'May 7', due:'May 19', pub:'May 31',
+   ch:['S','W','I','LI','Ext'], status:'Scheduled'},
+  {n:4, t:'Company-Wide Launch Email', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
+   owner:'Osama Farfour', start:'May 10', due:'May 19', pub:'May 31',
+   ch:['E'], status:'Scheduled'},
+  {n:5, t:'Email Marketing External', tp:'Copy + Design', ph:1, camp:'C1', aud:'External',
+   owner:'Shaima Agil', start:'May 17', due:'May 19', pub:'May 31',
+   ch:['E'], status:'Scheduled'},
+  {n:6, t:'Internal Screens Content ×3', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
+   owner:'Osama Farfour', start:'May 17', due:'May 19', pub:'May 31',
+   ch:['I'], status:'Scheduled'},
+  {n:7, t:'Printed Materials ', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
+   owner:'Osama Farfour', start:'May 17', due:'May 19', pub:'May 31',
+   ch:['I'], status:'Scheduled'},
+  {n:8, t:'Employee Engagement Guide', tp:'Guide + Doc', ph:1, camp:'C1', aud:'Internal',
+   owner:'Osama Farfour', start:'May 11', due:'May 19', pub:'May 31',
+   ch:['I'], status:'Scheduled'},
+  {n:9, t:'Partner Toolkit ×3 ', tp:'Guide + Doc', ph:1, camp:'C1', aud:'External',
+   owner:'Osama Farfour', start:'May 11', due:'May 19', pub:'May 24',
+   ch:['Ext'], status:'Scheduled'},
+  {n:10, t:'Screen Saver', tp:'Copy + Design', ph:1, camp:'C1', aud:'Internal',
+   owner:'Osama Farfour', start:'May 17', due:'May 19', pub:'May 31',
+   ch:['I'], status:'Scheduled'},
+  {n:11, t:'Internal Activation Deck', tp:'Guide + Doc', ph:1, camp:'C1', aud:'Internal',
+   owner:'Saad Abumuti', start:'May 19', due:'May 24', pub:'May 25',
+   ch:['I'], status:'Scheduled'},
+  // ── C2 BSM SPOTLIGHT ─────────────────────────────────────────────────
+  {n:12, t:'BSM Leadership Clip', tp:'Video', ph:2, camp:'C2', aud:'External',
+   owner:'Mohamed Elmouhnds', start:'May 5', due:'Jun 17', pub:'Jun 21',
+   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
+  {n:13, t:'BSM Infographic + Proof Point', tp:'Infographic', ph:2, camp:'C2', aud:'External',
+   owner:'Shaima Agil', start:'May 26', due:'Jun 8', pub:'Jun 21',
+   ch:['S','W','LI','Ext'], status:'Scheduled'},
+  {n:14, t:'BSM Portal Spotlight Copy', tp:'Content', ph:2, camp:'C2', aud:'Internal',
+   owner:'Shaima Agil', start:'Jun 1', due:'Jun 10', pub:'Jun 21',
+   ch:['I'], status:'Scheduled'},
+  {n:15, t:'BSM Internal Email', tp:'Copy + Design', ph:2, camp:'C2', aud:'External',
+   owner:'Shaima Agil', start:'Jun 1', due:'Jun 10', pub:'Jun 21',
+   ch:['I'], status:'Scheduled'},
+  // ── C3 BOT-BA-BIL-BCP ────────────────────────────────────────────────
+  {n:16, t:'BOT- BA- BIL- BCP Leadership Clips', tp:'Video', ph:2, camp:'C3', aud:'External',
+   owner:'Mohamed Elmouhnds', start:'May 5', due:'Jun 17', pub:'Aug 2',
+   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
+  {n:17, t:'BOT- BA- BIL- BCP Infographics + Proof Point', tp:'Infographic', ph:2, camp:'C3', aud:'External',
+   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Aug 2',
+   ch:['S','W','LI','Ext'], status:'Scheduled'},
+  {n:18, t:'BOT- BA- BIL- BCP Portal Spotlight Copy', tp:'Content', ph:2, camp:'C3', aud:'External',
+   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Aug 2',
+   ch:['I'], status:'Scheduled'},
+  {n:20, t:'BOT- BA- BIL- BCP Internal Email', tp:'Copy + Design', ph:2, camp:'C3', aud:'Internal',
+   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Aug 2',
+   ch:['I'], status:'Scheduled'},
+  // ── C4 BDB + MARINE ──────────────────────────────────────────────────
+  {n:21, t:'BDB- BM Leadership Clips', tp:'Video', ph:2, camp:'C4', aud:'External',
+   owner:'Mohamed Elmouhnds', start:'May 5', due:'Jun 17', pub:'Oct 4',
+   ch:['S','W','I','E','LI','Ext'], status:'In Progress'},
+  {n:22, t:'BDB- BM Infographics Infographics + Proof Point', tp:'Infographic', ph:2, camp:'C4', aud:'External',
+   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Oct 4',
+   ch:['S','W','LI','Ext'], status:'Scheduled'},
+  {n:23, t:'BDB- BM Portal Spotlight Copy', tp:'Content', ph:2, camp:'C4', aud:'Internal',
+   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Oct 4',
+   ch:['I'], status:'Scheduled'},
+  {n:'23b', t:'BDB- BM  Internal Email', tp:'Copy + Design', ph:2, camp:'C4', aud:'Internal',
+   owner:'Shaima Agil', start:'Jun 30', due:'Jul 13', pub:'Oct 4',
+   ch:['I'], status:'Scheduled'},
+  // ── C5 ESG ───────────────────────────────────────────────────────────
+  {n:24, t:'ESG Infographics', tp:'Infographic', ph:3, camp:'C5', aud:'External',
+   owner:'Osama Farfour', start:'Jul 7', due:'Jul 22', pub:'Dec 6',
+   ch:['S','W','I','E','LI','Ext'], status:'Scheduled'},
+  {n:27, t:'ESG Socials + Email', tp:'Copy + Design', ph:3, camp:'C5', aud:'External',
+   owner:'Shaima Agil', start:'Jul 7', due:'Jul 22', pub:'Dec 6',
+   ch:['S','W','I','E','LI','Ext'], status:'Scheduled'}
+];
+
+// In-memory state: holds Copy, Link, Comments for each deliverable
+const hubState = {};
+let hubFilterCamp = 'all';
+
+// Status helpers
+function statusMeta(v){ return HUB_STATUSES.find(s => s.v === v) || HUB_STATUSES[0]; }
+
+function pillHtml(status, id){
+  const m = statusMeta(status);
+  return `<span class="hub-status-pill" onclick="hubToggleStatusMenu('${id}', event)" 
+    style="background:${m.bg};border-color:${m.col}33;color:${m.col}">${escHtml(status)}</span>`;
 }
 
-// Render the Bahri Actions panel
-function renderBahriPanel() {
-  const el = document.getElementById('bahri-actions-list');
-  if(!el) return;
-  const tasks = getBahriTasks();
-  if(!tasks.length) {
-    el.innerHTML = '<div style="color:#34D399;font-size:13px;padding:12px">✓ لا توجد مهام معلقة تحتاج موافقتك الآن.</div>';
-    return;
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function renderHub(){
+  const grid = document.getElementById('hub-grid');
+  if(!grid) return;
+
+  let filtered = HUB_DELIVERABLES.filter(d => {
+    if(hubFilterCamp !== 'all' && d.camp !== hubFilterCamp) return false;
+    const q = (document.getElementById('hub-search').value || '').toLowerCase().trim();
+    if(q && !d.t.toLowerCase().includes(q) && !d.owner.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  // Group by campaign
+  const groups = {};
+  filtered.forEach(d => { (groups[d.camp] = groups[d.camp] || []).push(d); });
+
+  const campTitles = {
+    'C1':'C1 · Theme Launch — Publishes May 31',
+    'C2':'C2 · BSM Spotlight — Publishes Jun 21',
+    'C3':'C3 · BOT BCP BL BLi BA — Publishes Aug 2',
+    'C4':'C4 · BDB + Bahri Marine — Publishes Oct 4',
+    'C5':'C5 · ESG + Experiential — Publishes Dec 6'
+  };
+
+  let html = '';
+  ['C1','C2','C3','C4','C5'].forEach(camp => {
+    if(!groups[camp]) return;
+    html += `<div class="hub-phase-hdr">${escHtml(campTitles[camp])}<span class="hub-phase-sub">${groups[camp].length} deliverables</span></div>`;
+    groups[camp].forEach(d => { html += cardHtml(d); });
+  });
+
+  if(!filtered.length){
+    html = '<div style="text-align:center;padding:60px;color:var(--text-secondary)">لا توجد deliverables تطابق البحث.</div>';
   }
-  el.innerHTML = tasks.map((t,i) => {
-    const status = t.tp === 'done' ? 'Approved' : (t.tp === 'client' ? 'Bahri Action' : 'Pending');
-    const statusCol = t.tp === 'done' ? '#34D399' : '#F59E0B';
-    return `
-    <div id="ba-card-${i}" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px 18px;margin-bottom:8px">
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:200px">
-          <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:3px">${t.t}</div>
-          <div style="font-size:11px;color:var(--text-secondary)">${t.n||''}</div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <span id="ba-status-${i}" style="padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;background:rgba(245,158,11,.12);color:#F59E0B">${status}</span>
-          <button onclick="baApprove(${i},'${t.t.replace(/'/g,"\\'")}')"
-            style="padding:7px 16px;border-radius:8px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);color:#34D399;font-size:12px;font-weight:700;cursor:pointer">
-            ✓ Approve
-          </button>
-          <button onclick="baShowAmend(${i})"
-            style="padding:7px 16px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.2);color:var(--orange);font-size:12px;font-weight:700;cursor:pointer">
-            ↩ Request Amend
-          </button>
-        </div>
-      </div>
-      <div id="ba-amend-${i}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)">
-        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">ملاحظات التعديل (مطلوبة):</div>
-        <textarea id="ba-note-${i}" placeholder="اكتب سبب التعديل المطلوب..." rows="2"
-          style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:var(--text-primary);font-size:12px;padding:10px;resize:vertical;box-sizing:border-box;direction:auto"></textarea>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button onclick="baSubmitAmend(${i},'${t.t.replace(/'/g,"\\'")}')"
-            style="padding:7px 16px;border-radius:8px;background:rgba(232,98,26,.15);border:1px solid rgba(232,98,26,.3);color:var(--orange);font-size:12px;font-weight:700;cursor:pointer">
-            إرسال التعديل
-          </button>
-          <button onclick="document.getElementById('ba-amend-'+'${i}').style.display='none'"
-            style="padding:7px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--text-secondary);font-size:12px;cursor:pointer">
-            إلغاء
-          </button>
+
+  grid.innerHTML = html;
+  renderHubStats();
+}
+
+function cardHtml(d){
+  const id = `D${d.n}`;
+  const state = hubState[id] = hubState[id] || {copy:'', link:'', comments:'', status:d.status};
+
+  const channelChips = (d.ch || []).map(c => 
+    `<span class="hub-ch" title="${escHtml(CHANNEL_LABELS[c]||c)}">${escHtml(c)}</span>`
+  ).join('');
+
+  // Parse comments string into individual entries
+  const commentsHtml = parseComments(state.comments);
+
+  return `
+  <div class="hub-card" data-id="${id}" data-camp="${d.camp}">
+    <div class="hub-h">
+      <span class="hub-num">#${d.n}</span>
+      <div class="hub-title-wrap">
+        <div class="hub-title">${escHtml(d.t)}</div>
+        <div class="hub-meta">
+          <span class="hub-meta-tag">${escHtml(d.tp||'—')}</span>
+          <span class="hub-meta-tag">Phase ${d.ph}</span>
+          <span class="hub-meta-tag">${escHtml(d.aud)}</span>
         </div>
       </div>
-      <div id="ba-feedback-${i}" style="display:none;margin-top:8px;font-size:12px;color:#34D399"></div>
-    </div>`;
+      <div class="hub-status" id="${id}-status-wrap">
+        ${pillHtml(state.status, id)}
+        <div class="hub-status-menu" id="${id}-menu">
+          ${HUB_STATUSES.map(s => 
+            `<div class="hub-status-opt" onclick="hubSetStatus('${id}','${s.v}')">
+              <span class="dot" style="background:${s.col}"></span>${s.v}
+            </div>`
+          ).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="hub-info-row">
+      <div class="hub-info"><span class="ic">👤</span><b>${escHtml(d.owner)}</b></div>
+      <div class="hub-info"><span class="ic">⏰</span>Due: <b>${escHtml(d.due)}</b></div>
+      <div class="hub-info"><span class="ic">🚀</span>Publish: <b>${escHtml(d.pub)}</b></div>
+      <div class="hub-info"><span class="ic">📡</span><div class="hub-channels">${channelChips}</div></div>
+    </div>
+
+    <div class="hub-field">
+      <div class="hub-field-label">📝 Copy / Caption<span class="save-ind" id="${id}-copy-ind"></span></div>
+      <textarea class="hub-textarea" id="${id}-copy" 
+        placeholder="اكتب الـ copy أو الـ caption هنا..." 
+        onblur="hubSaveField('${id}','copy',this.value)">${escHtml(state.copy)}</textarea>
+    </div>
+
+    <div class="hub-field">
+      <div class="hub-field-label">🔗 Asset Link<span class="save-ind" id="${id}-link-ind"></span></div>
+      <div class="hub-link-wrap">
+        <input type="text" class="hub-input" id="${id}-link" 
+          placeholder="https://..." value="${escHtml(state.link)}"
+          onblur="hubSaveField('${id}','link',this.value)">
+        ${state.link ? `<a href="${escHtml(state.link)}" target="_blank" class="hub-link-open">Open ↗</a>` : ''}
+      </div>
+    </div>
+
+    <div class="hub-field">
+      <div class="hub-field-label">💬 Bahri Comments<span class="save-ind" id="${id}-comments-ind"></span></div>
+      <div class="hub-comments-list">${commentsHtml}</div>
+      <div class="hub-comment-add">
+        <textarea class="hub-textarea" id="${id}-newcomment" 
+          placeholder="أضف تعليقاً جديداً..." rows="2"></textarea>
+        <button class="hub-comment-btn" onclick="hubAddComment('${id}')">+ Add</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function parseComments(raw){
+  if(!raw || !raw.trim()) return '<div class="hub-comment-empty">لا توجد تعليقات حتى الآن.</div>';
+  const lines = raw.split('\n').filter(l => l.trim());
+  return lines.map(line => {
+    const m = line.match(/^\[([^\]]+)\]:\s*(.*)$/);
+    if(m){
+      return `<div class="hub-comment">
+        <div class="hub-comment-meta">${escHtml(m[1])}</div>
+        ${escHtml(m[2])}
+      </div>`;
+    }
+    return `<div class="hub-comment">${escHtml(line)}</div>`;
   }).join('');
 }
 
-// Approve action
-async function baApprove(idx, taskName) {
-  await baSend(taskName, 'Approved', '', idx);
+function hubToggleStatusMenu(id, e){
+  if(e) e.stopPropagation();
+  // Close all other menus
+  document.querySelectorAll('.hub-status-menu.open').forEach(m => {
+    if(m.id !== id + '-menu') m.classList.remove('open');
+  });
+  document.getElementById(id + '-menu')?.classList.toggle('open');
 }
 
-// Show amend form
-function baShowAmend(idx) {
-  const el = document.getElementById('ba-amend-' + idx);
-  el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
+document.addEventListener('click', () => {
+  document.querySelectorAll('.hub-status-menu.open').forEach(m => m.classList.remove('open'));
+});
 
-// Submit amend
-async function baSubmitAmend(idx, taskName) {
-  const note = document.getElementById('ba-note-' + idx).value.trim();
-  if(!note) {
-    const fb = document.getElementById('ba-feedback-' + idx);
-    fb.textContent = '⚠ الرجاء كتابة سبب التعديل';
-    fb.style.color = '#F59E0B';
-    fb.style.display = 'block';
-    return;
+function hubSetStatus(id, status){
+  hubState[id].status = status;
+  const m = statusMeta(status);
+  const wrap = document.getElementById(id + '-status-wrap');
+  if(wrap){
+    const pill = wrap.querySelector('.hub-status-pill');
+    if(pill){
+      pill.textContent = status;
+      pill.style.background = m.bg;
+      pill.style.borderColor = m.col + '33';
+      pill.style.color = m.col;
+    }
   }
-  await baSend(taskName, 'Amend', note, idx);
+  document.getElementById(id + '-menu')?.classList.remove('open');
+  hubSendUpdate(id, 'status', status);
 }
 
-// Core send function
-async function baSend(taskName, status, note, idx) {
-  const statusEl = document.getElementById('ba-status-' + idx);
-  const feedbackEl = document.getElementById('ba-feedback-' + idx);
-  const amendEl = document.getElementById('ba-amend-' + idx);
+function hubSaveField(id, field, value){
+  if(hubState[id][field] === value) return; // no change
+  hubState[id][field] = value;
+  hubSendUpdate(id, field, value);
+}
 
-  // Show loading
-  statusEl.textContent = '⟳ جاري الإرسال...';
-  statusEl.style.color = '#7b8ea0';
-  feedbackEl.style.display = 'none';
+function hubAddComment(id){
+  const ta = document.getElementById(id + '-newcomment');
+  const val = (ta.value || '').trim();
+  if(!val) return;
 
+  hubSendUpdate(id, 'comments', val, () => {
+    // After success, append to local state with timestamp
+    const ts = new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',','');
+    const entry = `[${ts} · Bahri]: ${val}`;
+    const existing = hubState[id].comments || '';
+    hubState[id].comments = existing ? existing + '\n' + entry : entry;
+    ta.value = '';
+    // Re-render comments list only
+    const card = document.querySelector(`[data-id="${id}"]`);
+    if(card){
+      const list = card.querySelector('.hub-comments-list');
+      if(list) list.innerHTML = parseComments(hubState[id].comments);
+    }
+  });
+}
+
+function hubSendUpdate(id, field, value, onSuccess){
+  const deliv = HUB_DELIVERABLES.find(d => `D${d.n}` === id);
+  if(!deliv) return;
+
+  const indEl = document.getElementById(id + '-' + field + '-ind');
+  if(indEl){
+    indEl.textContent = '⟳ saving...';
+    indEl.className = 'save-ind saving';
+  }
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: {'Content-Type':'text/plain'},
+    body: JSON.stringify({
+      action: 'updateRollout',
+      deliverable: deliv.t,
+      field: field,
+      value: value,
+      author: 'Bahri'
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(indEl){
+      if(data.success){
+        indEl.textContent = '✓ saved';
+        indEl.className = 'save-ind saved';
+        setTimeout(() => { indEl.textContent = ''; indEl.className = 'save-ind'; }, 2000);
+      } else {
+        indEl.textContent = '⚠ ' + (data.error || 'error');
+        indEl.className = 'save-ind error';
+      }
+    }
+    if(data.success && onSuccess) onSuccess();
+  })
+  .catch(e => {
+    // CORS may block reading the response but the write likely succeeded
+    if(indEl){
+      indEl.textContent = '✓ sent (check sheet)';
+      indEl.className = 'save-ind saved';
+      setTimeout(() => { indEl.textContent = ''; indEl.className = 'save-ind'; }, 3000);
+    }
+    if(onSuccess) onSuccess();
+  });
+}
+
+function hubSetFilter(camp){
+  hubFilterCamp = camp;
+  document.querySelectorAll('.hub-filter').forEach(b => {
+    b.classList.toggle('active', b.dataset.camp === camp);
+  });
+  renderHub();
+}
+
+function hubFilter(){ renderHub(); }
+
+function renderHubStats(){
+  const counts = {total:HUB_DELIVERABLES.length};
+  HUB_DELIVERABLES.forEach(d => {
+    const s = (hubState[`D${d.n}`]?.status) || d.status;
+    counts[s] = (counts[s] || 0) + 1;
+  });
+  const el = document.getElementById('hub-stats');
+  if(!el) return;
+  let html = `<span><b>${counts.total}</b> total</span>`;
+  ['In Progress','Bahri Action','Approved','Completed','Scheduled'].forEach(s => {
+    if(counts[s]) html += `<span><b style="color:${statusMeta(s).col}">${counts[s]}</b> ${s}</span>`;
+  });
+  el.innerHTML = html;
+}
+
+// Load latest data from sheet on tab open
+async function hubLoadFromSheet(){
   try {
-    // Use text/plain to avoid CORS preflight on Apps Script
     const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: JSON.stringify({
-        action: 'updateTask',
-        taskName: taskName,
-        status: status,
-        note: note,
-        author: 'Bahri'
-      })
+      method:'POST',
+      headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify({action:'getRollout'})
     });
     const data = await res.json();
-    if(data.success) {
-      statusEl.textContent = status === 'Approved' ? '✓ Approved' : '↩ Amend Requested';
-      statusEl.style.background = status === 'Approved' ? 'rgba(52,211,153,.12)' : 'rgba(232,98,26,.12)';
-      statusEl.style.color = status === 'Approved' ? '#34D399' : 'var(--orange)';
-      if(amendEl) amendEl.style.display = 'none';
-      feedbackEl.textContent = status === 'Approved' ? '✓ تم الاعتماد وتحديث الشيت' : '✓ تم إرسال طلب التعديل';
-      feedbackEl.style.color = '#34D399';
-      feedbackEl.style.display = 'block';
-    } else {
-      throw new Error(data.error || 'Unknown error');
+    if(data.success && data.deliverables){
+      data.deliverables.forEach(d => {
+        const local = HUB_DELIVERABLES.find(x => x.t.trim() === d.title.trim());
+        if(local){
+          const id = `D${local.n}`;
+          hubState[id] = {
+            copy: d.copy || '',
+            link: d.link || '',
+            comments: d.comments || '',
+            status: d.status || local.status
+          };
+        }
+      });
+      renderHub();
     }
   } catch(e) {
-    // Optimistic update — Apps Script likely executed even on CORS error
-    statusEl.textContent = status === 'Approved' ? '✓ Approved' : '↩ Amend Requested';
-    statusEl.style.background = status === 'Approved' ? 'rgba(52,211,153,.12)' : 'rgba(232,98,26,.12)';
-    statusEl.style.color = status === 'Approved' ? '#34D399' : 'var(--orange)';
-    if(amendEl) amendEl.style.display = 'none';
-    feedbackEl.textContent = '✓ تم الإرسال (تحقق من الشيت للتأكيد)';
-    feedbackEl.style.color = '#F59E0B';
-    feedbackEl.style.display = 'block';
+    // Use local defaults silently
   }
 }
 
-// Initialize panel when Project Timeline tab is clicked
+// Wire up tab click
 document.querySelectorAll('.ntb').forEach(btn => {
-  if(btn.dataset.tab === 'fulltimeline') {
-    btn.addEventListener('click', () => setTimeout(renderBahriPanel, 80));
+  if(btn.dataset.tab === 'hub') {
+    btn.addEventListener('click', () => {
+      setTimeout(() => { renderHub(); hubLoadFromSheet(); }, 80);
+    });
   }
 });
 </script>
