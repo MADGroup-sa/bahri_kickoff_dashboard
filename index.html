@@ -565,6 +565,21 @@
   .hub-sum-title{font-size:13.5px;font-weight:600;color:var(--text-primary);line-height:1.35;flex:1}
   .hub-open-icon{font-size:11px;color:var(--text-secondary);opacity:.4;flex-shrink:0;padding-top:3px}
   .hub-card:hover .hub-open-icon{opacity:.9;color:var(--orange)}
+  .hub-late-badge{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.22);border:1px solid rgba(239,68,68,.5);color:#FCA5A5;font-size:9.5px;font-weight:800;letter-spacing:.6px;vertical-align:middle;animation:pulse-late 1.4s ease-in-out infinite}
+  @keyframes pulse-late{
+    0%,100%{
+      background:rgba(239,68,68,.2);
+      border-color:rgba(239,68,68,.4);
+      color:#FCA5A5;
+      box-shadow:0 0 6px 0 rgba(239,68,68,.3);
+    }
+    50%{
+      background:rgba(239,68,68,.5);
+      border-color:rgba(239,68,68,.95);
+      color:#FFE4E4;
+      box-shadow:0 0 18px 4px rgba(239,68,68,.75), 0 0 0 3px rgba(239,68,68,.2);
+    }
+  }
 
   .hub-sum-tags{display:flex;gap:5px;flex-wrap:wrap}
   .hub-sum-tag{padding:2px 8px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);font-size:10px;font-weight:600;color:var(--text-secondary);letter-spacing:.3px}
@@ -868,6 +883,14 @@
     <p>Deliverable scope and project progress tracker.</p>
   </div>
 
+  <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:16px;gap:12px">
+    <span id="scope-refresh-note" style="font-size:11px;color:var(--text-secondary);opacity:.7"></span>
+    <button onclick="scopeRefresh()" style="padding:8px 16px;border-radius:8px;background:rgba(232,98,26,.1);border:1px solid rgba(232,98,26,.25);color:var(--orange);font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+      <span id="scope-refresh-icon">↺</span>
+      <span>Refresh from Sheet</span>
+    </button>
+  </div>
+
   <!-- Deliverables Summary -->
   <!-- Stat cards — asset counts based on 25 deliverables × actual multiples = 51 total assets -->
   <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
@@ -923,16 +946,35 @@
         </div>
       </div>
       <div id="st-pct-badge" style="margin-top:6px;display:flex;justify-content:flex-end">
-        <span id="st-pct" style="font-size:11px;font-weight:700;color:var(--orange)">0% complete</span>
+        <span id="st-pct" style="font-size:11px;font-weight:700;color:var(--orange)">0% time elapsed</span>
+      </div>
+    </div>
+
+    <!-- 2-metric progress breakdown (TIME is shown in the bar above) -->
+    <div style="display:flex;flex-direction:column;gap:11px;margin-top:18px;padding:16px 18px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);border-radius:10px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-size:11px;color:var(--text-secondary);font-weight:700;width:100px;flex-shrink:0;letter-spacing:.5px">📋 TASKS</span>
+        <div style="flex:1;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden">
+          <div id="prog-task-bar" style="height:100%;background:linear-gradient(90deg,#34D399,#6EE7B7);width:0%;transition:width .8s ease"></div>
+        </div>
+        <span id="prog-task-val" style="font-size:11px;color:var(--text-primary);font-weight:700;min-width:160px;text-align:right">— · 0/0 done</span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-size:11px;color:var(--text-secondary);font-weight:700;width:100px;flex-shrink:0;letter-spacing:.5px">📦 DELIVERY</span>
+        <div style="flex:1;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden">
+          <div id="prog-deliv-bar" style="height:100%;background:linear-gradient(90deg,#818CF8,#A78BFA);width:0%;transition:width .8s ease"></div>
+        </div>
+        <span id="prog-deliv-val" style="font-size:11px;color:var(--text-primary);font-weight:700;min-width:160px;text-align:right">0% · 0/25 final</span>
       </div>
     </div>
 
     <!-- Status counts row — synced from Project Timeline col E -->
     <div style="display:flex;gap:20px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border);margin-top:4px">
-      <span style="font-size:13px;font-weight:700;color:var(--orange)">12 In Progress</span>
-      <span style="font-size:13px;font-weight:700;color:#f59e0b">0 Bahri Action</span>
-      <span style="font-size:13px;font-weight:700;color:#34d399">3 Approved</span>
-      <span style="font-size:13px;font-weight:700;color:#6ee7b7">4 Completed</span>
+      <span id="scope-stat-progress" style="font-size:13px;font-weight:700;color:var(--orange)">9 In Progress</span>
+      <span id="scope-stat-bahri" style="font-size:13px;font-weight:700;color:#f59e0b">4 Bahri Action</span>
+      <span id="scope-stat-approved" style="font-size:13px;font-weight:700;color:#34d399">3 Approved</span>
+      <span id="scope-stat-completed" style="font-size:13px;font-weight:700;color:#6ee7b7">7 Completed</span>
       <span style="font-size:13px;font-weight:600;color:var(--text-secondary)">44 Not Started</span>
     </div>
   </div>
@@ -973,7 +1015,23 @@
   document.getElementById('st-totalwd').textContent = TOTAL_WD;
   document.getElementById('st-today-lbl').textContent = 'TODAY — Day ' + elapsed + ' of ' + TOTAL_WD;
   document.getElementById('st-pbar').style.width    = pct + '%';
-  document.getElementById('st-pct').textContent     = pct + '% complete';
+  document.getElementById('st-pct').textContent     = pct + '% time elapsed';
+
+  // ── Tasks (live from sheet) + Deliverables (static from DELIVERABLES) — deferred
+  setTimeout(function(){
+    try {
+      // Tasks placeholder — will be replaced by scopeRefresh() (auto-called on page load)
+      document.getElementById('prog-task-val').textContent = '— · loading from sheet...';
+      // Deliverables from DELIVERABLES (static, manually updated each sync)
+      if(typeof DELIVERABLES !== 'undefined' && DELIVERABLES.length){
+        const done = DELIVERABLES.filter(d => d.status === 'Completed').length;
+        const total = DELIVERABLES.length;
+        const dpct = total > 0 ? Math.round((done/total)*100) : 0;
+        document.getElementById('prog-deliv-bar').style.width = dpct + '%';
+        document.getElementById('prog-deliv-val').textContent = dpct + '% · ' + done + '/' + total + ' delivered';
+      }
+    } catch(e) { console.error('Progress calc error:', e); }
+  }, 500);
 
   // Status counts are hardcoded from Project Timeline col E — updated on every sync
 
@@ -981,7 +1039,7 @@
   const QUOTAS=[
     {label:'Concept',          used:2, total:3, color:'#f97316'},
     {label:'Plan',             used:1, total:1, color:'#3b82f6'},
-    {label:'Video',            used:1, total:7, color:'#8b5cf6'},
+    {label:'Video',            used:2, total:7, color:'#8b5cf6'},
     {label:'Direction',        used:1, total:2, color:'#0891b2'},
     {label:'Copy + Design',    used:5, total:28,color:'#3b82f6'},
     {label:'Content',          used:3, total:7, color:'#7c3aed'},
@@ -1245,10 +1303,10 @@
     {g:'Hero Film Production',ph:1,camp:1,t:'Final Script Approval (Bahri)',s:12,e:12,tp:'done',n:'May 5 · Approved ✓'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Storyboard + Director Treatment',s:13,e:15,tp:'done',n:'May 6-10 · Completed ✓ · Ahmad Ragheb'},
     {g:'Hero Film Production',ph:1,camp:1,t:'Treatment & Direction Review & Approval',s:15,e:15,tp:'done',n:'May 10 · Approved ✓'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'AI Scene Creation + Stock Treatment',s:16,e:18,tp:'agency',n:'May 11-13 · In Progress · Mohamed Elmouhnds'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Post-Production',s:18,e:20,tp:'agency',n:'May 13-17 · Edit + color grade + sound + EN/AR subtitles'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Bahri Revisions (Offline)',s:20,e:20,tp:'client',n:'May 17 · R1 revision window'},
-    {g:'Hero Film Production',ph:1,camp:1,t:'Final Cut + Snapshots (Online)',s:20,e:21,tp:'agency',n:'May 17-18 · Mohamed Elmouhnds · Final cut delivery'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'AI Scene Creation + Stock Treatment',s:16,e:18,tp:'done',n:'May 11-13 · Completed ✓ · Mohamed Elmouhnds'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Post-Production',s:18,e:20,tp:'agency',n:'May 13-17 · In Progress · Edit + color grade + sound'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Bahri Revisions (Offline)',s:20,e:20,tp:'client',n:'May 17 · Bahri Action · Awaiting revisions'},
+    {g:'Hero Film Production',ph:1,camp:1,t:'Final Cut + Snapshots (Online)',s:20,e:21,tp:'agency',n:'May 17-18 · 🚧 Hold · Waiting Bahri feedback'},
     {g:'Hero Film Production',ph:1,camp:1,t:'★  HERO FILM DELIVERED',s:22,e:22,tp:'final',n:'May 19 · MT Delivers · Bahri Publishes May 15',ch:'S,W,I,E'},
 
     // ── EXPERIENTIAL (INTERNAL) ─────────────────────────────────────────
@@ -1282,10 +1340,10 @@
 
     // ── LEADERSHIP CLIPS ×6 ─────────────────────────────────────────────
     {g:'Leadership Clips x6',ph:1,camp:1,t:'Creative & Visual Treatment',s:12,e:13,tp:'agency',n:'May 5-6 · In Progress · Mohamed Elmouhnds · Visual style + production references'},
-    {g:'Leadership Clips x6',ph:1,camp:1,t:'Brief & Executive Prep ×6',s:13,e:15,tp:'agency',n:'May 6-10 · In Progress · 1 brief per BU leader'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Brief & Executive Prep ×6',s:13,e:15,tp:'done',n:'May 6-10 · Completed ✓ · Hosam Albanna'},
     {g:'Leadership Clips x6',ph:1,camp:1,t:'Leader Prep Packs Sent to Bahri',s:18,e:18,tp:'ms-c',n:'May 13 · Naif AlFadda · Wardrobe notes + talking points',ch:'I'},
-    {g:'Leadership Clips x6',ph:1,camp:1,t:'Filming Day 1 — BSM · BOT · BCP',s:22,e:22,tp:'ms',n:'May 19 · Ahmad Ragheb · Riyadh studio · 90 min/leader · 3 leaders'},
-    {g:'Leadership Clips x6',ph:1,camp:1,t:'Filming Day 2 — BL · BLi · BA',s:23,e:23,tp:'ms',n:'May 20 · Ahmad Ragheb · Riyadh studio · 90 min/leader · 3 leaders'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Filming Day 1 — All BUs',s:21,e:21,tp:'done',n:'May 18 · Completed ✓ · All BU leaders filmed in one day'},
+    {g:'Leadership Clips x6',ph:1,camp:1,t:'Filming Day 2 (Cancelled)',s:23,e:23,tp:'prep',n:'May 20 · ❌ Cancelled · All BUs filmed on May 18'},
     {g:'Leadership Clips x6',ph:1,camp:1,t:'Post-Production ×6 (Edit + Subs + Adaptations)',s:28,e:34,tp:'agency',n:'Jun 1-9 · Mohamed Elmouhnds',ch:'S,W,I,E,LI'},
     {g:'Leadership Clips x6',ph:1,camp:1,t:'Client Revisions (Offline)',s:35,e:37,tp:'client',n:'Jun 10-14 · 2-day revision window'},
     {g:'Leadership Clips x6',ph:1,camp:1,t:'★  LEADERSHIP CLIPS DELIVERED',s:38,e:40,tp:'final',n:'Jun 15-17 · 6 clips delivered · Bahri publishes',ch:'S,I,LI'},
@@ -2821,6 +2879,17 @@ function taskPhaseNum(t){
   return null;
 }
 
+function isTaskLate(t){
+  if(!t.end) return false;
+  if(['Completed','Approved','Cancelled','Hold'].includes(t.status)) return false;
+  const endDate = new Date(t.end);
+  if(isNaN(endDate)) return false;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  endDate.setHours(0,0,0,0);
+  return endDate < today;
+}
+
 function isRealTask(t){
   if(!t.task) return false;
   const x = t.task.toLowerCase();
@@ -2945,7 +3014,7 @@ function cardHtml(t){
         ${channelChips ? `<div class="hub-sum-row"><span class="ic">📡</span><div class="hub-sum-channels">${channelChips}</div></div>` : ''}
       </div>
       <div class="hub-sum-bottom">
-        <div class="hub-sum-status">${pillHtml(t.status, false)}</div>
+        <div class="hub-sum-status">${pillHtml(t.status, false)}${isTaskLate(t) ? '<span class="hub-late-badge">⚠ LATE</span>' : ''}</div>
         <div class="hub-sum-indicators">${indicators}</div>
       </div>
     </div>
@@ -3242,9 +3311,10 @@ function lastUpdateDate(t){
 
 function summaryItemHtml(t, extra){
   const sm = statusMeta(t.status);
+  const blocked = t.status === 'Hold';
   return `
     <div class="hub-sum-item" onclick="hubOpenModal('T${t.row}')">
-      <div class="title">${escHtml(t.task)}</div>
+      <div class="title">${blocked ? '<span title="Blocked / On hold" style="margin-right:6px">🚧</span>' : ''}${escHtml(t.task)}</div>
       <div class="meta">
         <span class="dot" style="background:${sm.col}"></span>
         <span style="color:${sm.col}">${escHtml(t.status || 'Scheduled')}</span>
@@ -3255,15 +3325,34 @@ function summaryItemHtml(t, extra){
   `;
 }
 
+// Track which summary cards are expanded
+window.hubExpanded = window.hubExpanded || {today:false, recent:false, bahri:false, mt:false};
+function hubToggleExpand(key){
+  window.hubExpanded[key] = !window.hubExpanded[key];
+  renderHubSummary();
+}
+
 function renderHubSummary(){
   const el = document.getElementById('hub-summary-cards');
   if(!el) return;
 
   const realTasks = hubTasks.filter(isRealTask);
 
-  // 1. Recently updated — tasks with comment timestamps in last 3 days
+  // 0. Due Today — tasks whose end date is today AND not yet done
+  const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+  const todayEnd   = new Date(); todayEnd.setHours(23,59,59,999);
+  const dueToday = realTasks.filter(t => {
+    if(!t.end) return false;
+    // Include Hold tasks — they have a deadline today even if blocked
+    if(['Completed','Approved','Cancelled'].includes(t.status)) return false;
+    const d = new Date(t.end);
+    if(isNaN(d)) return false;
+    return d >= todayStart && d <= todayEnd;
+  });
+
+  // 1. Recently updated — tasks updated in last 24 hours
   const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - 3);
+  cutoff.setHours(cutoff.getHours() - 24);
   const recent = realTasks
     .map(t => ({t, d: lastUpdateDate(t)}))
     .filter(x => x.d && x.d > cutoff)
@@ -3283,7 +3372,10 @@ function renderHubSummary(){
     ['In Progress','Internal Review','Amend','New Request'].includes(t.status)
   );
 
-  const cardHtml = (icon, title, color, items, extras, emptyMsg) => `
+  const cardHtml = (key, icon, title, color, items, extras, emptyMsg) => {
+    const expanded = window.hubExpanded[key];
+    const visibleItems = expanded ? items : items.slice(0, 5);
+    return `
     <div class="hub-sum-card" style="border-top:3px solid ${color}">
       <div class="hub-sum-card-hdr">
         <span style="font-size:14px">${icon}</span>
@@ -3293,12 +3385,12 @@ function renderHubSummary(){
       <div class="hub-sum-card-body">
         ${items.length === 0
           ? `<p class="empty">${emptyMsg}</p>`
-          : items.slice(0, 5).map((x, i) => summaryItemHtml(x.t || x, extras ? extras[i] : null)).join('')
+          : visibleItems.map((x, i) => summaryItemHtml(x.t || x, extras ? extras[i] : null)).join('')
         }
-        ${items.length > 5 ? `<div class="more">+${items.length - 5} more</div>` : ''}
+        ${items.length > 5 ? `<div class="more" style="cursor:pointer;user-select:none" onclick="hubToggleExpand('${key}')">${expanded ? '— show less' : '+' + (items.length - 5) + ' more'}</div>` : ''}
       </div>
-    </div>
-  `;
+    </div>`;
+  };
 
   // Format relative time for recent items
   const recentExtras = recent.map(x => {
@@ -3311,9 +3403,10 @@ function renderHubSummary(){
   });
 
   el.innerHTML =
-    cardHtml('🕐', 'Recently Updated', '#818CF8', recent, recentExtras, 'No activity in last 3 days') +
-    cardHtml('⏳', 'Awaiting Bahri', '#F59E0B', bahriAction, null, 'Nothing pending from Bahri') +
-    cardHtml('⚙️', 'MT in Production', '#E8621A', mtAction, null, 'Nothing currently in production');
+    cardHtml('today', '📅', 'Due Today', '#EF4444', dueToday, null, 'Nothing due today') +
+    cardHtml('recent', '🕐', 'Recently Updated', '#818CF8', recent, recentExtras, 'No activity in last 24 hours') +
+    cardHtml('bahri', '⏳', 'Awaiting Bahri', '#F59E0B', bahriAction, null, 'Nothing pending from Bahri') +
+    cardHtml('mt', '⚙️', 'MT in Production', '#E8621A', mtAction, null, 'Nothing currently in production');
 }
 
 document.querySelectorAll('.ntb').forEach(btn => {
@@ -3326,6 +3419,83 @@ document.querySelectorAll('.ntb').forEach(btn => {
     });
   }
 });
+
+// ═══ SCOPE TAB — auto-load on page load + refresh button ═══════════════════
+// Auto-fetch live task counts on initial page load
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    if(typeof scopeRefresh === 'function'){ scopeRefresh(true); }
+  }, 1200);
+});
+
+// Refresh button handler
+async function scopeRefresh(silent){
+  const icon = document.getElementById('scope-refresh-icon');
+  const note = document.getElementById('scope-refresh-note');
+  if(icon) icon.style.animation = 'sh-spin .8s linear infinite';
+  if(note && !silent){ note.textContent = 'Loading...'; note.style.color = 'var(--text-secondary)'; }
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method:'POST', headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify({action:'getTimeline'})
+    });
+    const data = await res.json();
+    if(!data.success || !data.tasks){
+      throw new Error(data.error || 'Failed to load');
+    }
+
+    // Filter real tasks (skip phase/group headers)
+    const realTasks = data.tasks.filter(t => {
+      if(!t.task) return false;
+      const x = t.task.toLowerCase();
+      if(x.indexOf('project timeline') > -1) return false;
+      if(x.indexOf('kickoff:') > -1) return false;
+      if(x.indexOf('bahri × mad tomato') > -1) return false;
+      if(x.indexOf('90-day production') > -1) return false;
+      return true;
+    });
+
+    // Count statuses
+    const counts = {progress:0, bahri:0, approved:0, completed:0};
+    realTasks.forEach(t => {
+      const s = (t.status || '').trim();
+      if(s === 'In Progress') counts.progress++;
+      else if(s === 'Bahri Action') counts.bahri++;
+      else if(s === 'Approved') counts.approved++;
+      else if(s === 'Completed') counts.completed++;
+    });
+
+    // Update DOM
+    const el1 = document.getElementById('scope-stat-progress');
+    const el2 = document.getElementById('scope-stat-bahri');
+    const el3 = document.getElementById('scope-stat-approved');
+    const el4 = document.getElementById('scope-stat-completed');
+    if(el1) el1.textContent = counts.progress + ' In Progress';
+    if(el2) el2.textContent = counts.bahri + ' Bahri Action';
+    if(el3) el3.textContent = counts.approved + ' Approved';
+    if(el4) el4.textContent = counts.completed + ' Completed';
+
+    // Also update the Tasks progress bar with live data
+    const total = realTasks.length;
+    const done = counts.completed + counts.approved;  // Approved means Bahri signed off, so it's done
+    const tpct = total > 0 ? Math.round((done/total)*100) : 0;
+    const tbar = document.getElementById('prog-task-bar');
+    const tval = document.getElementById('prog-task-val');
+    if(tbar) tbar.style.width = tpct + '%';
+    if(tval) tval.textContent = tpct + '% · ' + done + '/' + total + ' done (incl. approved)';
+
+    if(note){
+      const time = new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+      note.textContent = '✓ Updated · ' + time;
+      note.style.color = '#34D399';
+    }
+  } catch(e) {
+    if(note){ note.textContent = '⚠ ' + e.message; note.style.color = '#EF4444'; }
+  } finally {
+    if(icon) icon.style.animation = '';
+  }
+}
 </script>
 
 <!-- Deliverables Hub Modal -->
